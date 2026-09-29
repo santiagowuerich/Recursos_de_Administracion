@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Libro Maestro Completo: Unidad 4 - Desarrollo y Mantenimiento de RRHH | AdmSI UTN FRRe</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for Perfect Mathematical Typesetting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\\\(', right: '\\\\)', display: false},
+        {left: '\\\\[', right: '\\\\]', display: true}
+      ],
+      throwOnError : false
+    });"></script>
+
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #111827;
+      --card-inner: rgba(255, 255, 255, 0.025);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(99, 102, 241, 0.3);
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-dim: #6b7280;
+      --accent-indigo: #6366f1;
+      --accent-purple: #a855f7;
+      --accent-cyan: #06b6d4;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.8;
+      padding: 48px 24px;
+      max-width: 1160px;
+      margin: 0 auto;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.12) 0px, transparent 50%);
+    }
+
+    .badge-header {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(99, 102, 241, 0.18);
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      color: #c7d2fe;
+      font-size: 0.84rem;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    h1 {
+      font-size: 2.65rem;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #ffffff 30%, #c7d2fe 70%, #818cf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+      line-height: 1.65;
+    }
+
+    .toc-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 48px;
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
+    }
+
+    .toc-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #a5b4fc;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+    }
+
+    .toc-col h4 {
+      font-size: 0.95rem;
+      color: var(--accent-cyan);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .toc-col ul { list-style: none; }
+    .toc-col li { margin-bottom: 8px; }
+    .toc-col a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .toc-col a:hover { color: #fff; transform: translateX(3px); text-decoration: underline; }
+
+    h2 {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: #fff;
+      margin-top: 56px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #a5b4fc;
+      margin-top: 32px;
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+
+    h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #38bdf8;
+      margin-top: 22px;
+      margin-bottom: 10px;
+    }
+
+    p { margin-bottom: 16px; color: #d1d5db; font-size: 0.98rem; }
+    ul, ol { margin-bottom: 18px; padding-left: 26px; color: #d1d5db; font-size: 0.97rem; }
+    li { margin-bottom: 8px; }
+    strong { color: #fff; font-weight: 700; }
+    em { color: #cbd5e1; font-style: italic; }
+
+    .card-block {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 30px;
+      margin-bottom: 32px;
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+    }
+
+    .formula-card {
+      background: rgba(15, 23, 42, 0.75);
+      border-left: 4px solid var(--accent-cyan);
+      border-radius: 0 12px 12px 0;
+      padding: 20px 24px;
+      margin: 22px 0;
+      font-size: 1.05rem;
+      color: #e0f2fe;
+      line-height: 1.8;
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .alert-box {
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 18px 0;
+      font-size: 0.93rem;
+      color: #c7d2fe;
+    }
+    .alert-box.warning {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: rgba(245, 158, 11, 0.3);
+      color: #fde68a;
+    }
+    .alert-box.success {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: rgba(16, 185, 129, 0.3);
+      color: #a7f3d0;
+    }
+
+        .img-container {
+      position: relative;
+      margin: 28px 0;
+      background: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 14px;
+      padding: 18px;
+      text-align: center;
+      box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.6);
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .img-container:hover {
+      transform: translateY(-3px) scale(1.008);
+      box-shadow: 0 20px 40px -5px rgba(16, 185, 129, 0.25), 0 0 0 2px var(--accent-emerald, #10b981);
+    }
+
+    .img-overlay-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(15, 23, 42, 0.9);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+      transition: all 0.2s ease;
+      z-index: 10;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+
+    .img-container:hover .img-overlay-badge {
+      background: #059669;
+      color: #ffffff;
+      border-color: #34d399;
+      transform: scale(1.05);
+    }
+
+    .img-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      display: block;
+      margin: 0 auto;
+      transition: opacity 0.2s ease;
+    }
+
+    .img-container:hover img {
+      opacity: 0.95;
+    }
+
+    .img-caption {
+      font-size: 0.88rem;
+      color: #1e293b;
+      margin-top: 14px;
+      text-align: center;
+      font-weight: 700;
+      border-top: 2px solid #e2e8f0;
+      padding-top: 10px;
+      line-height: 1.4;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.91rem;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 14px 16px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #1e293b;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.93rem;
+    }
+    tr:nth-child(even) { background: rgba(255, 255, 255, 0.02); }
+    tr:hover { background: rgba(255, 255, 255, 0.04); }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(255, 255, 255, 0.08);
+      color: #f472b6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.88em;
+    }
+
+    .badge-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-right: 6px;
+    }
+    .badge-desarrollo { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.4); }
+    .badge-mantenimiento { background: rgba(245, 158, 11, 0.2); color: #fde68a; border: 1px solid rgba(245, 158, 11, 0.4); }
+  </style>
+</head>
+<body>
+
+  <div class="badge-header">⚡ AdmSI 2026 • UTN Facultad Regional Resistencia • Tratado Académico Completo</div>
+  <h1>Libro de Estudio Maestro: Unidad 4 (Desarrollo y Mantenimiento de RRHH)</h1>
+  <p class="subtitle">
+    Manual académico integral y exhaustivo para la Unidad 4. Desarrolla la totalidad de marcos teóricos, modelos pedagógicos, leyes del aprendizaje, métodos analíticos de valuación de puestos, compuesto salarial, planes de beneficios, ergonomía informática (PPV) y las figuras originales de <strong>Idalberto Chiavenato (5ta Ed.)</strong>.
+  </p>
+
+  <!-- Índice -->
+  <div class="toc-box">
+    <div class="toc-title">🧭 Índice Temático Completo de la Unidad 4</div>
+    <div class="toc-grid">
+      <div class="toc-col">
+        <h4>🌱 Módulo I: Subsistema de Desarrollo de RRHH</h4>
+        <ul>
+          <li><a href="#desarrollo-conceptos">1. Conceptos Fundamentales: Educación, Capacitación y Desarrollo</a></li>
+          <li><a href="#desarrollo-sistema">2. El Entrenamiento como Sistema Abierto</a></li>
+          <li><a href="#desarrollo-proceso">3. Las Cuatro Etapas del Proceso de Entrenamiento</a></li>
+          <li><a href="#desarrollo-necesidades">4. Diagnóstico e Inventario de Necesidades (Tres Niveles: Organizacional, RRHH, Tareas)</a></li>
+          <li><a href="#desarrollo-leyes-aprendizaje">5. Teoría y Leyes del Aprendizaje en las Organizaciones</a></li>
+          <li><a href="#desarrollo-programacion">6. Programación y Diseño del Entrenamiento (Los 7 Interrogantes)</a></li>
+          <li><a href="#desarrollo-tecnicas">7. Técnicas y Métodos Pedagógicos (On/Off the Job, E-learning)</a></li>
+          <li><a href="#desarrollo-evaluacion">8. Evaluación de Resultados del Entrenamiento y ROI</a></li>
+          <li><a href="#desarrollo-planes-carrera">9. Planes de Carrera y Progresión Profesional (Career Paths)</a></li>
+          <li><a href="#desarrollo-do">10. Desarrollo Organizacional (DO) y Gestión del Cambio</a></li>
+        </ul>
+      </div>
+      <div class="toc-col">
+        <h4>🛡️ Módulo II: Subsistema de Mantenimiento de RRHH</h4>
+        <ul>
+          <li><a href="#mantenimiento-conceptos">1. Objetivos del Mantenimiento y Retención del Talento</a></li>
+          <li><a href="#mantenimiento-equilibrio">2. Teoría del Equilibrio: Decisión de Participar vs. Decisión de Producir</a></li>
+          <li><a href="#mantenimiento-compensaciones">3. Administración de Compensaciones: Tipos y Factores del Salario</a></li>
+          <li><a href="#mantenimiento-teoria-inequidad">4. Equidad Interna vs. Externa y Teoría de la Inequidad de Adams</a></li>
+          <li><a href="#mantenimiento-valuacion-puestos">5. Valuación de Puestos: Métodos No Cuantitativos (Jerarquización, Categorías)</a></li>
+          <li><a href="#mantenimiento-valuacion-puntos">6. Valuación de Puestos: Método Analítico por Puntos (Merril R. Lott)</a></li>
+          <li><a href="#mantenimiento-curva-salarial">7. Curva Salarial, Franjas Salariales y Política de Retribución</a></li>
+          <li><a href="#mantenimiento-remuneracion-argentina">8. Estructura Salarial en Argentina (Conceptos Remunerativos, Deducciones, SUAF)</a></li>
+          <li><a href="#mantenimiento-beneficios">9. Planes de Beneficios Sociales (Asistenciales, Recreativos, Supletorios)</a></li>
+          <li><a href="#mantenimiento-higiene-ergonomia">10. Higiene, Seguridad y Ergonomía PPV en Puestos Informáticos (IRAM / OSHA)</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- MÓDULO I: DESARROLLO DE RRHH -->
+  <!-- ================================================================= -->
+  <h2 id="modulo-desarrollo"><span class="badge-tag badge-desarrollo">Módulo I</span> Subsistema de Desarrollo de Recursos Humanos</h2>
+
+  <div class="card-block" id="desarrollo-conceptos">
+    <h3>1. Conceptos Fundamentales: Educación, Capacitación y Desarrollo</h3>
+    <p>En la visión sistémica de <strong>Idalberto Chiavenato (2005)</strong>, las personas son el único recurso vivo, inteligente y dinámico de la organización, capaz de aprender y perfeccionarse continuamente. El Subsistema de Desarrollo se encarga de potenciar este capital humano.</p>
+    
+    <p>Es indispensable distinguir tres conceptos jerárquicos:</p>
+    <ul>
+      <li><strong>Educación:</strong> Proceso global de socialización y formación general para la vida en sociedad (formación escolar y universitaria).</li>
+      <li><strong>Entrenamiento / Capacitación (Training):</strong> Proceso educativo a <strong>corto plazo</strong>, sistemático y formal, diseñado para transmitir conocimientos y habilidades técnicas específicas requeridas para el desempeño eficiente del <strong>cargo actual</strong>.</li>
+      <li><strong>Desarrollo de Personas (Development):</strong> Proceso a <strong>mediano y largo plazo</strong> orientado a formar competencias conceptuales, estratégicas y de liderazgo para preparar al individuo ante <strong>futuras promociones y desafíos organizacionales</strong> de mayor envergadura.</li>
+    </ul>
+  </div>
+
+  <div class="card-block" id="desarrollo-sistema">
+    <h3>2. El Entrenamiento como Sistema Abierto</h3>
+    <p>El entrenamiento funciona como un sistema abierto compuesto por 4 componentes esenciales interrelacionados:</p>
+
+    <div class="img-container" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 581, event)" title="🔍 Clic para abrir el libro oficial en la Página 581 (PDF)">
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=581" target="_blank" class="img-overlay-badge" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 581, event)">📑 Abrir en PDF (Pág. 581) ↗️</a>
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=581" target="_blank" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 581, event)" style="display:block; text-decoration:none;">
+        <img src="imagenes_apunte/chiav_14_1_entrenamiento_como_sistema.png" alt="Entrenamiento como Sistema - Chiavenato">
+      </a>
+      <div class="img-caption">Figura 1: El entrenamiento como sistema abierto de entradas, procesamiento, salidas y realimentación (Chiavenato, Cap. 14, Libro pág. 559 / PDF pág. 581)</div>
+    </div>
+
+    <ul>
+      <li><strong>Entradas (Inputs):</strong> Aprendices/empleados que requieren capacitación, instructores, materiales pedagógicos, recursos tecnológicos y presupuesto.</li>
+      <li><strong>Procesamiento (Operación):</strong> Ejecución del programa pedagógico (clases, talleres, laboratorios prácticos, e-learning).</li>
+      <li><strong>Salidas (Outputs):</strong> Personal capacitado con nuevas habilidades, conocimientos asimilados, cambios actitudinales y mayor productividad.</li>
+      <li><strong>Realimentación (Feedback):</strong> Evaluación continua de los resultados para ajustar futuras capacitaciones.</li>
+    </ul>
+  </div>
+
+  <div class="card-block" id="desarrollo-proceso">
+    <h3>3. Las Cuatro Etapas del Proceso de Entrenamiento</h3>
+    <p>El proceso de entrenamiento sigue un ciclo riguroso de cuatro etapas consecutivas:</p>
+
+    <div class="img-container" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 583, event)" title="🔍 Clic para abrir el libro oficial en la Página 583 (PDF)">
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=583" target="_blank" class="img-overlay-badge" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 583, event)">📑 Abrir en PDF (Pág. 583) ↗️</a>
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=583" target="_blank" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 583, event)" style="display:block; text-decoration:none;">
+        <img src="imagenes_apunte/chiav_14_2_proceso_entrenamiento_4etapas.png" alt="Cuatro Etapas del Entrenamiento - Chiavenato">
+      </a>
+      <div class="img-caption">Figura 2: Las cuatro etapas del proceso de entrenamiento (Chiavenato, Cap. 14, Libro pág. 561 / PDF pág. 583)</div>
+    </div>
+
+    <ol>
+      <li><strong>1. Diagnóstico / Inventario de Necesidades:</strong> Identificación formal de las carencias y brechas de conocimiento que deben ser satisfechas.</li>
+      <li><strong>2. Programación del Entrenamiento:</strong> Diseño de la estrategia instruccional, contenidos, cronograma y recursos pedagógicos.</li>
+      <li><strong>3. Ejecución del Entrenamiento:</strong> Aplicación práctica del programa a través de la interacción docente-aprendiz.</li>
+      <li><strong>4. Evaluación de Resultados:</strong> Medición del impacto y retorno de inversión en el puesto de trabajo.</li>
+    </ol>
+  </div>
+
+  <div class="card-block" id="desarrollo-necesidades">
+    <h3>4. Diagnóstico e Inventario de Necesidades de Entrenamiento</h3>
+    <p>Una <strong>necesidad de entrenamiento</strong> es una discrepancia o brecha entre lo que el empleado debería saber y hacer para ejecutar su cargo eficientemente (requisitos del puesto) y lo que realmente sabe y hace en la actualidad.</p>
+
+    <div class="img-container" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 588, event)" title="🔍 Clic para abrir el libro oficial en la Página 588 (PDF)">
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=588" target="_blank" class="img-overlay-badge" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 588, event)">📑 Abrir en PDF (Pág. 588) ↗️</a>
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=588" target="_blank" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 588, event)" style="display:block; text-decoration:none;">
+        <img src="imagenes_apunte/chiav_14_5_concepto_necesidad_entrenamiento.png" alt="Concepto de Necesidad de Entrenamiento - Chiavenato">
+      </a>
+      <div class="img-caption">Figura 3: La necesidad de entrenamiento como brecha entre requisitos del cargo y habilidades actuales (Chiavenato, Cap. 14, Libro pág. 566 / PDF pág. 588)</div>
+    </div>
+
+    <h4>Los Tres Niveles de Análisis del Inventario (Chiavenato):</h4>
+
+    <div class="img-container" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 585, event)" title="🔍 Clic para abrir el libro oficial en la Página 585 (PDF)">
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=585" target="_blank" class="img-overlay-badge" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 585, event)">📑 Abrir en PDF (Pág. 585) ↗️</a>
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=585" target="_blank" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 585, event)" style="display:block; text-decoration:none;">
+        <img src="imagenes_apunte/chiav_14_4_tres_niveles_necesidades_entrenamiento.png" alt="Tres Niveles de Análisis - Chiavenato">
+      </a>
+      <div class="img-caption">Figura 4: Los tres niveles de análisis en el inventario de necesidades de entrenamiento (Chiavenato, Cap. 14, Libro pág. 563 / PDF pág. 585)</div>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nivel de Análisis</th>
+          <th>Objeto de Examen</th>
+          <th>Qué Detecta</th>
+          <th>Ejemplos en Empresas de SI/TI</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1. Nivel Organizacional</strong></td>
+          <td>La empresa en su totalidad (misión, estrategia corporativa, crecimiento, nuevos mercados).</td>
+          <td>Necesidades globales para sostener la competitividad futura y adecuarse a nuevas regulaciones o tecnologías.</td>
+          <td>Plan de migración corporativa a Cloud (AWS/Azure); certificación ISO 27001 de seguridad; adopción de metodologías Agile/DevOps en toda la compañía.</td>
+        </tr>
+        <tr>
+          <td><strong>2. Nivel de Recursos Humanos</strong></td>
+          <td>El conjunto de personas y la fuerza laboral (inventario de habilidades, desempeño grupal, clima).</td>
+          <td>Discrepancias colectivas de rendimiento, perfiles escasos, problemas de liderazgo y habilidades blandas.</td>
+          <td>Dificultad de los líderes técnicos para gestionar equipos remotos; necesidad de mejorar la comunicación y redacción de reportes ejecutivos.</td>
+        </tr>
+        <tr>
+          <td><strong>3. Nivel de Tareas y Operaciones</strong></td>
+          <td>El puesto de trabajo individual y sus requisitos (consignados en la DyAC).</td>
+          <td>Habilidades operativas específicas que el ocupante no domina para cumplir los estándares de su tarea diaria.</td>
+          <td>Un Asistente Jr. de Seguridad no sabe configurar reglas de correlación en el SIEM o realizar triage de phishing en sandbox.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card-block" id="desarrollo-leyes-aprendizaje">
+    <h3>5. Teoría y Leyes del Aprendizaje en las Organizaciones</h3>
+    <p>El <strong>aprendizaje</strong> es la modificación relativamente permanente de la conducta como resultado de la experiencia y la práctica. En la psicología educativa aplicada a la empresa rigen las siguientes leyes fundamentales:</p>
+    <ul>
+      <li><strong>Ley del Efecto (Thorndike):</strong> Las respuestas y conductas acompañadas de satisfacción o recompensas inmediatas tienden a fijarse y repetirse; las seguidas de frustración o castigo tienden a extinguirse.</li>
+      <li><strong>Ley del Ejercicio (Uso y Desuso):</strong> La práctica continua consolida las habilidades y destrezas; la falta de ejercicio produce olvido y pérdida de competencia.</li>
+      <li><strong>Ley de la Disposición:</strong> El individuo aprende rápida y profundamente cuando está motivado intrínsecamente y posee los conocimientos previos necesarios para asimilar el nuevo saber.</li>
+      <li><strong>Ley de la Primacía y Recencia:</strong> La primera impresión y los contenidos iniciales sientan las bases del aprendizaje, mientras que lo ejercitado al final de la sesión se retiene con mayor frescura.</li>
+      <li><strong>Ley de la Intensidad:</strong> Una experiencia práctica, vívida e inmersiva (simulaciones, laboratorios) produce un impacto de aprendizaje superior a una lectura pasiva.</li>
+    </ul>
+  </div>
+
+  <div class="card-block" id="desarrollo-programacion">
+    <h3>6. Programación y Diseño del Entrenamiento (Los 7 Interrogantes)</h3>
+    <p>La programación es la planificación curricular y logística del plan de acción para subsanar las necesidades diagnosticadas:</p>
+
+    <div class="img-container" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 592, event)" title="🔍 Clic para abrir el libro oficial en la Página 592 (PDF)">
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=592" target="_blank" class="img-overlay-badge" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 592, event)">📑 Abrir en PDF (Pág. 592) ↗️</a>
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=592" target="_blank" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 592, event)" style="display:block; text-decoration:none;">
+        <img src="imagenes_apunte/chiav_14_6_programacion_entrenamiento_elementos.png" alt="Programación del Entrenamiento - Chiavenato">
+      </a>
+      <div class="img-caption">Figura 5: Los elementos y decisiones clave en la programación del entrenamiento (Chiavenato, Cap. 14, Libro pág. 570 / PDF pág. 592)</div>
+    </div>
+
+    <div class="formula-card">
+      1. ¿A quién entrenar? → Aprendices / Población objetivo.<br>
+      2. ¿Quién debe entrenar? → Instructor (interno o externo) / Mentor.<br>
+      3. ¿Sobre qué entrenar? → Contenido temático y habilidades a desarrollar.<br>
+      4. ¿Dónde entrenar? → Lugar físico, aula virtual, laboratorio o puesto de trabajo.<br>
+      5. ¿Cómo entrenar? → Métodos pedagógicos, recursos didácticos y tecnologías.<br>
+      6. ¿Cuándo entrenar? → Cronograma, frecuencia y horario laboral.<br>
+      7. ¿Para qué entrenar? → Objetivos de aprendizaje y métricas de desempeño esperadas.
+    </div>
+  </div>
+
+  <div class="card-block" id="desarrollo-tecnicas">
+    <h3>7. Técnicas y Métodos de Entrenamiento</h3>
+    <ul>
+      <li><strong>En el puesto de trabajo (On-the-job Training):</strong> Instrucción directa del líder, rotación de puestos (*job rotation*), asignación de proyectos especiales, *coaching* y *mentoring*.</li>
+      <li><strong>Fuera del puesto de trabajo (Off-the-job Training):</strong> Clases presenciales, seminarios, simulación en entornos de prueba (*sandboxes*), plataformas e-learning autogestionadas.</li>
+      <li><strong>Técnicas orientadas al proceso:</strong> Dinámicas de grupo, juegos de rol (*role-playing*) y talleres de resolución de conflictos para desarrollo de habilidades interpersonales.</li>
+    </ul>
+  </div>
+
+  <div class="card-block" id="desarrollo-evaluacion">
+    <h3>8. Evaluación de Resultados del Entrenamiento y ROI</h3>
+
+    <div class="img-container" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 601, event)" title="🔍 Clic para abrir el libro oficial en la Página 601 (PDF)">
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=601" target="_blank" class="img-overlay-badge" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 601, event)">📑 Abrir en PDF (Pág. 601) ↗️</a>
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=601" target="_blank" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 601, event)" style="display:block; text-decoration:none;">
+        <img src="imagenes_apunte/chiav_14_9_ciclo_entrenamiento.png" alt="Ciclo de Evaluación - Chiavenato">
+      </a>
+      <div class="img-caption">Figura 6: Ciclo completo de ejecución y evaluación del entrenamiento (Chiavenato, Cap. 14, Libro pág. 579 / PDF pág. 601)</div>
+    </div>
+
+    <h4>Modelo de Evaluación de 4 Niveles (Donald Kirkpatrick):</h4>
+    <ol>
+      <li><strong>Nivel 1 - Reacción:</strong> Satisfacción y percepción inmediata de los aprendices respecto al curso y al docente (encuestas de satisfacción).</li>
+      <li><strong>Nivel 2 - Aprendizaje:</strong> Asimilación real de conceptos y habilidades técnicas (exámenes teóricos y pruebas de laboratorio).</li>
+      <li><strong>Nivel 3 - Comportamiento (Transferencia al puesto):</strong> Aplicación efectiva de lo aprendido en el trabajo cotidiano (monitoreo del líder y reducción de errores).</li>
+      <li><strong>Nivel 4 - Resultados Organizacionales / ROI:</strong> Impacto medible en los indicadores del negocio (aumento de productividad, reducción de bugs en producción, ahorro de costos).</li>
+    </ol>
+  </div>
+
+  <div class="card-block" id="desarrollo-planes-carrera">
+    <h3>9. Planes de Carrera y Progresión Profesional (Career Paths)</h3>
+    <p>Un <strong>Plan de Carrera</strong> es un programa estructurado que define las secuencias de puestos y los requisitos de competencia que un colaborador puede recorrer dentro de la organización a lo largo del tiempo.</p>
+    
+    <p>Equilibra dos factores indispensables:</p>
+    <ul>
+      <li><strong>Las aspiraciones individuales:</strong> Expectativas de crecimiento, autonomía y salario del empleado.</li>
+      <li><strong>Las necesidades estratégicas de la empresa:</strong> Cobertura de vacantes críticas y sucesión de mandos medios y técnicos.</li>
+    </ul>
+  </div>
+
+  <div class="card-block" id="desarrollo-do">
+    <h3>10. Desarrollo Organizacional (DO)</h3>
+    <p>El <strong>Desarrollo Organizacional</strong> es un esfuerzo planificado a largo plazo, administrado desde la alta dirección, para mejorar los procesos de resolución de problemas, la renovación y la salud organizacional mediante una cultura colaborativa basada en la teoría de las ciencias de la conducta.</p>
+  </div>
+
+
+  <!-- ================================================================= -->
+  <!-- MÓDULO II: MANTENIMIENTO DE RRHH -->
+  <!-- ================================================================= -->
+  <h2 id="modulo-mantenimiento"><span class="badge-tag badge-mantenimiento">Módulo II</span> Subsistema de Mantenimiento de Recursos Humanos</h2>
+
+  <div class="card-block" id="mantenimiento-conceptos">
+    <h3>1. Objetivos del Subsistema de Mantenimiento</h3>
+    <p>El <strong>Subsistema de Mantenimiento</strong> de Chiavenato tiene por finalidad retener al personal calificado en la organización, garantizando un ambiente físico, psicológico y económico que estimule la permanencia, el compromiso y la motivación continua.</p>
+  </div>
+
+  <div class="card-block" id="mantenimiento-equilibrio">
+    <h3>2. Teoría del Equilibrio: Decisión de Participar vs. Decisión de Producir</h3>
+    <p>Basado en la teoría de March y Simon, Chiavenato explica que la relación entre el colaborador y la empresa es un intercambio dinámico de <strong>Incentivos y Contribuciones</strong>:</p>
+    <ul>
+      <li><strong>Decisión de Participar:</strong> El individuo decide ingresar y permanecer en la empresa si los incentivos básicos (salario fijo, estabilidad, beneficios, clima) igualan o superan el costo de oportunidad de estar allí. <em>Asegura la retención.</em></li>
+      <li><strong>Decisión de Producir:</strong> El individuo decide entregar su máximo esfuerzo, creatividad e iniciativa si percibe que un rendimiento superior será recompensado con incentivos directos (remuneración variable, bonos, promociones, reconocimiento). <em>Asegura la excelencia y la productividad.</em></li>
+    </ul>
+  </div>
+
+  <div class="card-block" id="mantenimiento-compensaciones">
+    <h3>3. Administración de Compensaciones y Compuesto Salarial</h3>
+    <p>La <strong>compensación</strong> abarca todas las formas de pago o recompensa otorgadas a los colaboradores:</p>
+
+    <div class="img-container" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 431, event)" title="🔍 Clic para abrir el libro oficial en la Página 431 (PDF)">
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=431" target="_blank" class="img-overlay-badge" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 431, event)">📑 Abrir en PDF (Pág. 431) ↗️</a>
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=431" target="_blank" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 431, event)" style="display:block; text-decoration:none;">
+        <img src="imagenes_apunte/chiav_10_2_tipos_compensacion.png" alt="Tipos de Compensación - Chiavenato">
+      </a>
+      <div class="img-caption">Figura 7: Clasificación integral de los tipos de compensación (Chiavenato, Cap. 10, Libro pág. 409 / PDF pág. 431)</div>
+    </div>
+
+    <h4>El Compuesto Salarial (Wage Mix):</h4>
+    <p>El nivel de los salarios dentro de una organización resulta de la interacción de factores internos y externos:</p>
+
+    <div class="img-container" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 434, event)" title="🔍 Clic para abrir el libro oficial en la Página 434 (PDF)">
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=434" target="_blank" class="img-overlay-badge" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 434, event)">📑 Abrir en PDF (Pág. 434) ↗️</a>
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=434" target="_blank" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 434, event)" style="display:block; text-decoration:none;">
+        <img src="imagenes_apunte/chiav_10_4_compuesto_salarial.png" alt="Compuesto Salarial - Chiavenato">
+      </a>
+      <div class="img-caption">Figura 8: Factores internos y externos determinantes del compuesto salarial (Chiavenato, Cap. 10, Libro pág. 412 / PDF pág. 434)</div>
+    </div>
+
+    <ul>
+      <li><strong>Factores Internos (Organizacionales):</strong> Tipología y valuación de los cargos, política salarial interna, capacidad financiera de pago y desempeño de la empresa.</li>
+      <li><strong>Factores Externos (Ambientales):</strong> Situación del mercado laboral y de IT, leyes laborales y convenios colectivos, costo de vida / inflación, tablas de honorarios de colegios profesionales (CPCIPC) y poder sindical.</li>
+    </ul>
+  </div>
+
+  <div class="card-block" id="mantenimiento-teoria-inequidad">
+    <h3>4. Equidad Salarial y Teoría de la Inequidad de Adams</h3>
+    <p>En compensaciones no rige el principio de igualdad absoluta, sino el de <strong>Equidad ("igual retribución para puestos de igual valor, y retribución proporcionalmente distinta para puestos de complejidad diferente")</strong>.</p>
+    
+    <div class="formula-card">
+      Teoría de la Inequidad (J. Stacy Adams):<br>
+      $$\\frac{\\text{Resultados Propios (Salario, Beneficios)}}{\\text{Aportes Propios (Esfuerzo, Educación, Horas)}} \\quad \\text{vs.} \\quad \\frac{\\text{Resultados del Referente}}{\\text{Aportes del Referente}}$$
+    </div>
+    <p>Si la relación es desigual en perjuicio del empleado (inequidad negativa), este experimenta frustración y reduce su productividad, aumenta el ausentismo o renuncia.</p>
+  </div>
+
+  <div class="card-block" id="mantenimiento-valuacion-puestos">
+    <h3>5. Valuación de Puestos: Métodos Tradicionales</h3>
+    <p>La <strong>Valuación de Puestos</strong> permite determinar la posición relativa de cada cargo dentro de la estructura jerárquica a partir de la <strong>Descripción y Análisis de Cargos (DyAC)</strong>.</p>
+
+    <div class="img-container" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 438, event)" title="🔍 Clic para abrir el libro oficial en la Página 438 (PDF)">
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=438" target="_blank" class="img-overlay-badge" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 438, event)">📑 Abrir en PDF (Pág. 438) ↗️</a>
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=438" target="_blank" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 438, event)" style="display:block; text-decoration:none;">
+        <img src="imagenes_apunte/chiav_10_7_metodos_evaluacion_cargos.png" alt="Métodos de Evaluación de Cargos - Chiavenato">
+      </a>
+      <div class="img-caption">Figura 9: Cuadro comparativo de los métodos de evaluación de cargos (Chiavenato, Cap. 10, Libro pág. 416 / PDF pág. 438)</div>
+    </div>
+
+    <h4>A. Método de Jerarquización (Job Ranking - No analítico):</h4>
+    <p>Se ordenan los puestos en una lista secuencial de mayor a menor importancia global por comparación directa.</p>
+
+    <h4>B. Método de Categorías Predeterminadas (Job Grading - No analítico):</h4>
+    <p>Se definen previamente categorías genéricas (ej. Auxiliar, Técnico, Especialista, Gerencial) y luego se ubica cada cargo en el casillero correspondiente.</p>
+
+    <div class="img-container" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 443, event)" title="🔍 Clic para abrir el libro oficial en la Página 443 (PDF)">
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=443" target="_blank" class="img-overlay-badge" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 443, event)">📑 Abrir en PDF (Pág. 443) ↗️</a>
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=443" target="_blank" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 443, event)" style="display:block; text-decoration:none;">
+        <img src="imagenes_apunte/chiav_10_11_categorias_predeterminadas.png" alt="Categorías Predeterminadas - Chiavenato">
+      </a>
+      <div class="img-caption">Figura 10: Clasificación de cargos en categorías predeterminadas (Chiavenato, Cap. 10, Libro pág. 421 / PDF pág. 443)</div>
+    </div>
+  </div>
+
+  <div class="card-block" id="mantenimiento-valuacion-puntos">
+    <h3>6. Valuación de Puestos: Método Analítico por Puntos (Merril R. Lott)</h3>
+    <p>Es el método cuantitativo más exacto y utilizado en organizaciones de tecnología. Descompone los cargos en <strong>factores compensables</strong> (Requisitos Mentales, Físicos, Responsabilidad y Condiciones de Trabajo), subdivididos en grados con puntuaciones aritméticas o geométricas.</p>
+
+    <div class="img-container" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 452, event)" title="🔍 Clic para abrir el libro oficial en la Página 452 (PDF)">
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=452" target="_blank" class="img-overlay-badge" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 452, event)">📑 Abrir en PDF (Pág. 452) ↗️</a>
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=452" target="_blank" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 452, event)" style="display:block; text-decoration:none;">
+        <img src="imagenes_apunte/chiav_10_21_escala_puntos_valuacion.png" alt="Escala de Evaluación por Puntos - Chiavenato">
+      </a>
+      <div class="img-caption">Figura 11: Escala y ponderación del método de evaluación por puntos (Chiavenato, Cap. 10, Libro pág. 430 / PDF pág. 452)</div>
+    </div>
+  </div>
+
+  <div class="card-block" id="mantenimiento-curva-salarial">
+    <h3>7. Curva Salarial y Franjas Salariales</h3>
+    <p>Al correlacionar el valor en puntos de cada puesto ($x$) con su salario correspondiente en el mercado ($y$), se obtiene la <strong>Línea de Tendencia o Curva Salarial</strong> mediante regresión lineal ($y = ax + b$):</p>
+
+    <div class="img-container" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 455, event)" title="🔍 Clic para abrir el libro oficial en la Página 455 (PDF)">
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=455" target="_blank" class="img-overlay-badge" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 455, event)">📑 Abrir en PDF (Pág. 455) ↗️</a>
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=455" target="_blank" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 455, event)" style="display:block; text-decoration:none;">
+        <img src="imagenes_apunte/chiav_10_25_curva_salarial_tendencia.png" alt="Curva Salarial - Chiavenato">
+      </a>
+      <div class="img-caption">Figura 12: Curva salarial y línea de tendencia de salarios respecto a puntos (Chiavenato, Cap. 10, Libro pág. 433 / PDF pág. 455)</div>
+    </div>
+
+    <p>A partir de la curva se trazan las <strong>Franjas Salariales</strong>, con límites mínimos, medios y máximos, permitiendo la progresión salarial del empleado por desempeño sin necesidad de cambiar de cargo:</p>
+
+    <div class="img-container" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 458, event)" title="🔍 Clic para abrir el libro oficial en la Página 458 (PDF)">
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=458" target="_blank" class="img-overlay-badge" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 458, event)">📑 Abrir en PDF (Pág. 458) ↗️</a>
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=458" target="_blank" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 458, event)" style="display:block; text-decoration:none;">
+        <img src="imagenes_apunte/chiav_10_28_franjas_salariales.png" alt="Franjas Salariales - Chiavenato">
+      </a>
+      <div class="img-caption">Figura 13: Clases de cargos y franjas salariales con amplitud y solapamiento (Chiavenato, Cap. 10, Libro pág. 436 / PDF pág. 458)</div>
+    </div>
+  </div>
+
+  <div class="card-block" id="mantenimiento-remuneracion-argentina">
+    <h3>8. Estructura Salarial en Argentina</h3>
+    <p>En el régimen de la Ley de Contrato de Trabajo N° 20.744 de Argentina, la retribución se estructura en:</p>
+    <ul>
+      <li><strong>Conceptos Remunerativos:</strong> Sujetos a aportes y cargas patronales (Sueldo básico, antigüedad, presentismo, horas extra, SAC).</li>
+      <li><strong>Conceptos No Remunerativos:</strong> No gravados por seguridad social ordinaria (Asignaciones de ANSES, viáticos contra comprobante, subsidio de conectividad).</li>
+      <li><strong>Retenciones al Trabajador:</strong> $11\\%$ Jubilación (SIPA), $3\\%$ PAMI (Ley 19.032), $3\\%$ Obra Social (Ley 23.660) y Cuota Sindical.</li>
+      <li><strong>Contribuciones Patronales:</strong> Aproximadamente un $37.58\\%$ adicional sobre la masa salarial bruta a cargo exclusivo de la empresa.</li>
+    </ul>
+  </div>
+
+  <div class="card-block" id="mantenimiento-beneficios">
+    <h3>9. Planes de Beneficios y Servicios Sociales</h3>
+
+    <div class="img-container" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 484, event)" title="🔍 Clic para abrir el libro oficial en la Página 484 (PDF)">
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=484" target="_blank" class="img-overlay-badge" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 484, event)">📑 Abrir en PDF (Pág. 484) ↗️</a>
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=484" target="_blank" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 484, event)" style="display:block; text-decoration:none;">
+        <img src="imagenes_apunte/chiav_11_1_tipos_beneficios_sociales.png" alt="Tipos de Beneficios Sociales - Chiavenato">
+      </a>
+      <div class="img-caption">Figura 14: Clasificación de los beneficios sociales en cuanto a sus objetivos (Chiavenato, Cap. 11, Libro pág. 462 / PDF pág. 484)</div>
+    </div>
+
+    <ul>
+      <li><strong>Beneficios Asistenciales:</strong> Medicina prepaga premium, seguros de vida colectivos, asistencia odontológica y guardería.</li>
+      <li><strong>Beneficios Recreativos:</strong> Clubes corporativos, eventos de integración, convenios deportivos.</li>
+      <li><strong>Beneficios Supletorios:</strong> Comedor en planta, subsidio de transporte, flexibilidad horaria y teletrabajo.</li>
+    </ul>
+  </div>
+
+  <div class="card-block" id="mantenimiento-higiene-ergonomia">
+    <h3>10. Higiene, Seguridad y Ergonomía PPV en Entornos Informáticos</h3>
+    <p>La <strong>Higiene Laboral</strong> preserva la salud física y mental del trabajador a través del control de las condiciones ambientales:</p>
+
+    <div class="img-container" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 504, event)" title="🔍 Clic para abrir el libro oficial en la Página 504 (PDF)">
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=504" target="_blank" class="img-overlay-badge" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 504, event)">📑 Abrir en PDF (Pág. 504) ↗️</a>
+      <a href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=504" target="_blank" onclick="openPdfPage('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 504, event)" style="display:block; text-decoration:none;">
+        <img src="imagenes_apunte/chiav_12_1_niveles_iluminacion_higiene.png" alt="Niveles de Iluminación - Chiavenato">
+      </a>
+      <div class="img-caption">Figura 15: Niveles de iluminación para tareas visuales y de oficina en higiene laboral (Chiavenato, Cap. 12, Libro pág. 482 / PDF pág. 504)</div>
+    </div>
+
+    <h4>Normas Técnicas para Pantallas de Visualización de Datos (PPV / IRAM 3753 / OSHA):</h4>
+    <ul>
+      <li><strong>Ubicación de la Pantalla:</strong> A una distancia de $50-70 \\text{ cm}$ de los ojos, con el borde superior a la altura o ligeramente por debajo de la línea visual horizontal ($10°-20°$).</li>
+      <li><strong>Iluminación:</strong> Entre $300$ y $500 \\text{ lux}$ en el plano de trabajo, evitando fuentes de luz directa o ventanas que generen reflejos sobre el monitor.</li>
+      <li><strong>Silla Ergonómica:</strong> Base de 5 ruedas con apoyo lumbar regulable en altura y profundidad; antebrazos apoyados horizontalmente a $90°$ respecto a la mesa.</li>
+      <li><strong>Prevención de Enfermedades Profesionales:</strong> Pausas activas periódicas para prevenir el Síndrome del Túnel Carpiano (tendinitis de muñeca), fatiga visual (*computer vision syndrome*) y lumbalgias.</li>
+    </ul>
+  </div>
+
+  <script>
+    function openPdfPage(pdfPath, pageNum, event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      const fullUrl = `${pdfPath}#page=${pageNum}`;
+      
+      // If embedded in Studio Hub, postMessage switches tab to PDF viewer
+      if (window.parent && window.parent !== window) {
+        try {
+          window.parent.postMessage({ type: 'LOAD_PDF', url: fullUrl, page: pageNum }, '*');
+          return;
+        } catch (e) {
+          console.warn('postMessage failed:', e);
+        }
+      }
+      
+      // Standalone tab fallback
+      window.open(fullUrl, '_blank');
+    }
+  </script>
+</body>
+</html>

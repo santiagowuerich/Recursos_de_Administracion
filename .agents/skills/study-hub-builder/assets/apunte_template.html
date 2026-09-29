@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{UNIT_TITLE}} | Libro de Estudio Maestro</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for Mathematics -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\(', right: '\\)', display: false},
+        {left: '\\[', right: '\\]', display: true}
+      ],
+      throwOnError: false
+    });"></script>
+
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #111827;
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --accent-emerald: #10b981;
+      --accent-cyan: #06b6d4;
+      --accent-indigo: #6366f1;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      line-height: 1.8;
+      padding: 48px 24px;
+      max-width: 1160px;
+      margin: 0 auto;
+    }
+
+    .toc-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 48px;
+    }
+
+    .card-block {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 30px;
+      margin-bottom: 32px;
+    }
+
+    /* Interactive Diagram Containers with postMessage Navigation */
+    .img-container {
+      position: relative;
+      margin: 28px 0;
+      background: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 14px;
+      padding: 18px;
+      text-align: center;
+      box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.6);
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .img-container:hover {
+      transform: translateY(-3px) scale(1.008);
+      box-shadow: 0 20px 40px -5px rgba(16, 185, 129, 0.25), 0 0 0 2px var(--accent-emerald);
+    }
+
+    .img-overlay-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(15, 23, 42, 0.9);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+      transition: all 0.2s ease;
+      z-index: 10;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+    }
+
+    .img-container:hover .img-overlay-badge {
+      background: #059669;
+      color: #ffffff;
+      border-color: #34d399;
+      transform: scale(1.05);
+    }
+
+    .img-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .img-caption {
+      font-size: 0.88rem;
+      color: #1e293b;
+      margin-top: 14px;
+      text-align: center;
+      font-weight: 700;
+      border-top: 2px solid #e2e8f0;
+      padding-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>{{UNIT_TITLE}}</h1>
+  
+  <div class="toc-box">
+    <h3>Índice de Contenidos</h3>
+    <!-- Table of Contents Links -->
+  </div>
+
+  <!-- Content Blocks -->
+  <div class="card-block" id="{{SECTION_ID}}">
+    <h3>{{SECTION_TITLE}}</h3>
+    <p>{{THEORETICAL_CONTENT}}</p>
+
+    <!-- Example Clickable Diagram -->
+    <div class="img-container" onclick="openPdfPage('{{PDF_PATH}}', {{PAGE_NUM}}, event)" title="🔍 Clic para abrir el libro oficial en la Página {{PAGE_NUM}} (PDF)">
+      <a href="{{PDF_PATH}}#page={{PAGE_NUM}}" target="_blank" class="img-overlay-badge" onclick="openPdfPage('{{PDF_PATH}}', {{PAGE_NUM}}, event)">📑 Abrir en PDF (Pág. {{PAGE_NUM}}) ↗️</a>
+      <a href="{{PDF_PATH}}#page={{PAGE_NUM}}" target="_blank" onclick="openPdfPage('{{PDF_PATH}}', {{PAGE_NUM}}, event)" style="display:block; text-decoration:none;">
+        <img src="imagenes_apunte/{{IMAGE_NAME}}" alt="{{IMAGE_ALT}}">
+      </a>
+      <div class="img-caption">{{IMAGE_CAPTION}}</div>
+    </div>
+  </div>
+
+  <script>
+    function openPdfPage(pdfPath, pageNum, event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      const fullUrl = `${pdfPath}#page=${pageNum}`;
+      
+      // If embedded in Studio Hub iframe, send postMessage to parent
+      if (window.parent && window.parent !== window) {
+        try {
+          window.parent.postMessage({ type: 'LOAD_PDF', url: fullUrl, page: pageNum }, '*');
+          return;
+        } catch (e) {
+          console.warn('postMessage failed:', e);
+        }
+      }
+      
+      // Standalone tab fallback
+      window.open(fullUrl, '_blank');
+    }
+  </script>
+</body>
+</html>

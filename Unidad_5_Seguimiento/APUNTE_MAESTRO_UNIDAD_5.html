@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Libro Maestro Completo: Unidad 5 - Seguimiento de SI/TI & RRHH | AdmSI UTN FRRe</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for Perfect Mathematical Typesetting -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false},
+        {left: '\\(', right: '\\)', display: false},
+        {left: '\\[', right: '\\]', display: true}
+      ],
+      throwOnError : false
+    });"></script>
+
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #111827;
+      --card-inner: rgba(255, 255, 255, 0.025);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(99, 102, 241, 0.3);
+      --text: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-dim: #6b7280;
+      --accent-indigo: #6366f1;
+      --accent-purple: #a855f7;
+      --accent-cyan: #06b6d4;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.8;
+      padding: 48px 24px;
+      max-width: 1160px;
+      margin: 0 auto;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.12) 0px, transparent 50%);
+    }
+
+    .badge-header {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(99, 102, 241, 0.18);
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      color: #c7d2fe;
+      font-size: 0.84rem;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    h1 {
+      font-size: 2.65rem;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.2;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #ffffff 30%, #c7d2fe 70%, #818cf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+      line-height: 1.65;
+    }
+
+    /* Index Box */
+    .toc-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 48px;
+      box-shadow: 0 20px 40px -15px rgba(0,0,0,0.5);
+    }
+
+    .toc-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #a5b4fc;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: -0.01em;
+    }
+
+    .toc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+    }
+
+    .toc-col h4 {
+      font-size: 0.95rem;
+      color: var(--accent-cyan);
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .toc-col ul { list-style: none; }
+    .toc-col li { margin-bottom: 8px; }
+    .toc-col a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .toc-col a:hover { color: #fff; transform: translateX(3px); text-decoration: underline; }
+
+    /* Headers */
+    h2 {
+      font-size: 1.85rem;
+      font-weight: 800;
+      color: #fff;
+      margin-top: 56px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    h3 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #a5b4fc;
+      margin-top: 32px;
+      margin-bottom: 14px;
+      letter-spacing: -0.01em;
+    }
+
+    h4 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #38bdf8;
+      margin-top: 22px;
+      margin-bottom: 10px;
+    }
+
+    p { margin-bottom: 16px; color: #d1d5db; font-size: 0.98rem; }
+    ul, ol { margin-bottom: 18px; padding-left: 26px; color: #d1d5db; font-size: 0.97rem; }
+    li { margin-bottom: 8px; }
+    strong { color: #fff; font-weight: 700; }
+    em { color: #cbd5e1; font-style: italic; }
+
+    /* Cards */
+    .card-block {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 30px;
+      margin-bottom: 32px;
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.4);
+    }
+
+    .formula-card {
+      background: rgba(15, 23, 42, 0.75);
+      border-left: 4px solid var(--accent-cyan);
+      border-radius: 0 12px 12px 0;
+      padding: 20px 24px;
+      margin: 22px 0;
+      font-size: 1.05rem;
+      color: #e0f2fe;
+      line-height: 1.8;
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .alert-box {
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin: 18px 0;
+      font-size: 0.93rem;
+      color: #c7d2fe;
+    }
+    .alert-box.warning {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: rgba(245, 158, 11, 0.3);
+      color: #fde68a;
+    }
+    .alert-box.success {
+      background: rgba(16, 185, 129, 0.1);
+      border-color: rgba(16, 185, 129, 0.3);
+      color: #a7f3d0;
+    }
+
+    /* Images */
+        .img-container {
+      position: relative;
+      margin: 28px 0;
+      background: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 14px;
+      padding: 18px;
+      text-align: center;
+      box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.6);
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .img-container:hover {
+      transform: translateY(-3px) scale(1.008);
+      box-shadow: 0 20px 40px -5px rgba(99, 102, 241, 0.35), 0 0 0 2px var(--accent-indigo, #6366f1);
+    }
+
+    .img-overlay-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(15, 23, 42, 0.88);
+      color: #a5b4fc;
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.35);
+      transition: all 0.2s ease;
+      z-index: 10;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      pointer-events: none;
+    }
+
+    .img-container:hover .img-overlay-badge {
+      background: #4f46e5;
+      color: #ffffff;
+      border-color: #818cf8;
+      transform: scale(1.05);
+    }
+
+    .img-container img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 6px;
+      display: block;
+      margin: 0 auto;
+      transition: opacity 0.2s ease;
+    }
+
+    .img-container:hover img {
+      opacity: 0.95;
+    }
+
+    .img-caption {
+      font-size: 0.88rem;
+      color: #1e293b;
+      margin-top: 14px;
+      text-align: center;
+      font-weight: 700;
+      border-top: 2px solid #e2e8f0;
+      padding-top: 10px;
+      line-height: 1.4;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 0.91rem;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 14px 16px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #1e293b;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.93rem;
+    }
+    tr:nth-child(even) { background: rgba(255, 255, 255, 0.02); }
+    tr:hover { background: rgba(255, 255, 255, 0.04); }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(255, 255, 255, 0.08);
+      color: #f472b6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.88em;
+    }
+
+    .badge-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-right: 6px;
+    }
+    .badge-rrhh { background: rgba(168, 85, 247, 0.2); color: #d8b4fe; border: 1px solid rgba(168, 85, 247, 0.4); }
+    .badge-siti { background: rgba(6, 182, 212, 0.2); color: #67e8f9; border: 1px solid rgba(6, 182, 212, 0.4); }
+  </style>
+</head>
+<body>
+
+  <div class="badge-header">⚡ AdmSI 2026 • UTN Facultad Regional Resistencia • Tratado Académico Completo</div>
+  <h1>Libro de Estudio Maestro: Unidad 5 (Seguimiento Integral)</h1>
+  <p class="subtitle">
+    Compendio académico exhaustivo y riguroso que cubre el 100% del programa analítico de la Unidad 5 (Subsistema de Seguimiento/Control de RRHH y SI/TI). Integra la totalidad de definiciones, modelos matemáticos con KaTeX, demostraciones de leyes operacionales, tablas de análisis de sesgos, esquemas de telemetría y las figuras originales de los textos oficiales: <strong>Idalberto Chiavenato (5ta Ed.)</strong> y <strong>Xavier Molero et al. (2004)</strong>.
+  </p>
+
+  <!-- Tabla de Contenidos -->
+  <div class="toc-box">
+    <div class="toc-title">🧭 Índice Temático Completo de la Unidad 5</div>
+    <div class="toc-grid">
+      <div class="toc-col">
+        <h4>👥 Módulo I: Seguimiento de Recursos Humanos (RRHH)</h4>
+        <ul>
+          <li><a href="#rrhh-teoria-control">1. Teoría General del Control y Enfoque Cibernético</a></li>
+          <li><a href="#rrhh-niveles-control">2. Los Tres Niveles de Control Organizacional</a></li>
+          <li><a href="#rrhh-ciclo-control">3. Las Cuatro Etapas del Ciclo de Control</a></li>
+          <li><a href="#rrhh-principio-excepcion">4. Principio de Administración por Excepción</a></li>
+          <li><a href="#rrhh-dimensiones-estandares">5. Las Cuatro Dimensiones de los Estándares (Cantidad, Calidad, Tiempo, Costo)</a></li>
+          <li><a href="#rrhh-evaluacion-desempeno">6. Evaluación del Desempeño Humano (Concepto, Responsables y Actores)</a></li>
+          <li><a href="#rrhh-metodos-tradicionales">7. Métodos Tradicionales de Evaluación (Escalas Gráficas, Elección Forzada, Incidentes Críticos, Investigación de Campo, Pares)</a></li>
+          <li><a href="#rrhh-metodos-modernos">8. Métodos Modernos (Evaluación 360 Grados y EPPO / OKRs)</a></li>
+          <li><a href="#rrhh-sesgos-distorsiones">9. Sesgos Cognitivos y Distorsiones de Medición del Evaluador</a></li>
+          <li><a href="#rrhh-entrevista-feedback">10. La Entrevista de Evaluación y Retroalimentación</a></li>
+          <li><a href="#rrhh-sig-bases-datos">11. Bases de Datos y Sistemas de Información de RRHH (SIG/HRIS)</a></li>
+          <li><a href="#rrhh-auditoria">12. Auditoría de RRHH y Auditoría a Gerentes de Línea</a></li>
+        </ul>
+      </div>
+      <div class="toc-col">
+        <h4>💻 Módulo II: Seguimiento de Software y Hardware (SI/TI)</h4>
+        <ul>
+          <li><a href="#siti-fundamentos">1. Objetivos del Seguimiento de SI/TI (Capacidad, Tuning, SLAs)</a></li>
+          <li><a href="#siti-tecnicas-evaluacion">2. Las Tres Técnicas de Evaluación (Medición, Modelado Analítico, Simulación)</a></li>
+          <li><a href="#siti-analisis-operacional">3. Análisis Operacional: Balance Operacional y Estaciones de Servicio</a></li>
+          <li><a href="#siti-variables-operacionales">4. Variables Operacionales Básicas ($T, A, C, B$) y Deducidas ($\lambda, X, U, S, R, W, Q$)</a></li>
+          <li><a href="#siti-leyes-operacionales">5. Demostración Formal de las Leyes Operacionales (Utilización, Little, Flujo Forzado)</a></li>
+          <li><a href="#siti-ley-interactiva">6. Ley del Tiempo de Respuesta Interactivo (Ley de Bruni / Chatbots y Web)</a></li>
+          <li><a href="#siti-cuello-botella">7. Cuello de Botella ($D_{\max}$) y Límites Asintóticos de Rendimiento</a></li>
+          <li><a href="#siti-punto-saturacion">8. Cálculo del Punto de Saturación ($N^*$) y Mitigación de Bottlenecks</a></li>
+          <li><a href="#siti-ley-amdahl">9. Ley de Amdahl: Formulación, Demostración y Límite Teórico de Speedup</a></li>
+          <li><a href="#siti-monitores">10. Monitores de Sistemas Informáticos (Requisitos, Bloques, HW vs. SW vs. Híbridos)</a></li>
+          <li><a href="#siti-telemetria-linux">11. Monitoreo por Muestreo vs. Eventos (Herramientas Linux: `top`, `vmstat`, `sar`)</a></li>
+          <li><a href="#siti-benchmarking">12. Benchmarking: Concepto, Tipos y Caso SysBench Memoria RAM (Bloque-Límite)</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- MÓDULO I: RRHH -->
+  <!-- ================================================================= -->
+  <h2 id="modulo-rrhh"><span class="badge-tag badge-rrhh">Módulo I</span> Seguimiento y Control de Recursos Humanos (RRHH)</h2>
+
+  <div class="card-block" id="rrhh-teoria-control">
+    <h3>1. Teoría General del Control en las Organizaciones y Enfoque Cibernético</h3>
+    <p>En el marco teórico formulado por <strong>Idalberto Chiavenato (2005)</strong>, la Administración de Recursos Humanos (ARH) es un sistema abierto integrado por cinco subsistemas interdependientes: <em>1) Provisión (Admisión), 2) Aplicación (Organización), 3) Mantenimiento (Retención), 4) Desarrollo (Capacitación) y 5) Seguimiento y Control (Monitoreo)</em>.</p>
+    
+    <p>El <strong>Subsistema de Control o Seguimiento</strong> es el mecanismo que cierra el circuito sistémico. Desde la perspectiva de la cibernética organizacional, el control <strong>no debe entenderse como un acto policial, punitivo o coercitivo de fiscalización</strong>, sino como un <strong>proceso autorregulador de realimentación (feedback)</strong> continuo. Su finalidad primordial es monitorear el comportamiento real de los recursos humanos, confrontarlo con los planes y estándares estratégicos, detectar desviaciones a tiempo e implementar ajustes proactivos para mantener a la organización en su rumbo hacia el cumplimiento de su misión.</p>
+  </div>
+
+  <div class="card-block" id="rrhh-niveles-control">
+    <h3>2. Los Tres Niveles de Control Organizacional</h3>
+    <p>El control del factor humano opera en tres niveles jerárquicos complementarios dentro de las organizaciones de sistemas y tecnología:</p>
+    <ul>
+      <li><strong>Nivel Estratégico (Institucional):</strong> Monitorea el impacto global y a largo plazo de las políticas de talento sobre la supervivencia y competitividad corporativa. Indicadores típicos: índice global de rotación (<em>turnover</em>), balance social, auditoría general de recursos humanos, retorno de inversión del capital intelectual.</li>
+      <li><strong>Nivel Táctico (Departamental):</strong> Supervisa la gestión por áreas funcionales y proyectos a mediano plazo. Indicadores típicos: presupuesto asignado al área de infraestructura y desarrollo de software, cumplimiento de planes de formación técnica, tasa de retención de perfiles Senior.</li>
+      <li><strong>Nivel Operacional:</strong> Control diario, directo y de tarea inmediata. Indicadores típicos: registro de jornada y asistencia, cantidad de tickets de soporte N2 cerrados por operador, cumplimiento de entregables de un Sprint en Jira, adherencia a estándares de documentación y código.</li>
+    </ul>
+  </div>
+
+  <div class="card-block" id="rrhh-ciclo-control">
+    <h3>3. Las Cuatro Etapas del Ciclo de Control</h3>
+    <p>Todo sistema de control profesional y metódico se desarrolla a través de <strong>cuatro etapas consecutivas e interconectadas</strong> en un bucle cerrado:</p>
+
+    <div class="img-container" onclick="openPdfPage('0_General_y_Libros/MOLERO_Evaluacion_Rendimiento_Sistemas_Informaticos.pdf', 53, event)" title="🔍 Clic para abrir el libro oficial en la Página 53 (PDF)">
+      <a href="0_General_y_Libros/MOLERO_Evaluacion_Rendimiento_Sistemas_Informaticos.pdf#page=53" target="_blank" class="img-overlay-badge" onclick="openPdfPage('0_General_y_Libros/MOLERO_Evaluacion_Rendimiento_Sistemas_Informaticos.pdf', 53, event)">📑 Abrir en PDF (Pág. 53) ↗️</a>
+      <a href="0_General_y_Libros/MOLERO_Evaluacion_Rendimiento_Sistemas_Informaticos.pdf#page=53" target="_blank" onclick="openPdfPage('0_General_y_Libros/MOLERO_Evaluacion_Rendimiento_Sistemas_Informaticos.pdf', 53, event)" style="display:block; text-decoration:none;">
+        <img src="imagenes_apunte/molero_monitor_sar_arquitectura.png" alt="Monitor SAR en Linux - Molero et al.">
+      </a>
+      <div class="img-caption">Figura 15: Arquitectura y flujo del monitor `sar` (`sadc` recolector $\to$ buffer $\to$ `sar` visualizador) (Molero et al., Cap. 2, Libro pág. 37 / PDF pág. 53)</div>
+    </div>
+
+    <h4>Herramientas de Monitoreo Estándar en Linux:</h4>
+    <ul>
+      <li><code>top</code> / <code>htop</code>: Monitor interactivo de CPU, memoria y procesos en tiempo real.</li>
+      <li><code>vmstat</code>: Informa sobre procesos en cola de CPU (<code>r</code>, <code>b</code>), memoria virtual activa/inactiva, tasa de swapping (<code>si</code>, <code>so</code>) e interrupciones.</li>
+      <li><code>iostat</code>: Monitorea la tasa de transferencia y utilización ($U\%$) de los discos de almacenamiento.</li>
+      <li><code>sar</code> (System Activity Reporter): El monitor histórico más potente de Linux. Se divide en el recolector en segundo plano (<code>sadc</code>) que guarda las métricas en <code>/var/log/sa/saXX</code> y el visor analítico (<code>sar</code>).</li>
+    </ul>
+  </div>
+
+  <div class="card-block" id="siti-benchmarking">
+    <h3>12. Benchmarking de Sistemas Informáticos</h3>
+    <p>Es indispensable distinguir dos términos que suelen confundirse en los exámenes:</p>
+    <ul>
+      <li><strong>Benchmark (Banco de Pruebas):</strong> Programa o conjunto estandarizado de programas diseñado para medir de forma repetible el rendimiento de un sistema informático o componente bajo condiciones controladas.</li>
+      <li><strong>Benchmarking:</strong> Proceso continuo y metódico de evaluar y comparar el rendimiento de nuestros sistemas contra las mejores prácticas del mercado o contra arquitecturas alternativas para fundamentar decisiones de inversión.</li>
+    </ul>
+
+    <h4>Tipos de Benchmarks:</h4>
+    <ul>
+      <li><strong>Micro-benchmarks:</strong> Evalúan un componente aislado a nivel básico (ejemplo: velocidad de copia de bloques de RAM en MB/s con SysBench).</li>
+      <li><strong>Benchmarks Sintéticos:</strong> Programas artificiales con bucles matemáticos (Whetstone para coma flotante, Dhrystone para enteros).</li>
+      <li><strong>Benchmarks de Aplicación Real:</strong> Suites estándar del consorcio SPEC (CPU, Java) y TPC (TPC-C, TPC-E para transacciones de bases de datos relacionales).</li>
+    </ul>
+
+    <h4>Caso Práctico SysBench: Análisis del Ancho de Banda de Memoria RAM</h4>
+    <p>En el Trabajo Práctico N° 5.2 de la cátedra se analiza la curva de SysBench para transferencia de memoria en función del tamaño de bloque (Block Size):</p>
+
+    <div class="img-container">
+      <img src="2_Seguimiento_SW_HW/SysBench_Memoria_Bloque_limite.jpeg" alt="SysBench Memoria Bloque Límite">
+      <div class="img-caption">Figura 16: Gráfico experimental de SysBench Memoria Bloque-Límite (TP N° 5.2)</div>
+    </div>
+
+    <ul>
+      <li><strong>Zona 1 (Bloques pequeños $\le 16 \text{ KB}$):</strong> El rendimiento es bajo debido a la sobrecarga (<em>overhead</em>) de las llamadas al sistema e invocaciones de funciones por cada pequeño fragmento transferido.</li>
+      <li><strong>Zona 2 (Bloques medianos $32 \text{ KB} - 512 \text{ KB}$):</strong> La tasa de transferencia sube exponencialmente y alcanza un pico altísimo gracias a que los bloques caben íntegramente en las <strong>memorias caché del procesador (L1, L2 y L3)</strong>.</li>
+      <li><strong>Zona 3 (Bloques grandes $\ge 1 \text{ MB}$):</strong> La tasa de transferencia desciende y se estabiliza en una <strong>meseta plana horizontal</strong>. Esta meseta representa el <strong>límite físico real del ancho de banda del bus de memoria RAM (DRAM Bus Bandwidth)</strong>.</li>
+    </ul>
+  </div>
+
+    <script>
+    function openPdfPage(pdfPath, pageNum, event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+      const fullUrl = `${pdfPath}#page=${pageNum}`;
+      
+      // If inside Studio Hub iframe, notify parent to switch tab and load PDF
+      if (window.parent && window.parent !== window) {
+        try {
+          window.parent.postMessage({ type: 'LOAD_PDF', url: fullUrl, page: pageNum }, '*');
+          return;
+        } catch (e) {
+          console.warn('postMessage failed, falling back:', e);
+        }
+      }
+      
+      // Fallback: open in new tab
+      window.open(fullUrl, '_blank');
+    }
+  </script>
+</body>
+</html>

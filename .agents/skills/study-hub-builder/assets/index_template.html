@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{UNIT_TITLE}} | Hub de Estudio Integral</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-primary: #090d16;
+      --bg-surface: #111827;
+      --bg-card: rgba(17, 24, 39, 0.75);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-focus: rgba(16, 185, 129, 0.4);
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --text-dim: #6b7280;
+      --accent-emerald: #10b981;
+      --accent-indigo: #6366f1;
+      --accent-cyan: #06b6d4;
+      --gradient-brand: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg-primary);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      padding-bottom: 60px;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.08) 0px, transparent 50%);
+    }
+
+    .container { max-width: 1280px; margin: 0 auto; padding: 32px 24px; }
+    .hero {
+      background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.005) 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 36px 40px;
+      margin-bottom: 28px;
+      backdrop-filter: blur(20px);
+    }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #6ee7b7; font-size: 0.82rem; font-weight: 700;
+      padding: 5px 14px; border-radius: 9999px; margin-bottom: 14px;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    h1 {
+      font-size: 2.2rem; font-weight: 800; letter-spacing: -0.03em;
+      margin-bottom: 10px; background: linear-gradient(135deg, #ffffff 40%, #a7f3d0 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .subtitle { font-size: 1.05rem; color: var(--text-muted); max-width: 850px; line-height: 1.6; }
+
+    .tab-bar {
+      display: flex; gap: 10px; border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 28px; padding-bottom: 8px; overflow-x: auto;
+    }
+    .tab-btn {
+      background: transparent; border: none; color: var(--text-muted);
+      font-size: 0.95rem; font-weight: 600; padding: 10px 20px;
+      border-radius: var(--radius-sm); cursor: pointer; transition: all 0.2s;
+    }
+    .tab-btn.active {
+      background: rgba(255, 255, 255, 0.08); color: #fff;
+      border-bottom: 2px solid var(--accent-emerald);
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 20px; margin-bottom: 28px; }
+    .res-card {
+      background: var(--bg-card); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md); padding: 24px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      backdrop-filter: blur(16px);
+    }
+    .res-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 8px; color: #fff; }
+    .res-desc { font-size: 0.92rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
+    .btn-group { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; padding: 9px 18px;
+      border-radius: 10px; font-size: 0.88rem; font-weight: 600;
+      text-decoration: none; cursor: pointer; transition: all 0.2s;
+    }
+    .btn-primary { background: var(--accent-emerald); color: #000; font-weight: 700; }
+    .btn-secondary { background: rgba(255, 255, 255, 0.07); color: var(--text-main); border: 1px solid var(--border-subtle); }
+
+    /* Note Studio Layout */
+    .studio-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; height: 750px; }
+    .studio-panel {
+      background: var(--bg-card); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg); padding: 24px; display: flex; flex-direction: column;
+    }
+    .editor-textarea {
+      flex: 1; background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm); color: var(--text-main);
+      font-family: 'JetBrains Mono', monospace; font-size: 0.94rem; padding: 16px; line-height: 1.7; outline: none;
+    }
+    .preview-box {
+      flex: 1; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm); padding: 18px; overflow-y: auto; font-size: 0.94rem; line-height: 1.75; color: #d1d5db;
+    }
+
+    /* Tracker List */
+    .tracker-card {
+      background: var(--bg-card); border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg); padding: 28px; margin-bottom: 24px;
+    }
+    .tracker-item {
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      padding: 12px 16px; background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-subtle); border-radius: var(--radius-sm);
+      margin-bottom: 10px; transition: all 0.2s;
+    }
+    .tracker-left { display: flex; align-items: center; gap: 12px; flex: 1; cursor: pointer; }
+    .tracker-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--accent-emerald); cursor: pointer; flex-shrink: 0; }
+    .tracker-title { color: #fff; font-size: 0.93rem; font-weight: 500; }
+    .tracker-item.completed .tracker-title { opacity: 0.5; text-decoration: line-through; }
+    .tracker-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; flex-wrap: wrap; }
+    .tracker-btn {
+      display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px;
+      border-radius: 6px; font-size: 0.8rem; font-weight: 600; text-decoration: none;
+      border: 1px solid var(--border-subtle); background: rgba(255, 255, 255, 0.06);
+      color: var(--text-main); cursor: pointer; transition: all 0.15s ease;
+    }
+    .tracker-btn:hover { background: rgba(16, 185, 129, 0.18); border-color: var(--accent-emerald); color: #a7f3d0; }
+    .tracker-btn-pdf:hover { background: rgba(244, 63, 94, 0.18); border-color: #fb7185; color: #fecdd3; }
+    .tracker-btn-res:hover { background: rgba(59, 130, 246, 0.18); border-color: #60a5fa; color: #bfdbfe; }
+
+    .pdf-frame { width: 100%; height: 780px; border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); background: #1e293b; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <div class="badge">{{UNIT_CODE}} • UTN FRRe</div>
+      <h1>{{UNIT_TITLE}}</h1>
+      <p class="subtitle">{{UNIT_DESCRIPTION}}</p>
+    </header>
+
+    <nav class="tab-bar">
+      <button class="tab-btn active" onclick="switchTab('tab-hub')">📌 Panel de Recursos</button>
+      <button class="tab-btn" onclick="switchTab('tab-apunte')">📖 Lector de Apunte Maestro</button>
+      <button class="tab-btn" onclick="switchTab('tab-notes')">📝 Bloc de Apuntes en Vivo</button>
+      <button class="tab-btn" onclick="switchTab('tab-tracker')">✅ Tracker de Lectura</button>
+      <button class="tab-btn" onclick="switchTab('tab-pdf')">📑 Visor de PDFs</button>
+    </nav>
+
+    <!-- TAB 1: HUB -->
+    <div id="tab-hub" class="tab-content active">
+      <div class="grid-2">
+        <!-- Resource Cards injected here -->
+      </div>
+    </div>
+
+    <!-- TAB 2: APUNTE MAESTRO -->
+    <div id="tab-apunte" class="tab-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h2 style="margin: 0; font-size: 1.4rem;">📖 Libro de Estudio Maestro</h2>
+        <a href="APUNTE_MAESTRO_{{UNIT_ID}}.html" target="_blank" class="btn btn-primary">↗️ Abrir en Pestaña Completa</a>
+      </div>
+      <iframe id="apunte-frame" src="APUNTE_MAESTRO_{{UNIT_ID}}.html" class="pdf-frame" style="height: 800px; background: var(--bg-primary);"></iframe>
+    </div>
+
+    <!-- TAB 3: BLOC EN VIVO -->
+    <div id="tab-notes" class="tab-content">
+      <div class="studio-layout">
+        <div class="studio-panel">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 12px;">
+            <h3>📝 Editor de Notas (Markdown)</h3>
+            <div style="display: flex; gap: 8px;">
+              <button onclick="clearNotes()" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.8rem;">🧹 Limpiar</button>
+              <button onclick="downloadNotes()" class="btn btn-primary" style="padding: 6px 12px; font-size: 0.8rem;">💾 Descargar .md</button>
+            </div>
+          </div>
+          <textarea id="note-editor" class="editor-textarea" placeholder="Escribe tus notas de estudio aquí..."></textarea>
+          <div style="display: flex; justify-content: space-between; margin-top: 10px; font-size: 0.8rem; color: var(--text-dim);">
+            <span id="char-count">0 caracteres</span>
+            <span>💾 Auto-guardado activo</span>
+          </div>
+        </div>
+        <div class="studio-panel">
+          <h3 style="margin-bottom: 12px;">👁️ Vista Previa Formateada</h3>
+          <div id="note-preview" class="preview-box"><em>Tus notas aparecerán aquí formateadas automáticamente...</em></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: TRACKER -->
+    <div id="tab-tracker" class="tab-content">
+      <div class="tracker-card">
+        <h2>✅ Tracker de Lectura y Estudio</h2>
+        <div style="background: rgba(0,0,0,0.4); border-radius: 9999px; height: 12px; margin: 18px 0; overflow: hidden; border: 1px solid var(--border-subtle);">
+          <div id="progress-bar" style="background: var(--gradient-brand); width: 0%; height: 100%; transition: width 0.3s ease;"></div>
+        </div>
+        <div id="progress-text" style="font-size: 0.9rem; font-weight: 700; color: #a7f3d0; margin-bottom: 24px;">Progreso: 0% completado</div>
+        <div id="tracker-list"></div>
+      </div>
+    </div>
+
+    <!-- TAB 5: PDFS -->
+    <div id="tab-pdf" class="tab-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h2>📑 Visor de Documentos Oficiales</h2>
+        <select id="pdf-select" onchange="loadPDF(this.value)" style="background: var(--bg-surface); color: #fff; border: 1px solid var(--border-subtle); padding: 8px 14px; border-radius: 8px;">
+          <!-- Options injected here -->
+        </select>
+      </div>
+      <iframe id="pdf-viewer" src="" class="pdf-frame"></iframe>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      const target = document.getElementById(tabId);
+      if (target) target.classList.add('active');
+      const tabMap = { 'tab-hub': 0, 'tab-apunte': 1, 'tab-notes': 2, 'tab-tracker': 3, 'tab-pdf': 4 };
+      const idx = tabMap[tabId];
+      if (idx !== undefined && document.querySelectorAll('.tab-btn')[idx]) {
+        document.querySelectorAll('.tab-btn')[idx].classList.add('active');
+      }
+    }
+
+    // postMessage listener for diagram clicks
+    window.addEventListener('message', function(event) {
+      if (event.data && event.data.type === 'LOAD_PDF') {
+        loadPDF(event.data.url);
+      }
+    });
+
+    function openApunteAnchor(anchor) {
+      const iframe = document.getElementById('apunte-frame');
+      if (iframe) iframe.src = `APUNTE_MAESTRO_{{UNIT_ID}}.html#${anchor}`;
+      switchTab('tab-apunte');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function loadPDF(path) {
+      document.getElementById('pdf-viewer').src = path;
+      const basePath = path.split('#')[0];
+      const select = document.getElementById('pdf-select');
+      if (select) select.value = basePath;
+      switchTab('tab-pdf');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function handleTrackerAction(event, type, target) {
+      if (event) event.stopPropagation();
+      if (type === 'apunte') openApunteAnchor(target);
+      else if (type === 'pdf') loadPDF(target);
+      else if (type === 'link') window.open(target, '_blank');
+    }
+
+    // Notes Logic
+    const editor = document.getElementById('note-editor');
+    const preview = document.getElementById('note-preview');
+    const charCount = document.getElementById('char-count');
+    const STORAGE_KEY = 'admsi_{{UNIT_ID}}_notes';
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) { editor.value = saved; updateNotes(); }
+    editor.addEventListener('input', updateNotes);
+
+    function updateNotes() {
+      const text = editor.value;
+      localStorage.setItem(STORAGE_KEY, text);
+      charCount.innerText = `${text.length} caracteres | ${text.split(/\s+/).filter(Boolean).length} palabras`;
+      preview.innerHTML = text.replace(/\n/g, '<br>') || '<em>Tus notas aparecerán aquí...</em>';
+    }
+
+    function clearNotes() {
+      if (confirm('¿Borrar todas las notas de esta unidad?')) {
+        editor.value = ''; localStorage.removeItem(STORAGE_KEY); updateNotes();
+      }
+    }
+
+    function downloadNotes() {
+      const blob = new Blob([editor.value], { type: 'text/markdown;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'Mis_Apuntes_{{UNIT_ID}}.md';
+      a.click();
+    }
+
+    // Tracker System
+    const trackerItems = [
+      /* { id: 't1', title: '...', actions: [ { label: '📖 Leer', type: 'apunte', target: 'anchor', cls: 'tracker-btn' } ] } */
+    ];
+
+    function renderTracker() {
+      const list = document.getElementById('tracker-list');
+      const saved = JSON.parse(localStorage.getItem('admsi_{{UNIT_ID}}_tracker') || '{}');
+      let completedCount = 0;
+      list.innerHTML = trackerItems.map(item => {
+        const isChecked = saved[item.id] ? 'checked' : '';
+        if (saved[item.id]) completedCount++;
+        const actionsHtml = (item.actions || []).map(act => `
+          <button type="button" class="${act.cls || 'tracker-btn'}" onclick="handleTrackerAction(event, '${act.type}', '${act.target}')">${act.label}</button>
+        `).join('');
+        return `
+          <div class="tracker-item ${saved[item.id] ? 'completed' : ''}">
+            <label class="tracker-left" for="chk-${item.id}">
+              <input type="checkbox" id="chk-${item.id}" onchange="toggleTracker('${item.id}', this.checked)" ${isChecked}>
+              <span class="tracker-title">${item.title}</span>
+            </label>
+            <div class="tracker-actions">${actionsHtml}</div>
+          </div>
+        `;
+      }).join('');
+      const pct = trackerItems.length > 0 ? Math.round((completedCount / trackerItems.length) * 100) : 0;
+      document.getElementById('progress-bar').style.width = `${pct}%`;
+      document.getElementById('progress-text').innerText = `Progreso: ${pct}% completado (${completedCount} de ${trackerItems.length} temas)`;
+    }
+
+    function toggleTracker(id, checked) {
+      const saved = JSON.parse(localStorage.getItem('admsi_{{UNIT_ID}}_tracker') || '{}');
+      saved[id] = checked;
+      localStorage.setItem('admsi_{{UNIT_ID}}_tracker', JSON.stringify(saved));
+      renderTracker();
+    }
+    renderTracker();
+  </script>
+</body>
+</html>

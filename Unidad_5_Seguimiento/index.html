@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unidad 5: Seguimiento de SI/TI & RRHH | AdmSI Hub & Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX for Math Rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"
+    onload="renderMathInElement(document.body, {
+      delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}
+      ],
+      throwOnError : false
+    });"></script>
+  <style>
+    :root {
+      --bg-primary: #0a0e17;
+      --bg-surface: #111827;
+      --bg-card: rgba(17, 24, 39, 0.75);
+      --bg-card-hover: rgba(31, 41, 55, 0.9);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(99, 102, 241, 0.35);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --text-dim: #6b7280;
+      
+      --accent-indigo: #6366f1;
+      --accent-purple: #8b5cf6;
+      --accent-cyan: #06b6d4;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      
+      --gradient-brand: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --shadow-soft: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      padding-bottom: 60px;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.12) 0px, transparent 50%),
+        radial-gradient(at 50% 50%, rgba(6, 182, 212, 0.05) 0px, transparent 50%);
+    }
+
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+
+    /* Header */
+    header {
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .badge-unit {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: #a5b4fc;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      margin-bottom: 12px;
+      backdrop-filter: blur(8px);
+    }
+
+    .header-title {
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-subtitle {
+      font-size: 1.02rem;
+      color: var(--text-muted);
+      max-width: 780px;
+      line-height: 1.6;
+    }
+
+    /* Progress Widget */
+    .progress-widget {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 16px 20px;
+      border-radius: var(--radius-lg);
+      backdrop-filter: blur(16px);
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .progress-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .progress-label {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .progress-counter {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .progress-bar-container {
+      flex: 1;
+      min-width: 200px;
+      max-width: 500px;
+      height: 10px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 9999px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #10b981, #06b6d4, #6366f1);
+      border-radius: 9999px;
+      transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-notes-toggle {
+      background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+      color: #fff;
+      border: none;
+      padding: 9px 16px;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 0.88rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+      transition: all 0.2s;
+    }
+
+    .btn-notes-toggle:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+    }
+
+    /* Toolbar: Search & Categorías */
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 32px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 12px 18px;
+      border-radius: var(--radius-lg);
+      backdrop-filter: blur(16px);
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 8px 16px;
+      flex: 1;
+      min-width: 260px;
+      max-width: 420px;
+    }
+
+    .search-box input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      font-family: inherit;
+      width: 100%;
+    }
+
+    .search-box input::placeholder {
+      color: var(--text-dim);
+    }
+
+    .tabs-filter {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-muted);
+      padding: 8px 14px;
+      border-radius: var(--radius-md);
+      font-size: 0.86rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .tab-btn.active {
+      background: rgba(99, 102, 241, 0.2);
+      border-color: rgba(99, 102, 241, 0.4);
+      color: #c7d2fe;
+    }
+
+    /* Section Headings */
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin: 36px 0 18px 0;
+    }
+
+    .section-title span.icon-badge {
+      width: 36px;
+      height: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      font-size: 1.1rem;
+    }
+
+    .badge-blue { background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); color: #60a5fa; }
+    .badge-purple { background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.3); color: #c084fc; }
+    .badge-cyan { background: rgba(6, 182, 212, 0.15); border: 1px solid rgba(6, 182, 212, 0.3); color: #22d3ee; }
+    .badge-emerald { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); color: #34d399; }
+    .badge-red { background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); color: #f87171; }
+
+    /* Cards Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backdrop-filter: blur(12px);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: transparent;
+      transition: background 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-accent);
+      background: var(--bg-card-hover);
+      box-shadow: var(--shadow-soft), 0 0 20px rgba(99, 102, 241, 0.15);
+    }
+
+    .card.is-read {
+      border-color: rgba(16, 185, 129, 0.4);
+      background: rgba(16, 185, 129, 0.05);
+    }
+
+    .card.is-read::before {
+      background: #10b981 !important;
+    }
+
+    .card.primary-book::before { background: var(--gradient-brand); }
+    .card.rh-tp::before { background: linear-gradient(90deg, #a855f7, #6366f1); }
+    .card.sw-hw::before { background: linear-gradient(90deg, #06b6d4, #3b82f6); }
+    .card.resueltos::before { background: linear-gradient(90deg, #10b981, #06b6d4); }
+    .card.video-card::before { background: linear-gradient(90deg, #ef4444, #f59e0b); }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .card-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex: 1;
+    }
+
+    .card-tag-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .card-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
+    }
+
+    /* Checkbox de leído */
+    .read-toggle-badge {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-dim);
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 9999px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .read-toggle-badge:hover {
+      background: rgba(255, 255, 255, 0.12);
+      color: var(--text-main);
+    }
+
+    .card.is-read .read-toggle-badge {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: rgba(16, 185, 129, 0.5);
+      color: #34d399;
+    }
+
+    .card-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.35;
+    }
+
+    .card-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
+    .card-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: auto;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.86rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary { background: #4f46e5; color: #ffffff; flex: 1; min-width: 130px; }
+    .btn-primary:hover { background: #4338ca; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35); }
+
+    .btn-emerald { background: #059669; color: #ffffff; flex: 1; min-width: 130px; }
+    .btn-emerald:hover { background: #047857; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.35); }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: var(--border-subtle);
+      color: var(--text-main);
+    }
+    .btn-secondary:hover { background: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.2); }
+
+    .btn-youtube {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.3);
+      color: #fca5a5;
+      flex: 1;
+    }
+    .btn-youtube:hover { background: #dc2626; color: #fff; }
+
+    .video-preview {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin-bottom: 14px;
+      background: #000;
+    }
+
+    .video-preview iframe {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%; border: 0;
+    }
+
+    /* MODAL DE LECTURA Y ESTUDIO CON SPLIT NOTES */
+    .modal-backdrop {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.88);
+      backdrop-filter: blur(12px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 16px;
+    }
+
+    .modal-backdrop.active { display: flex; }
+
+    .modal-window {
+      background: #111827;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      width: 98vw;
+      max-width: 1560px;
+      height: 94vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      background: #1e293b;
+      border-bottom: 1px solid var(--border-subtle);
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .modal-title-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .modal-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .modal-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tool-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .tool-btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .tool-btn.active {
+      background: #4f46e5;
+      border-color: #6366f1;
+      color: #fff;
+    }
+
+    .modal-close {
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: #fff;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .modal-close:hover { background: rgba(239, 68, 68, 0.8); }
+
+    /* Modal Main Layout (Split View) */
+    .modal-main-container {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .reader-pane {
+      flex: 1;
+      height: 100%;
+      background: #0b0f19;
+      position: relative;
+      transition: filter 0.25s ease;
+      overflow: hidden;
+    }
+
+    .reader-pane iframe, .reader-pane img {
+      width: 100%;
+      height: 100%;
+      border: none;
+      object-fit: contain;
+    }
+
+    .reader-pane.filter-dark iframe, .reader-pane.filter-dark img {
+      filter: invert(0.92) hue-rotate(180deg) brightness(0.95) contrast(1.1);
+    }
+
+    .reader-pane.filter-sepia iframe, .reader-pane.filter-sepia img {
+      filter: sepia(0.35) brightness(0.95) contrast(1.05);
+    }
+
+    .notes-pane {
+      width: 420px;
+      background: #0f172a;
+      border-left: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s ease;
+    }
+
+    .notes-pane.collapsed {
+      width: 0;
+      transform: translateX(100%);
+      border-left: none;
+      overflow: hidden;
+    }
+
+    .notes-header {
+      padding: 12px 16px;
+      background: #1e293b;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .notes-header h4 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #93c5fd;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .notes-body {
+      flex: 1;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .notes-textarea {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      color: #e2e8f0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.88rem;
+      padding: 12px;
+      resize: none;
+      outline: none;
+      line-height: 1.6;
+    }
+
+    .notes-textarea:focus {
+      border-color: var(--accent-indigo);
+      box-shadow: 0 0 12px rgba(99, 102, 241, 0.25);
+    }
+
+    .notes-footer {
+      padding: 10px 14px;
+      background: #1e293b;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--text-dim);
+    }
+
+    .notes-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .notes-pane { width: 100%; position: absolute; top: 0; bottom: 0; right: 0; z-index: 10; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div>
+        <div class="badge-unit">
+          <span>⚡</span> UTN FRRe • AdmSI 2026
+        </div>
+        <h1 class="header-title">Unidad 5: Subsistema de Seguimiento</h1>
+        <p class="header-subtitle">
+          Hub integral de estudio: Libros, TPs resueltos, Cuestionario oficial desarrollado, videos explicativos y Lector con Modo Oscuro + Seguimiento de lectura y Bloc de Apuntes.
+        </p>
+      </div>
+
+      <div class="top-action-bar">
+        <button class="btn-notes-toggle" onclick="openStandaloneNotes()">
+          ✏️ Abrir Bloc de Apuntes
+        </button>
+      </div>
+    </header>
+
+    <!-- Barra de Progreso de Lectura -->
+    <div class="progress-widget">
+      <div class="progress-info">
+        <div class="progress-label">
+          <span>📊 Progreso de Estudio:</span>
+          <span id="progressPercent" style="color:#10b981; font-weight:800;">0%</span>
+        </div>
+        <div class="progress-counter" id="progressCounter">0 de 12 materiales leídos / completados</div>
+      </div>
+
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="progressBarFill"></div>
+      </div>
+
+      <div>
+        <button class="tool-btn" onclick="toggleFilterRead()" id="btnFilterReadStatus">
+          👁️ Ver solo Pendientes
+        </button>
+      </div>
+    </div>
+
+    <!-- Toolbar: Search & Categorías -->
+    <div class="toolbar">
+      <div class="search-box">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--text-dim)">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Buscar TP, libro, tema (ej: Chiavenato, SysBench, Rendimiento)..." />
+      </div>
+
+      <div class="tabs-filter">
+        <button class="tab-btn active" data-filter="all">Todos los recursos</button>
+        <button class="tab-btn" data-filter="resueltos">🌟 TPs & Cuestionario Resueltos</button>
+        <button class="tab-btn" data-filter="capitulos">⚡ Capítulos Específicos</button>
+        <button class="tab-btn" data-filter="libros">📚 Libros</button>
+        <button class="tab-btn" data-filter="rrhh">👥 Seguimiento RRHH</button>
+        <button class="tab-btn" data-filter="sw-hw">💻 Seguimiento SW/HW</button>
+        <button class="tab-btn" data-filter="videos">🎥 Videos</button>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 0: MATERIALES RESUELTOS & APUNTE MAESTRO -->
+    <div class="category-block" data-category="resueltos">
+      <h2 class="section-title">
+        <span class="icon-badge badge-emerald">🌟</span> Apunte Maestro & Resoluciones Oficiales (Para Estudiar y Entregar)
+      </h2>
+      <div class="grid">
+        
+        <!-- Apunte Maestro -->
+        <div class="card resueltos primary-book" data-item-id="apunte_maestro" data-title="apunte maestro resumen unidad 5 teoria rrhh siti chiavenato molero leyes operacionales amdahl graficos">
+          <div class="card-header">
+            <div class="card-icon badge-purple">📖</div>
+            <div class="card-meta">
+              <div class="card-tag-row">
+                <span class="card-tag">Apunte Maestro • Lectura Rápida (30 min)</span>
+                <span class="read-toggle-badge" onclick="toggleItemRead('apunte_maestro', event)">⏳ Marcar Leído</span>
+              </div>
+              <h3 class="card-title">Apunte Maestro: Unidad 5 Completa</h3>
+            </div>
+          </div>
+          <p class="card-desc">
+            <strong>Resumen visual e integral con imágenes extraídas de los libros:</strong> Las 4 etapas de control de RRHH, dimensiones de estándares, métodos de evaluación (escalas gráficas, 360°), variables operacionales, leyes de Little/Utilización/Bruni, Ley de Amdahl y Monitores/Benchmarking.
+          </p>
+          <div class="card-actions">
+            <button class="btn btn-primary" onclick="openViewer('APUNTE_MAESTRO_UNIDAD_5.html', 'Apunte Maestro - Unidad 5', false, 'apunte_maestro')">
+              👁️ Leer Apunte Maestro
+            </button>
+            <a class="btn btn-secondary" href="APUNTE_MAESTRO_UNIDAD_5.md" target="_blank" title="Ver Markdown">
+              📄 Markdown
+            </a>
+            <a class="btn btn-secondary" href="APUNTE_MAESTRO_UNIDAD_5.html" target="_blank">
+              ↗ Pestaña
+            </a>
+          </div>
+        </div>
+
+        <!-- TP 5.2 Resuelto -->
+        <div class="card resueltos" data-item-id="tp52_resuelto" data-title="tp 5.2 resuelto resolucion tecnicas analiticas leyes operacionales bruni correo argentino amdahl">
+          <div class="card-header">
+            <div class="card-icon badge-emerald">🚀</div>
+            <div class="card-meta">
+              <div class="card-tag-row">
+                <span class="card-tag">Entrega Miércoles 30/09 • Resuelto</span>
+                <span class="read-toggle-badge" onclick="toggleItemRead('tp52_resuelto', event)">⏳ Marcar Leído</span>
+              </div>
+              <h3 class="card-title">TP 5.2: Técnicas Analíticas (Completo)</h3>
+            </div>
+          </div>
+          <p class="card-desc">
+            <strong>Consignas 1, 2 y 3 resueltas paso a paso:</strong> Tablas comparativas de variables/leyes (Puigjaner vs. Molero), cálculo de Plataforma Mi Correo, CyberMonday Bruni, Red 10GbE y Caso de Monitorización/Benchmarking profesional.
+          </p>
+          <div class="card-actions">
+            <button class="btn btn-emerald" onclick="openViewer('2_Seguimiento_SW_HW/RESOLUCION_TP5_2_Tecnicas_Analiticas.html', 'Resolución Completa - TP 5.2', false, 'tp52_resuelto')">
+              👁️ Abrir Resolución
+            </button>
+            <a class="btn btn-secondary" href="2_Seguimiento_SW_HW/RESOLUCION_TP5_2_Tecnicas_Analiticas.md" target="_blank" title="Ver Markdown">
+              📄 Markdown
+            </a>
+            <a class="btn btn-secondary" href="2_Seguimiento_SW_HW/RESOLUCION_TP5_2_Tecnicas_Analiticas.html" target="_blank">
+              ↗ Pestaña
+            </a>
+          </div>
+        </div>
+
+        <!-- Cuestionario Resuelto -->
+        <div class="card resueltos" data-item-id="cuestionario_resuelto" data-title="cuestionario de estudio resuelto preguntas respuestas seguimiento de recursos rrhh chiavenato robbins auditoria">
+          <div class="card-header">
+            <div class="card-icon badge-emerald">📝</div>
+            <div class="card-meta">
+              <div class="card-tag-row">
+                <span class="card-tag">Cuestionario Cátedra • Resuelto</span>
+                <span class="read-toggle-badge" onclick="toggleItemRead('cuestionario_resuelto', event)">⏳ Marcar Leído</span>
+              </div>
+              <h3 class="card-title">Cuestionario: Subsistema de Seguimiento</h3>
+            </div>
+          </div>
+          <p class="card-desc">
+            <strong>Todas las preguntas teóricas respondidas:</strong> Ciclo de control, las 4 dimensiones de estándares, métodos de evaluación de desempeño, sistemas de información (SIG) y auditoría de recursos humanos.
+          </p>
+          <div class="card-actions">
+            <button class="btn btn-emerald" onclick="openViewer('0_General_y_Libros/RESOLUCION_Cuestionario_Seguimiento_de_Recursos.html', 'Resolución - Cuestionario de Seguimiento', false, 'cuestionario_resuelto')">
+              👁️ Abrir Respuestas
+            </button>
+            <a class="btn btn-secondary" href="0_General_y_Libros/RESOLUCION_Cuestionario_Seguimiento_de_Recursos.md" target="_blank">
+              📄 Markdown
+            </a>
+            <a class="btn btn-secondary" href="0_General_y_Libros/RESOLUCION_Cuestionario_Seguimiento_de_Recursos.html" target="_blank">
+              ↗ Pestaña
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SECCIÓN 1: CAPÍTULOS EXACTOS A LEER -->
+    <div class="category-block" data-category="capitulos">
+      <h2 class="section-title">
+        <span class="icon-badge badge-purple">⚡</span> Guía de Capítulos Exactos a Leer (Unidad 5)
+      </h2>
+      <div class="grid">
+        
+        <!-- Chiavenato Cap 9 -->
+        <div class="card rh-tp" data-item-id="cap_chiav_9" data-title="chiavenato capitulo 9 evaluacion desempeño humano metodos escalas graficas incidentes criticos eleccion forzada">
+          <div class="card-header">
+            <div class="card-icon badge-purple">👤</div>
+            <div class="card-meta">
+              <div class="card-tag-row">
+                <span class="card-tag">Chiavenato • Cap. 9 (Pág. 354)</span>
+                <span class="read-toggle-badge" onclick="toggleItemRead('cap_chiav_9', event)">⏳ Marcar Leído</span>
+              </div>
+              <h3 class="card-title">Evaluación del Desempeño Humano</h3>
+            </div>
+          </div>
+          <p class="card-desc">
+            <strong>Base de TP 5.1.A y 5.1.B:</strong> Métodos tradicionales (escalas gráficas, incidentes críticos, elección forzada, investigación de campo), evaluación 360° y la entrevista de feedback.
+          </p>
+          <div class="card-actions">
+            <button class="btn btn-primary" onclick="openViewer('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=368', 'Chiavenato - Cap 9: Evaluación de Desempeño', false, 'cap_chiav_9')">
+              📖 Ir al Cap. 9 (Pág. 368)
+            </button>
+            <a class="btn btn-secondary" href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=368" target="_blank">
+              ↗ Abrir
+            </a>
+          </div>
+        </div>
+
+        <!-- Chiavenato Parte VII / Proceso de Control -->
+        <div class="card rh-tp" data-item-id="cap_chiav_parte7" data-title="chiavenato parte 7 subsistema control recursos humanos etapas proceso control estandares seguimiento auditoria">
+          <div class="card-header">
+            <div class="card-icon badge-purple">🎯</div>
+            <div class="card-meta">
+              <div class="card-tag-row">
+                <span class="card-tag">Chiavenato • Parte VII (Pág. 617)</span>
+                <span class="read-toggle-badge" onclick="toggleItemRead('cap_chiav_parte7', event)">⏳ Marcar Leído</span>
+              </div>
+              <h3 class="card-title">Subsistema de Control de RRHH</h3>
+            </div>
+          </div>
+          <p class="card-desc">
+            <strong>Las 4 etapas del Ciclo de Control:</strong> 1) Establecer estándares (calidad, cantidad, tiempo, costo), 2) Seguimiento/Monitoreo, 3) Comparación, 4) Acción correctiva. Cap. 16 (Sistemas de Info) y Cap. 17 (Auditoría).
+          </p>
+          <div class="card-actions">
+            <button class="btn btn-primary" onclick="openViewer('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=631', 'Chiavenato - Parte VII: Proceso de Control', false, 'cap_chiav_parte7')">
+              📖 Ir a Parte VII (Pág. 631)
+            </button>
+            <a class="btn btn-secondary" href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf#page=631" target="_blank">
+              ↗ Abrir
+            </a>
+          </div>
+        </div>
+
+        <!-- Molero Cap 4 -->
+        <div class="card sw-hw" data-item-id="cap_molero_4" data-title="molero capitulo 4 analisis operacional variables operacionales basicas deducidas leyes operacionales little utilizacion">
+          <div class="card-header">
+            <div class="card-icon badge-cyan">📐</div>
+            <div class="card-meta">
+              <div class="card-tag-row">
+                <span class="card-tag">Molero • Cap. 4 (Pág. 103)</span>
+                <span class="read-toggle-badge" onclick="toggleItemRead('cap_molero_4', event)">⏳ Marcar Leído</span>
+              </div>
+              <h3 class="card-title">Variables & Leyes Operacionales</h3>
+            </div>
+          </div>
+          <p class="card-desc">
+            <strong>Imprescindible para TP 5.2 (Consignas 1 y 2):</strong> Variables básicas (T, A, C, B) y deducidas (λ, X, U, S). Leyes de Utilización (U=X·S), Ley de Little (N=X·R) y Ley del Tiempo de Respuesta Interactivo.
+          </p>
+          <div class="card-actions">
+            <button class="btn btn-primary" onclick="openViewer('0_General_y_Libros/MOLERO_et_al_Evaluacion_y_Modelado_del_Rendimiento_de_SI.pdf#page=117', 'Molero - Cap 4: Análisis Operacional', false, 'cap_molero_4')">
+              📖 Ir al Cap. 4 (Pág. 117)
+            </button>
+            <a class="btn btn-secondary" href="0_General_y_Libros/MOLERO_et_al_Evaluacion_y_Modelado_del_Rendimiento_de_SI.pdf#page=117" target="_blank">
+              ↗ Abrir
+            </a>
+          </div>
+        </div>
+
+        <!-- Molero Cap 1 / Ley de Amdahl -->
+        <div class="card sw-hw" data-item-id="cap_molero_1" data-title="molero capitulo 1 ley de amdahl evaluacion rendimiento">
+          <div class="card-header">
+            <div class="card-icon badge-cyan">⚡</div>
+            <div class="card-meta">
+              <div class="card-tag-row">
+                <span class="card-tag">Molero • Cap. 1 (Pág. 1)</span>
+                <span class="read-toggle-badge" onclick="toggleItemRead('cap_molero_1', event)">⏳ Marcar Leído</span>
+              </div>
+              <h3 class="card-title">Ley de Amdahl & Rendimiento</h3>
+            </div>
+          </div>
+          <p class="card-desc">
+            <strong>Consigna 1.d del TP 5.2:</strong> Formulación y aplicación de la Ley de Amdahl para aceleración y mejora del rendimiento tras optimizar partes de un sistema.
+          </p>
+          <div class="card-actions">
+            <button class="btn btn-primary" onclick="openViewer('0_General_y_Libros/MOLERO_et_al_Evaluacion_y_Modelado_del_Rendimiento_de_SI.pdf#page=20', 'Molero - Cap 1.4: Ley de Amdahl', false, 'cap_molero_1')">
+              📖 Ir a Ley de Amdahl (Pág. 20)
+            </button>
+            <a class="btn btn-secondary" href="0_General_y_Libros/MOLERO_et_al_Evaluacion_y_Modelado_del_Rendimiento_de_SI.pdf#page=20" target="_blank">
+              ↗ Abrir
+            </a>
+          </div>
+        </div>
+
+        <!-- Molero Cap 2 y 3 / Monitorización y Benchmarking -->
+        <div class="card sw-hw" data-item-id="cap_molero_2_3" data-title="molero capitulo 2 3 monitorizacion benchmarking herramientas metricas sysbench">
+          <div class="card-header">
+            <div class="card-icon badge-cyan">🔍</div>
+            <div class="card-meta">
+              <div class="card-tag-row">
+                <span class="card-tag">Molero • Caps. 2 y 3 (Pág. 27 y 67)</span>
+                <span class="read-toggle-badge" onclick="toggleItemRead('cap_molero_2_3', event)">⏳ Marcar Leído</span>
+              </div>
+              <h3 class="card-title">Monitorización & Benchmarking</h3>
+            </div>
+          </div>
+          <p class="card-desc">
+            <strong>Consigna 3 del TP 5.2 y Caso SysBench:</strong> Monitores de HW/SW, métricas de sistema operativo y pruebas de rendimiento comparativo.
+          </p>
+          <div class="card-actions">
+            <button class="btn btn-primary" onclick="openViewer('0_General_y_Libros/MOLERO_et_al_Evaluacion_y_Modelado_del_Rendimiento_de_SI.pdf#page=41', 'Molero - Cap 2: Monitorización', false, 'cap_molero_2_3')">
+              📖 Cap. 2 (Pág. 41)
+            </button>
+            <button class="btn btn-secondary" onclick="openViewer('0_General_y_Libros/MOLERO_et_al_Evaluacion_y_Modelado_del_Rendimiento_de_SI.pdf#page=81', 'Molero - Cap 3: Benchmarking', false, 'cap_molero_2_3')">
+              📖 Cap. 3 (Pág. 81)
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SECCIÓN 2: BIBLIOGRAFÍA Y LIBROS -->
+    <div class="category-block" data-category="libros">
+      <h2 class="section-title">
+        <span class="icon-badge badge-blue">📚</span> Bibliografía Básica Completa
+      </h2>
+      <div class="grid">
+        
+        <!-- Libro Chiavenato -->
+        <div class="card primary-book" data-item-id="libro_chiav_full" data-title="chiavenato administracion recursos humanos libro 5ta edicion">
+          <div class="card-header">
+            <div class="card-icon badge-blue">📖</div>
+            <div class="card-meta">
+              <div class="card-tag-row">
+                <span class="card-tag">Libro Completo (PDF 26.5 MB)</span>
+                <span class="read-toggle-badge" onclick="toggleItemRead('libro_chiav_full', event)">⏳ Marcar Leído</span>
+              </div>
+              <h3 class="card-title">Chiavenato: Administración de Recursos Humanos</h3>
+            </div>
+          </div>
+          <p class="card-desc">
+            5ta Edición de Idalberto Chiavenato. Capítulos fundamentales sobre control, subsistema de seguimiento, evaluación del desempeño y auditoría de RH.
+          </p>
+          <div class="card-actions">
+            <button class="btn btn-primary" onclick="openViewer('0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf', 'Chiavenato - Administración de Recursos Humanos', false, 'libro_chiav_full')">
+              👁️ Abrir en Panel
+            </button>
+            <a class="btn btn-secondary" href="0_General_y_Libros/CHIAVENATO_Idalberto_Administracion_de_Recursos_Humanos_5ta_Ed.pdf" target="_blank">
+              ↗ Pestaña
+            </a>
+            <a class="btn btn-secondary" href="https://drive.google.com/file/d/1IU8IcCtw2B2s1q_36ohGd-IACP0uOHo8/view?usp=sharing" target="_blank">
+              ☁️ Drive
+            </a>
+          </div>
+        </div>
+
+        <!-- Libro Molero -->
+        <div class="card primary-book" data-item-id="libro_molero_full" data-title="molero evaluacion modelado rendimiento sistemas informaticos libro">
+          <div class="card-header">
+            <div class="card-icon badge-purple">📘</div>
+            <div class="card-meta">
+              <div class="card-tag-row">
+                <span class="card-tag">Libro Completo (PDF 2.6 MB)</span>
+                <span class="read-toggle-badge" onclick="toggleItemRead('libro_molero_full', event)">⏳ Marcar Leído</span>
+              </div>
+              <h3 class="card-title">Molero et al.: Evaluación y Modelado del Rendimiento</h3>
+            </div>
+          </div>
+          <p class="card-desc">
+            Evaluación y Modelado del Rendimiento de los Sistemas Informáticos (2004). Referencia teórica de técnicas analíticas y benchmarking de hardware/software.
+          </p>
+          <div class="card-actions">
+            <button class="btn btn-primary" onclick="openViewer('0_General_y_Libros/MOLERO_et_al_Evaluacion_y_Modelado_del_Rendimiento_de_SI.pdf', 'Molero - Evaluación y Modelado del Rendimiento', false, 'libro_molero_full')">
+              👁️ Abrir en Panel
+            </button>
+            <a class="btn btn-secondary" href="0_General_y_Libros/MOLERO_et_al_Evaluacion_y_Modelado_del_Rendimiento_de_SI.pdf" target="_blank">
+              ↗ Pestaña
+            </a>
+            <a class="btn btn-secondary" href="https://drive.google.com/file/d/1Zh3mtELi87fAELuSKBIm8W8Vk5tKfPj0/view?usp=sharing" target="_blank">
+              ☁️ Drive
+            </a>
+          </div>
+        </div>
+
+        <!-- Cuestionario Original -->
+        <div class="card" data-item-id="cuestionario_orig" data-title="cuestionario de estudio preguntas seguimiento de recursos adm si">
+          <div class="card-header">
+            <div class="card-icon badge-cyan">📝</div>
+            <div class="card-meta">
+              <div class="card-tag-row">
+                <span class="card-tag">Consigna Oficial (PDF)</span>
+                <span class="read-toggle-badge" onclick="toggleItemRead('cuestionario_orig', event)">⏳ Marcar Leído</span>
+              </div>
+              <h3 class="card-title">Cuestionario: Subsistema de Seguimiento</h3>
+            </div>
+          </div>
+          <p class="card-desc">
+            Guía de preguntas oficial de la cátedra para la Unidad 5 (Parte I: RRHH y Parte II: SW/HW).
+          </p>
+          <div class="card-actions">
+            <button class="btn btn-primary" onclick="openViewer('0_General_y_Libros/AdmSI_Cuestionarios_Seguimiento_de_Recursos.pdf', 'Cuestionario Oficial (PDF)', false, 'cuestionario_orig')">
+              👁️ Abrir PDF
+            </button>
+            <a class="btn btn-secondary" href="0_General_y_Libros/AdmSI_Cuestionarios_Seguimiento_de_Recursos.pdf" target="_blank">
+              ↗ Pestaña
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SECCIÓN 3: SEGUIMIENTO DE RECURSOS HUMANOS -->
+    <div class="category-block" data-category="rrhh">
+      <h2 class="section-title">
+        <span class="icon-badge badge-purple">👥</span> Unidad V.1: Seguimiento de Recursos Humanos
+      </h2>
+      <div class="grid">
+        
+        <!-- TP 5.1.A -->
+        <div class="card rh-tp" data-item-id="tp51a_consigna" data-title="tp 5.1.a seguimiento de rrhh trabajo practico consigna">
+          <div class="card-header">
+            <div class="card-icon badge-purple">📋</div>
+            <div class="card-meta">
+              <div class="card-tag-row">
+                <span class="card-tag">Trabajo Práctico • Guía</span>
+                <span class="read-toggle-badge" onclick="toggleItemRead('tp51a_consigna', event)">⏳ Marcar Leído</span>
+              </div>
+              <h3 class="card-title">TP 5.1.A: Seguimiento de RRHH</h3>
+            </div>
+          </div>
+          <p class="card-desc">
+            Consigna para la evaluación del desempeño de personal, estándares de control e indicadores de rendimiento humano.
+          </p>
+          <div class="card-actions">
+            <button class="btn btn-primary" onclick="openViewer('1_Seguimiento_RRHH/AdmSI2026_TP5_1_A_Seguimiento_RRHH.pdf', 'TP 5.1.A - Seguimiento RRHH', false, 'tp51a_consigna')">
+              👁️ Ver Consigna
+            </button>
+            <a class="btn btn-secondary" href="1_Seguimiento_RRHH/AdmSI2026_TP5_1_A_Seguimiento_RRHH.pdf" target="_blank">
+              ↗ Pestaña
+            </a>
+          </div>
+        </div>
+
+        <!-- TP 5.1.B -->
+        <div class="card rh-tp" data-item-id="tp51b_consigna" data-title="tp 5.1.b taller simulacion evaluacion desempeño rrhh">
+          <div class="card-header">
+            <div class="card-icon badge-purple">🎯</div>
+            <div class="card-meta">
+              <div class="card-tag-row">
+                <span class="card-tag">Taller & Simulación</span>
+                <span class="read-toggle-badge" onclick="toggleItemRead('tp51b_consigna', event)">⏳ Marcar Leído</span>
+              </div>
+              <h3 class="card-title">TP 5.1.B: Evaluación de Desempeño</h3>
+            </div>
+          </div>
+          <p class="card-desc">
+            Actividad práctica de simulación de entrevista y confección del informe de evaluación de desempeño de recursos humanos.
+          </p>
+          <div class="card-actions">
+            <button class="btn btn-primary" onclick="openViewer('1_Seguimiento_RRHH/AdmSI2026_TP5_1_B_SeguimRRHH_EvDesemp_Taller_Simulacion.pdf', 'TP 5.1.B - Taller de Simulación', false, 'tp51b_consigna')">
+              👁️ Ver Consigna
+            </button>
+            <a class="btn btn-secondary" href="https://docs.google.com/document/d/1nvAVVTiIsKC6ZHeg7mP2DZ2P18hFhuicrdS9nPKl3Dc/edit?usp=sharing" target="_blank">
+              📝 Docs
+            </a>
+          </div>
+        </div>
+
+        <!-- Entrega Grupo Formal -->
+        <div class="card rh-tp" data-item-id="entregas_grupo" data-title="resolucion entrega grupo formal informe evaluacion tp 5.1.a 5.1.b">
+          <div class="card-header">
+            <div class="card-icon badge-purple">📁</div>
+            <div class="card-meta">
+              <div class="card-tag-row">
+                <span class="card-tag">Entregas del Grupo</span>
+                <span class="read-toggle-badge" onclick="toggleItemRead('entregas_grupo', event)">⏳ Marcar Leído</span>
+              </div>
+              <h3 class="card-title">Resoluciones & Informes de Grupo</h3>
+            </div>
+          </div>
+          <p class="card-desc">
+            Archivos presentados en el campus virtual: Informe de evaluación de desempeño y resolución del TP 5.1.A por el Grupo Formal G.
+          </p>
+          <div class="card-actions">
+            <button class="btn btn-primary" onclick="openViewer('1_Seguimiento_RRHH/Entregas_Grupo/TP5_1_A_Seguimiento_de_RRHH_Grupo_Formal_G.pdf', 'TP 5.1.A - Entrega Grupo', false, 'entregas_grupo')">
+              📄 TP 5.1.A
+            </button>
+            <button class="btn btn-secondary" onclick="openViewer('1_Seguimiento_RRHH/Entregas_Grupo/TP5_1_B_Informe_de_Evaluacion_de_Desempeno_Grupo.pdf', 'TP 5.1.B - Informe Grupo', false, 'entregas_grupo')">
+              📄 TP 5.1.B
+            </button>
+          </div>
+        </div>
+
+        <!-- Artículo Estándares -->
+        <div class="card" data-item-id="art_estandares" data-title="requisitos estandares desempeño lectura articulo briones castillo linkedin">
+          <div class="card-header">
+            <div class="card-icon badge-cyan">🌐</div>
+            <div class="card-meta">
+              <div class="card-tag-row">
+                <span class="card-tag">Lectura Complementaria</span>
+                <span class="read-toggle-badge" onclick="toggleItemRead('art_estandares', event)">⏳ Marcar Leído</span>
+              </div>
+              <h3 class="card-title">Requisitos para Definir Estándares</h3>
+            </div>
+          </div>
+          <p class="card-desc">
+            Artículo sobre cómo establecer estándares de desempeño medibles, realistas y alineados a los objetivos de la organización.
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://www.linkedin.com/pulse/lo-requisitos-para-definir-buenos-est%C3%A1ndares-de-briones-castillo/?originalSubdomain=es" target="_blank">
+              🔗 Abrir Artículo
+            </a>
+          </div>
+        </div>
+
+        <!-- Artículo Bizneo -->
+        <div class="card" data-item-id="art_bizneo" data-title="seguimiento personal empresa guia completa bizneo hr articulo">
+          <div class="card-header">
+            <div class="card-icon badge-cyan">🌐</div>
+            <div class="card-meta">
+              <div class="card-tag-row">
+                <span class="card-tag">Guía Práctica</span>
+                <span class="read-toggle-badge" onclick="toggleItemRead('art_bizneo', event)">⏳ Marcar Leído</span>
+              </div>
+              <h3 class="card-title">Seguimiento de Personal en la Empresa</h3>
+            </div>
+          </div>
+          <p class="card-desc">
+            Guía completa de Bizneo HR sobre herramientas modernas, metodologías y control de recursos humanos.
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://www.bizneo.com/blog/seguimiento-de-personal-en-una-empresa/" target="_blank">
+              🔗 Abrir Guía
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SECCIÓN 4: SEGUIMIENTO DE SOFTWARE Y HARDWARE -->
+    <div class="category-block" data-category="sw-hw">
+      <h2 class="section-title">
+        <span class="icon-badge badge-cyan">💻</span> Unidad V.2: Seguimiento de Software y Hardware
+      </h2>
+      <div class="grid">
+        
+        <!-- TP 5.2 Consigna -->
+        <div class="card sw-hw" data-item-id="tp52_consigna" data-title="tp 5.2 seguimiento si ti evaluacion rendimiento metricas tecnicas analiticas hardware software consigna">
+          <div class="card-header">
+            <div class="card-icon badge-cyan">⚙️</div>
+            <div class="card-meta">
+              <div class="card-tag-row">
+                <span class="card-tag">Consigna Oficial (PDF)</span>
+                <span class="read-toggle-badge" onclick="toggleItemRead('tp52_consigna', event)">⏳ Marcar Leído</span>
+              </div>
+              <h3 class="card-title">TP 5.2: Consigna Técnicas Analíticas</h3>
+            </div>
+          </div>
+          <p class="card-desc">
+            Documento original del TP 5.2 con los enunciados de Plataforma Mi Correo, chatbot Bruni, Red 10GbE y consignas de monitorización.
+          </p>
+          <div class="card-actions">
+            <button class="btn btn-primary" onclick="openViewer('2_Seguimiento_SW_HW/AdmSI2026_TP5_2_SeguimSITI_TecnicasAnaliticas.pdf', 'TP 5.2 - Consigna Oficial', false, 'tp52_consigna')">
+              👁️ Abrir Consigna
+            </button>
+            <a class="btn btn-secondary" href="2_Seguimiento_SW_HW/AdmSI2026_TP5_2_SeguimSITI_TecnicasAnaliticas.pdf" target="_blank">
+              ↗ Pestaña
+            </a>
+          </div>
+        </div>
+
+        <!-- Gráfico SysBench -->
+        <div class="card sw-hw" data-item-id="sysbench_img" data-title="sysbench memoria bloque limite grafico esquema rendimiento">
+          <div class="card-header">
+            <div class="card-icon badge-cyan">📊</div>
+            <div class="card-meta">
+              <div class="card-tag-row">
+                <span class="card-tag">Esquema & Gráfico</span>
+                <span class="read-toggle-badge" onclick="toggleItemRead('sysbench_img', event)">⏳ Marcar Leído</span>
+              </div>
+              <h3 class="card-title">SysBench: Memoria Bloque-Límite</h3>
+            </div>
+          </div>
+          <p class="card-desc">
+            Gráfico de benchmark que ilustra el comportamiento de velocidad de transferencia de memoria y límites de rendimiento.
+          </p>
+          <div class="card-actions">
+            <button class="btn btn-primary" onclick="openViewer('2_Seguimiento_SW_HW/SysBench_Memoria_Bloque_limite.jpeg', 'SysBench Memoria', true, 'sysbench_img')">
+              👁️ Ver Gráfico
+            </button>
+            <a class="btn btn-secondary" href="2_Seguimiento_SW_HW/SysBench_Memoria_Bloque_limite.jpeg" target="_blank">
+              ↗ Pestaña
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SECCIÓN 5: VIDEOS EXPLICATIVOS -->
+    <div class="category-block" data-category="videos">
+      <h2 class="section-title">
+        <span class="icon-badge badge-red">🎥</span> Videos Explicativos de la Unidad
+      </h2>
+      <div class="grid">
+        
+        <!-- Video 1 -->
+        <div class="card video-card" data-item-id="video_1" data-title="video metodos evaluacion desempeño camila acuña youtube">
+          <div class="video-preview">
+            <iframe src="https://www.youtube-nocookie.com/embed/hdua5Bc1wr4" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="card-meta">
+            <div class="card-tag-row">
+              <span class="card-tag">Video • Camila Acuña</span>
+              <span class="read-toggle-badge" onclick="toggleItemRead('video_1', event)">⏳ Visto</span>
+            </div>
+            <h3 class="card-title">Métodos para la Evaluación de Desempeño</h3>
+          </div>
+          <p class="card-desc">
+            Explicación detallada de métodos por escalas gráficas, incidentes críticos, elección forzada e investigación de campo.
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-youtube" href="https://www.youtube.com/watch?v=hdua5Bc1wr4" target="_blank">
+              ▶ Ver en YouTube
+            </a>
+          </div>
+        </div>
+
+        <!-- Video 2 -->
+        <div class="card video-card" data-item-id="video_2" data-title="video como hacer evaluacion desempeño factorial hr pills youtube">
+          <div class="video-preview">
+            <iframe src="https://www.youtube-nocookie.com/embed/3WU6L6h136U" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="card-meta">
+            <div class="card-tag-row">
+              <span class="card-tag">Video • Factorial HR</span>
+              <span class="read-toggle-badge" onclick="toggleItemRead('video_2', event)">⏳ Visto</span>
+            </div>
+            <h3 class="card-title">¿Cómo hacer una Evaluación de Desempeño?</h3>
+          </div>
+          <p class="card-desc">
+            Paso a paso para diseñar indicadores, plantillas y feedback constructivo en equipos profesionales.
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-youtube" href="https://www.youtube.com/watch?v=3WU6L6h136U" target="_blank">
+              ▶ Ver en YouTube
+            </a>
+          </div>
+        </div>
+
+        <!-- Video 3 -->
+        <div class="card video-card" data-item-id="video_3" data-title="video tipos metodos tradicionales modernos evaluacion universidad continental youtube">
+          <div class="video-preview">
+            <iframe src="https://www.youtube-nocookie.com/embed/2T4cpCUp3L4" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="card-meta">
+            <div class="card-tag-row">
+              <span class="card-tag">Video • Universidad Continental</span>
+              <span class="read-toggle-badge" onclick="toggleItemRead('video_3', event)">⏳ Visto</span>
+            </div>
+            <h3 class="card-title">Métodos Tradicionales vs. Modernos</h3>
+          </div>
+          <p class="card-desc">
+            Comparativa académica entre enfoques tradicionales y metodologías modernas (Evaluación 360°, OKRs, Competencias).
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-youtube" href="https://www.youtube.com/watch?v=2T4cpCUp3L4" target="_blank">
+              ▶ Ver en YouTube
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      Unidad 5 Hub & Studio • Administración de Sistemas de Información • UTN FRRe
+    </footer>
+  </div>
+
+  <!-- VISOR INTEGRADO Y ESTUDIO CON SPLIT NOTES -->
+  <div class="modal-backdrop" id="viewerModal" onclick="closeViewer(event)">
+    <div class="modal-window" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <span style="font-size:1.2rem;">📖</span>
+          <div class="modal-title" id="modalTitle">Visor de Documento</div>
+        </div>
+
+        <div class="modal-toolbar">
+          <!-- Botón de marcar leído desde el modal -->
+          <button class="tool-btn" id="btnModalMarkRead" onclick="toggleCurrentModalRead()">
+            ⏳ Marcar como Leído
+          </button>
+
+          <span style="color:var(--border-subtle)">|</span>
+
+          <!-- Filtro de Lectura / Modo Oscuro -->
+          <button class="tool-btn active" id="btnFilterNormal" onclick="setReaderTheme('normal')">☀️ Normal</button>
+          <button class="tool-btn" id="btnFilterDark" onclick="setReaderTheme('dark')">🌙 Modo Oscuro (PDF)</button>
+          <button class="tool-btn" id="btnFilterSepia" onclick="setReaderTheme('sepia')">📜 Sepia</button>
+          
+          <span style="color:var(--border-subtle)">|</span>
+
+          <!-- Toggle Bloc de Apuntes -->
+          <button class="tool-btn" id="btnToggleNotes" onclick="toggleNotesPane()">
+            📝 <span id="notesToggleText">Ocultar Apuntes</span>
+          </button>
+
+          <button class="modal-close" onclick="closeViewer()" title="Cerrar (Esc)">✕</button>
+        </div>
+      </div>
+
+      <div class="modal-main-container">
+        <!-- Panel Lector -->
+        <div class="reader-pane" id="readerPane">
+          <div id="modalBody" style="width:100%; height:100%;"></div>
+        </div>
+
+        <!-- Panel de Apuntes en Vivo (Split View) -->
+        <div class="notes-pane" id="notesPane">
+          <div class="notes-header">
+            <h4>✏️ Mis Apuntes de Unidad 5</h4>
+            <span style="font-size:0.75rem; color:#10b981;">● Guardado automático</span>
+          </div>
+          <div class="notes-body">
+            <textarea class="notes-textarea" id="notesTextarea" placeholder="Escribí acá tus apuntes, resúmenes o dudas mientras leés...
+Se guarda solo en tu navegador."></textarea>
+          </div>
+          <div class="notes-footer">
+            <span id="notesWordCount">0 caracteres</span>
+            <div class="notes-actions">
+              <button class="tool-btn" onclick="copyNotes()" title="Copiar al portapapeles">📋 Copiar</button>
+              <button class="tool-btn" onclick="downloadNotes()" title="Descargar como archivo Markdown">💾 Guardar .md</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Sistema de Seguimiento de Lectura (Read Tracker)
+    const READ_STORAGE_KEY = 'admsi_u5_read_items';
+    let readItems = JSON.parse(localStorage.getItem(READ_STORAGE_KEY) || '[]');
+    let currentModalItemId = null;
+    let filterOnlyUnread = false;
+
+    function saveReadItems() {
+      localStorage.setItem(READ_STORAGE_KEY, JSON.stringify(readItems));
+      updateReadUI();
+    }
+
+    function toggleItemRead(itemId, event) {
+      if (event) event.stopPropagation();
+      const index = readItems.indexOf(itemId);
+      if (index === -1) {
+        readItems.push(itemId);
+      } else {
+        readItems.splice(index, 1);
+      }
+      saveReadItems();
+    }
+
+    function toggleCurrentModalRead() {
+      if (!currentModalItemId) return;
+      toggleItemRead(currentModalItemId);
+      updateModalReadButton();
+    }
+
+    function updateModalReadButton() {
+      const btn = document.getElementById('btnModalMarkRead');
+      if (!currentModalItemId) {
+        btn.style.display = 'none';
+        return;
+      }
+      btn.style.display = 'inline-flex';
+      const isRead = readItems.includes(currentModalItemId);
+      if (isRead) {
+        btn.innerHTML = '✅ Completado';
+        btn.style.background = 'rgba(16, 185, 129, 0.2)';
+        btn.style.borderColor = '#10b981';
+        btn.style.color = '#34d399';
+      } else {
+        btn.innerHTML = '⏳ Marcar como Leído';
+        btn.style.background = 'rgba(255, 255, 255, 0.08)';
+        btn.style.borderColor = 'var(--border-subtle)';
+        btn.style.color = 'var(--text-main)';
+      }
+    }
+
+    function updateReadUI() {
+      const allCards = document.querySelectorAll('.card[data-item-id]');
+      let total = allCards.length;
+      let completed = 0;
+
+      allCards.forEach(card => {
+        const id = card.getAttribute('data-item-id');
+        const badge = card.querySelector('.read-toggle-badge');
+        const isRead = readItems.includes(id);
+
+        if (isRead) {
+          completed++;
+          card.classList.add('is-read');
+          if (badge) badge.innerHTML = '✅ Leído';
+        } else {
+          card.classList.remove('is-read');
+          if (badge) badge.innerHTML = '⏳ Marcar Leído';
+        }
+
+        if (filterOnlyUnread) {
+          if (isRead) {
+            card.style.display = 'none';
+          } else {
+            card.style.display = 'flex';
+          }
+        }
+      });
+
+      // Actualizar Barra de Progreso
+      const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+      document.getElementById('progressPercent').innerText = `${percent}%`;
+      document.getElementById('progressCounter').innerText = `${completed} de ${total} materiales completados`;
+      document.getElementById('progressBarFill').style.width = `${percent}%`;
+
+      updateModalReadButton();
+    }
+
+    function toggleFilterRead() {
+      filterOnlyUnread = !filterOnlyUnread;
+      const btn = document.getElementById('btnFilterReadStatus');
+      btn.classList.toggle('active', filterOnlyUnread);
+      btn.innerText = filterOnlyUnread ? "👁️ Ver Todos los Recursos" : "👁️ Ver solo Pendientes";
+      updateReadUI();
+    }
+
+    // Filtro por pestañas
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const categoryBlocks = document.querySelectorAll('.category-block');
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.getAttribute('data-filter');
+
+        categoryBlocks.forEach(block => {
+          if (filter === 'all' || block.getAttribute('data-category') === filter) {
+            block.style.display = 'block';
+          } else {
+            block.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Búsqueda en vivo
+    const searchInput = document.getElementById('searchInput');
+
+    searchInput.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      document.querySelectorAll('.card').forEach(card => {
+        const text = (card.getAttribute('data-title') || '') + ' ' + card.innerText.toLowerCase();
+        if (!q || text.includes(q)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+
+    // Visor Integrado y Estudio
+    const viewerModal = document.getElementById('viewerModal');
+    const modalBody = document.getElementById('modalBody');
+    const modalTitle = document.getElementById('modalTitle');
+    const readerPane = document.getElementById('readerPane');
+    const notesPane = document.getElementById('notesPane');
+    const notesToggleText = document.getElementById('notesToggleText');
+
+    function openViewer(src, title, isImg = false, itemId = null) {
+      currentModalItemId = itemId;
+      modalTitle.innerText = title;
+      if (isImg) {
+        modalBody.innerHTML = `<img src="${src}" alt="${title}">`;
+      } else {
+        modalBody.innerHTML = `<iframe src="${src}"></iframe>`;
+      }
+      viewerModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      updateModalReadButton();
+      loadNotes();
+    }
+
+        // Listen for messages from embedded iframe (Apunte Maestro)
+    window.addEventListener('message', function(event) {
+      if (event.data && event.data.type === 'LOAD_PDF') {
+        openViewer(event.data.url, 'Visor PDF Oficial');
+      }
+    });
+
+    function loadPDF(path, title) {
+      openViewer(path, title || 'Visor de Documento Oficial');
+    }
+
+    function openStandaloneNotes() {
+      currentModalItemId = null;
+      modalTitle.innerText = "Bloc de Estudio & Apuntes";
+      modalBody.innerHTML = `
+        <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; color:var(--text-muted); text-align:center; padding:30px;">
+          <h3 style="color:#fff; margin-bottom:12px; font-size:1.4rem;">🎯 Panel de Apuntes de Unidad 5</h3>
+          <p style="max-width:500px; line-height:1.6;">Podés tomar notas de lectura a la derecha. Tus apuntes se guardan automáticamente en tu navegador y podés exportarlos en cualquier momento como Markdown (.md).</p>
+        </div>
+      `;
+      notesPane.classList.remove('collapsed');
+      notesToggleText.innerText = "Ocultar Apuntes";
+      viewerModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      updateModalReadButton();
+      loadNotes();
+    }
+
+    function closeViewer() {
+      viewerModal.classList.remove('active');
+      modalBody.innerHTML = '';
+      document.body.style.overflow = '';
+      currentModalItemId = null;
+    }
+
+    // Filtros de Lectura / Modo Oscuro
+    function setReaderTheme(theme) {
+      readerPane.className = 'reader-pane';
+      document.querySelectorAll('.modal-toolbar .tool-btn').forEach(b => {
+        if (b.id && b.id.startsWith('btnFilter')) b.classList.remove('active');
+      });
+
+      if (theme === 'dark') {
+        readerPane.classList.add('filter-dark');
+        document.getElementById('btnFilterDark').classList.add('active');
+      } else if (theme === 'sepia') {
+        readerPane.classList.add('filter-sepia');
+        document.getElementById('btnFilterSepia').classList.add('active');
+      } else {
+        document.getElementById('btnFilterNormal').classList.add('active');
+      }
+      localStorage.setItem('admsi_reader_theme', theme);
+    }
+
+    // Toggle Notes Pane
+    function toggleNotesPane() {
+      notesPane.classList.toggle('collapsed');
+      const isCollapsed = notesPane.classList.contains('collapsed');
+      notesToggleText.innerText = isCollapsed ? "Mostrar Apuntes" : "Ocultar Apuntes";
+      document.getElementById('btnToggleNotes').classList.toggle('active', !isCollapsed);
+    }
+
+    // Sistema de Apuntes (LocalStorage)
+    const notesTextarea = document.getElementById('notesTextarea');
+    const notesWordCount = document.getElementById('notesWordCount');
+    const STORAGE_KEY = 'admsi_u5_study_notes';
+
+    function loadNotes() {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved !== null) {
+        notesTextarea.value = saved;
+      } else {
+        notesTextarea.value = `# Mis Apuntes - Unidad 5: Seguimiento
+
+## 👥 U.V.1 Seguimiento de RRHH
+- 4 Etapas del Ciclo de Control: 1) Estándares, 2) Monitoreo, 3) Comparación, 4) Acción Correctiva.
+- Dimensiones de Control: Calidad, Cantidad, Tiempo, Costo.
+- Métodos de Evaluación: Escalas Gráficas, Incidentes Críticos, Elección Forzada, Evaluación 360°.
+
+## 💻 U.V.2 Seguimiento de SW y HW
+- Variables Básicas: T (Tiempo observación), A (Llegadas), C (Completadas), B (Tiempo ocupado).
+- Variables Deducidas: λ = A/T, X = C/T, U = B/T, S = B/C.
+- Leyes Operacionales:
+  * Ley de Utilización: U = X * S
+  * Ley de Little: N = X * R
+  * Ley del Tiempo de Respuesta Interactivo: R = (N / X) - Z
+  * Ley de Amdahl: Aceleración por optimización de componentes.
+`;
+      }
+      updateWordCount();
+    }
+
+    notesTextarea.addEventListener('input', () => {
+      localStorage.setItem(STORAGE_KEY, notesTextarea.value);
+      updateWordCount();
+    });
+
+    function updateWordCount() {
+      const len = notesTextarea.value.length;
+      notesWordCount.innerText = `${len} caracteres`;
+    }
+
+    function copyNotes() {
+      navigator.clipboard.writeText(notesTextarea.value).then(() => {
+        alert('✅ ¡Apuntes copiados al portapapeles!');
+      });
+    }
+
+    function downloadNotes() {
+      const blob = new Blob([notesTextarea.value], { type: 'text/markdown;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Mis_Apuntes_Unidad_5_AdmSI.md';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // Inicialización
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('admsi_reader_theme') || 'normal';
+      setReaderTheme(savedTheme);
+      updateReadUI();
+    });
+
+    // Cerrar con Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && viewerModal.classList.contains('active')) closeViewer();
+    });
+  </script>
+</body>
+</html>
