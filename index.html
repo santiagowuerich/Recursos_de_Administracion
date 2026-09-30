@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AdmSI UTN FRRe • Portal Central de Recursos y Estudio</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #090d16;
+      --card-bg: rgba(17, 24, 39, 0.7);
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(16, 185, 129, 0.4);
+      --text: #f9fafb;
+      --text-muted: #9ca3af;
+      --text-dim: #6b7280;
+      --accent-emerald: #10b981;
+      --accent-cyan: #06b6d4;
+      --accent-indigo: #6366f1;
+      --accent-purple: #a855f7;
+      --gradient-brand: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+      --gradient-u4: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(6, 182, 212, 0.05) 100%);
+      --gradient-u5: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(168, 85, 247, 0.05) 100%);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      line-height: 1.6;
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.12) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
+        radial-gradient(at 50% 100%, rgba(6, 182, 212, 0.08) 0px, transparent 60%);
+      padding: 40px 20px 80px;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    /* Header */
+    .hero {
+      text-align: center;
+      padding: 48px 20px 36px;
+      margin-bottom: 36px;
+    }
+
+    .badge-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: #6ee7b7;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    h1 {
+      font-size: 2.75rem;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.15;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, #ffffff 40%, #a7f3d0 80%, #67e8f9 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 1.12rem;
+      color: var(--text-muted);
+      max-width: 780px;
+      margin: 0 auto 32px;
+      line-height: 1.65;
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      text-align: center;
+      backdrop-filter: blur(16px);
+      transition: all 0.2s ease;
+    }
+    .stat-card:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+    }
+    .stat-number {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Unit Cards Grid */
+    .units-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+      gap: 28px;
+      margin-bottom: 48px;
+    }
+
+    @media (max-width: 600px) {
+      .units-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 2.1rem; }
+    }
+
+    .unit-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backdrop-filter: blur(20px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .unit-card.u4 { background: var(--gradient-u4); }
+    .unit-card.u5 { background: var(--gradient-u5); }
+
+    .unit-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+    }
+
+    .unit-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .unit-badge {
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 6px;
+      text-transform: uppercase;
+    }
+    .badge-u4 { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; border: 1px solid rgba(16, 185, 129, 0.4); }
+    .badge-u5 { background: rgba(99, 102, 241, 0.2); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.4); }
+
+    .unit-title {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .unit-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 24px;
+    }
+
+    .features-list {
+      list-style: none;
+      margin-bottom: 28px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .feature-item {
+      font-size: 0.86rem;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .actions-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 22px;
+      border-radius: 12px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-primary-u4 {
+      background: var(--accent-emerald);
+      color: #000;
+    }
+    .btn-primary-u4:hover {
+      background: #34d399;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary-u5 {
+      background: var(--accent-indigo);
+      color: #fff;
+    }
+    .btn-primary-u5:hover {
+      background: #818cf8;
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+      color: var(--text-dim);
+      font-size: 0.88rem;
+    }
+    footer a { color: var(--accent-emerald); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <!-- Hero Header -->
+    <header class="hero">
+      <div class="badge-top">🏛️ UTN FRRe • Ingeniería en Sistemas de Información</div>
+      <h1>Recursos de Administración (AdmSI)</h1>
+      <p class="hero-desc">
+        Plataforma académica interactiva con libros de estudio maestros, diagramas HD con salto de página inteligente, trabajos prácticos resueltos al 100% y visor de documentos oficiales.
+      </p>
+
+      <!-- Stats Bar -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">2</div>
+          <div class="stat-label">Unidades Temáticas</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">44</div>
+          <div class="stat-label">Capítulos & Puntos Teóricos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">31</div>
+          <div class="stat-label">Diagramas HD con Salto PDF</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">4</div>
+          <div class="stat-label">Trabajos Prácticos Resueltos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Cuestionarios Resueltos</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Units Cards Grid -->
+    <div class="units-grid">
+      
+      <!-- Unidad 4 -->
+      <div class="unit-card u4">
+        <div>
+          <div class="unit-header">
+            <span class="unit-badge badge-u4">Unidad Temática IV</span>
+            <span style="font-size: 0.85rem; color: #a7f3d0; font-weight: 600;">👥 RRHH</span>
+          </div>
+          <h2 class="unit-title">Desarrollo y Mantenimiento de RRHH</h2>
+          <p class="unit-desc">
+            Capacitación vs Desarrollo, Proceso de Entrenamiento en 4 etapas, Diagnóstico a 3 niveles, Compensaciones, Teoría de Adams, Valuación por Puntos, Estructura Salarial Argentina y Ergonomía PPV.
+          </p>
+          <ul class="features-list">
+            <li class="feature-item">📖 20 Puntos Teóricos KaTeX</li>
+            <li class="feature-item">🖼️ 15 Diagramas Chiavenato</li>
+            <li class="feature-item">📝 TP 4.1 Caso CORASA</li>
+            <li class="feature-item">📊 TP 4.2 Costo & Salarios</li>
+            <li class="feature-item">✅ Cuestionario U4 Resuelto</li>
+            <li class="feature-item">🎯 Tracker de Lectura Activo</li>
+          </ul>
+        </div>
+        <div class="actions-group">
+          <a href="Unidad_4_Desarrollo_y_Mantenimiento/index.html" class="btn btn-primary-u4">🚀 Abrir Studio Hub</a>
+          <a href="Unidad_4_Desarrollo_y_Mantenimiento/APUNTE_MAESTRO_UNIDAD_4.html" target="_blank" class="btn btn-outline">📖 Libro Maestro</a>
+        </div>
+      </div>
+
+      <!-- Unidad 5 -->
+      <div class="unit-card u5">
+        <div>
+          <div class="unit-header">
+            <span class="unit-badge badge-u5">Unidad Temática V</span>
+            <span style="font-size: 0.85rem; color: #c7d2fe; font-weight: 600;">📊 Control & Rendimiento</span>
+          </div>
+          <h2 class="unit-title">Seguimiento de SI/TI & Recursos Humanos</h2>
+          <p class="unit-desc">
+            Teoría Cibernética del Control, Evaluación 360° y OKRs, Análisis Operacional de Redes de Colas, 4 Leyes Operacionales, Ley de Amdahl, Telemetría Linux (SAR) y Benchmarking SysBench.
+          </p>
+          <ul class="features-list">
+            <li class="feature-item">📖 24 Puntos Teóricos KaTeX</li>
+            <li class="feature-item">🖼️ 16 Diagramas Chiavenato/Molero</li>
+            <li class="feature-item">📝 TP 5.1.A/B Evaluación RRHH</li>
+            <li class="feature-item">💻 TP 5.2 Técnicas Analíticas</li>
+            <li class="feature-item">✅ Cuestionario U5 Resuelto</li>
+            <li class="feature-item">📈 Simulación & Cuello Botella</li>
+          </ul>
+        </div>
+        <div class="actions-group">
+          <a href="Unidad_5_Seguimiento/index.html" class="btn btn-primary-u5">🚀 Abrir Studio Hub</a>
+          <a href="Unidad_5_Seguimiento/APUNTE_MAESTRO_UNIDAD_5.html" target="_blank" class="btn btn-outline">📖 Libro Maestro</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>Cátedra de Administración de Sistemas de Información • <strong>UTN FRRe 2026</strong></p>
+      <p style="margin-top: 8px;">Repositorio de Recursos de Estudio desarrollado con la Skill <a href=".agents/skills/study-hub-builder/SKILL.md">study-hub-builder</a>.</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
