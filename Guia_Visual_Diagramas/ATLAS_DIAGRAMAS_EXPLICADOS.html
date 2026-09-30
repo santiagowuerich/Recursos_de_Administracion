@@ -1,0 +1,2579 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Atlas Visual de Diagramas Explicados: AdmSI UTN FRRe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    @page {
+      size: A4;
+      margin: 14mm 12mm 14mm 12mm;
+      @bottom-right {
+        content: counter(page);
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: #0f172a;
+      background: #ffffff;
+      line-height: 1.55;
+      font-size: 9.5pt;
+    }
+
+    /* Cover Page */
+    .cover {
+      page-break-after: always;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px;
+      background: linear-gradient(135deg, #0b0f19 0%, #1e293b 100%);
+      color: #ffffff;
+      border-radius: 12px;
+    }
+
+    .cover-badge {
+      display: inline-block;
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      color: #34d399;
+      font-size: 11pt;
+      font-weight: 700;
+      padding: 6px 18px;
+      border-radius: 9999px;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .cover h1 {
+      font-size: 26pt;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      color: #ffffff;
+    }
+
+    .cover h2 {
+      font-size: 14pt;
+      font-weight: 600;
+      color: #94a3b8;
+      margin-bottom: 36px;
+      max-width: 650px;
+      line-height: 1.5;
+    }
+
+    .cover-meta {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 18px 30px;
+      font-size: 10pt;
+      color: #cbd5e1;
+      text-align: left;
+      line-height: 1.8;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    /* Section Separators */
+    .section-header {
+      page-break-before: always;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 16px 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .section-header h2 {
+      font-size: 14pt;
+      font-weight: 800;
+      color: #38bdf8;
+    }
+    .section-header span {
+      font-size: 9pt;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    /* Diagram Card Block */
+    .diag-card {
+      page-break-inside: avoid;
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 22px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+    }
+
+    .diag-header {
+      border-bottom: 1.5px solid #e2e8f0;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+    }
+
+    .diag-title {
+      font-size: 11.5pt;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.3;
+      margin-bottom: 3px;
+    }
+
+    .diag-source {
+      font-size: 8.5pt;
+      color: #64748b;
+      font-weight: 600;
+    }
+
+    .diag-img-container {
+      text-align: center;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 10px;
+      margin: 10px 0 14px;
+    }
+
+    .diag-img-container img {
+      max-width: 100%;
+      max-height: 280px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+      object-fit: contain;
+    }
+
+    .summary-box {
+      background: #f0fdf4;
+      border-left: 4px solid #10b981;
+      padding: 8px 12px;
+      font-size: 9pt;
+      color: #166534;
+      border-radius: 0 6px 6px 0;
+      margin-bottom: 12px;
+      line-height: 1.45;
+    }
+
+    .boxes-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 10px;
+      font-size: 8.8pt;
+    }
+
+    .boxes-table th {
+      background: #f1f5f9;
+      color: #334155;
+      font-weight: 700;
+      text-align: left;
+      padding: 6px 10px;
+      border: 1px solid #cbd5e1;
+      font-size: 8.5pt;
+      text-transform: uppercase;
+    }
+
+    .boxes-table td {
+      padding: 6px 10px;
+      border: 1px solid #e2e8f0;
+      vertical-align: top;
+      line-height: 1.4;
+    }
+
+    .boxes-table tr:nth-child(even) td {
+      background: #f8fafc;
+    }
+
+    .box-name {
+      font-weight: 700;
+      color: #0f172a;
+      width: 35%;
+    }
+
+    .box-desc {
+      color: #334155;
+      width: 65%;
+    }
+
+    .it-box {
+      background: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      padding: 6px 12px;
+      font-size: 8.5pt;
+      color: #1e40af;
+      border-radius: 0 6px 6px 0;
+      line-height: 1.4;
+    }
+    .it-box strong { color: #1e3a8a; }
+  </style>
+</head>
+<body>
+
+  <!-- PORTADA -->
+  <div class="cover">
+    <div class="cover-badge">UTN FRRe • Cátedra AdmSI 2026</div>
+    <h1>Atlas Visual de Diagramas Explicados</h1>
+    <h2>Guía Exhaustiva de Gráficos, Esquemas, Flujos y Matrices elemento por elemento para las Unidades IV y V</h2>
+    <div class="cover-meta">
+      <strong>Materia:</strong> Administración de Sistemas de Información (4° Nivel)<br>
+      <strong>Carrera:</strong> Ingeniería en Sistemas de Información<br>
+      <strong>Contenido:</strong> 49 Diagramas HD desglosados y explicados al 100%<br>
+      <strong>Unidades:</strong> Unidad IV (Desarrollo y Mantenimiento de RRHH) y Unidad V (Seguimiento de SI/TI y RRHH)<br>
+      <strong>Autores de Cátedra:</strong> Idalberto Chiavenato, Xavier Molero et al., Ramón Puigjaner
+    </div>
+  </div>
+
+
+  <div class="section-header">
+    <h2>📂 Unidad IV • Módulo I: Desarrollo de Recursos Humanos</h2>
+    <span>Diagramas Oficiales de Cátedra</span>
+  </div>
+
+
+  <div class="diag-card" id="diag_01_conocimientos_previos">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 1: Conocimientos Previos y Articulación con Subsistemas Anteriores</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 1) • Base Teórica: Idalberto Chiavenato</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_01_conocimientos_previos.png" alt="Diagrama 1: Conocimientos Previos y Articulación con Subsistemas Anteriores">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Muestra cómo el Subsistema de Desarrollo no opera de forma aislada, sino que se nutre directamente de los insumos y resultados provistos por los demás subsistemas de la ARH y la Planificación Estratégica corporativa.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Subsistema de Provisión de RRHH → Mercados intervinientes</td>
+        <td class="box-desc">Aporta los perfiles ingresantes a la empresa y las condiciones del mercado laboral externo, identificando qué competencias básicas ya poseen los nuevos empleados y cuáles requerirán capacitación inmediata.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Subsistema de Aplicación de RRHH → Socialización, Requisitos del cargo y Discrepancias</td>
+        <td class="box-desc">Provee la descripción y análisis del cargo (requisitos formales) y la evaluación del desempeño inicial, evidenciando las discrepancias de rol entre lo que el puesto exige y lo que el ocupante realmente sabe ejecutar.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Subsistema de Seguimientos de RRHH → Evaluación del desempeño y Resultados</td>
+        <td class="box-desc">Entrega los informes de rendimiento periódico y telemetría de objetivos, señalando los déficits técnicos y áreas de mejora donde el entrenamiento debe intervenir.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Planificación Estratégica → Necesidades de la organización (Planes, Proyectos)</td>
+        <td class="box-desc">Define el rumbo futuro de la empresa (nuevas tecnologías, arquitecturas cloud, microservicios) para diseñar programas de capacitación anticipatorios a los proyectos futuros.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> En un equipo de software, si Provisión contrata desarrolladores Java Jr., Aplicación detecta que el proyecto usará Spring Boot y Docker, y Planificación Estratégica proyecta migrar a Kubernetes en 6 meses, Desarrollo debe armar el plan de capacitación para cerrar esas brechas.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_02_circulos_concentricos">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 2: Los Tres Estratos de Desarrollo de Personas (Círculos Concéntricos)</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 1) • Chiavenato Cap. 14</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_02_circulos_concentricos.png" alt="Diagrama 2: Los Tres Estratos de Desarrollo de Personas (Círculos Concéntricos)">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Estructura jerárquica y de alcance temporal que diferencia el entrenamiento táctico a corto plazo del desarrollo profesional a mediano plazo y el cambio cultural a largo plazo.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Círculo Interno: Entrenamiento (Training)</td>
+        <td class="box-desc">Proceso educativo a CORTO PLAZO, sistemático y formal, enfocado en dotar de habilidades técnicas inmediatas requeridas para el puesto actual del empleado.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Círculo Intermedio: Desarrollo de Personal (Development)</td>
+        <td class="box-desc">Proceso a MEDIANO Y LARGO PLAZO orientado a formar competencias conceptuales, estratégicas y de liderazgo, preparando a la persona para futuras posiciones y responsabilidades dentro de su plan de carrera.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Círculo Externo: Desarrollo Organizacional (DO)</td>
+        <td class="box-desc">Enfoque MACROSCÓPICO Y SISTÉMICO que abarca a la totalidad de la empresa, orientado a transformar la cultura organizacional, los procesos y las estructuras para lograr adaptabilidad y resiliencia en el mercado.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Entrenamiento: curso de React para un frontend; Desarrollo de Personal: mentoría en arquitectura de software y gestión de equipos; DO: transformación ágil de toda la gerencia de TI hacia cultura DevOps.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_03_arbol_arh">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 3: Estructura de los Cinco Subsistemas de la ARH</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 2) • Chiavenato</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_03_arbol_arh.png" alt="Diagrama 3: Estructura de los Cinco Subsistemas de la ARH">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Árbol general de la Administración de Recursos Humanos que ubica al Desarrollo de Recursos Humanos como el cuarto engranaje fundamental de la gestión de personas.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Subsistema de Provisión</td>
+        <td class="box-desc">Reclutamiento y Selección: quién trabajará en la empresa.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Subsistema de Aplicación</td>
+        <td class="box-desc">Diseño de puestos y Evaluación del desempeño: qué harán las personas.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Subsistema de Mantenimiento</td>
+        <td class="box-desc">Compensaciones, Beneficios, Higiene y Seguridad: cómo retener y motivar.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Subsistema de Desarrollo (Destacado)</td>
+        <td class="box-desc">Entrenamiento, Desarrollo de personal y Desarrollo Organizacional: cómo capacitarlas y hacerlas crecer.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Subsistema de Control / Seguimiento</td>
+        <td class="box-desc">Bases de datos, Sistemas de Información y Auditoría: cómo monitorear resultados.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Representa el mapa integral de la materia AdmSI para entender cómo se conectan los procesos de gestión del talento en empresas tecnológicas.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_04_sistema_entrenamiento">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 4: El Entrenamiento como Sistema Abierto de Cuatro Componentes</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 4) • Chiavenato Fig. 14.1</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_04_sistema_entrenamiento.png" alt="Diagrama 4: El Entrenamiento como Sistema Abierto de Cuatro Componentes">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Modelado cibernético del entrenamiento bajo la teoría general de sistemas: entradas, procesamiento, salidas y bucle de realimentación continua.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Entrada (Inputs): Necesidades de Entrenamiento</td>
+        <td class="box-desc">Colaboradores con brechas de habilidades, instructores capacitados, recursos pedagógicos, presupuesto y tecnologías de aprendizaje.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Proceso (Throughput): Programas de Entrenamiento y Aprendizaje Individual</td>
+        <td class="box-desc">Ejecución de cursos, talleres prácticos, bootcamps y laboratorios donde ocurre la asimilación del conocimiento.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Salida (Outputs): Nuevos Conocimientos, Actitudes, Habilidades y Eficacia</td>
+        <td class="box-desc">Personal certificado y calificado, mayor productividad, reducción de bugs y mejora en la competitividad organizacional.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Retroalimentación (Feedback): Evaluación de Resultados</td>
+        <td class="box-desc">Medición del impacto en el puesto de trabajo para reajustar los contenidos o detectar nuevas necesidades no cubiertas.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Entrada: juniors que no dominan CI/CD; Proceso: taller práctico de GitHub Actions; Salida: pipelines automatizados sin fallos; Feedback: métricas de despliegues exitosos en producción.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_05_proceso_entrenamiento_4etapas">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 5: Las Cuatro Etapas del Proceso de Entrenamiento (Flujo Completo)</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 5) • Chiavenato Fig. 14.2</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_05_proceso_entrenamiento_4etapas.png" alt="Diagrama 5: Las Cuatro Etapas del Proceso de Entrenamiento (Flujo Completo)">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Ciclo secuencial de 4 fases para gestionar el entrenamiento en las empresas, detallando sus entradas de diagnóstico, preguntas de diseño y circuitos de retorno.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Etapa 1: Diagnóstico de la situación (Inventario de Necesidades)</td>
+        <td class="box-desc">Releva los objetivos organizacionales, requisitos del cargo, resultados de evaluación del desempeño y análisis de problemas de producción (a priori y a posteriori).</td>
+      </tr>
+      <tr>
+        <td class="box-name">Etapa 2: Decisión en cuanto a estrategia (Programación)</td>
+        <td class="box-desc">Define a quién entrenar, cómo, en qué, dónde, cuándo, cuánto y quién entrenará, calculando costos y relación costo-beneficio.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Etapa 3: Implementación o acción (Ejecución)</td>
+        <td class="box-desc">Aplicación de los programas por la línea o asesoría de staff con material didáctico de calidad.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Etapa 4: Evaluación y control (Resultados)</td>
+        <td class="box-desc">Seguimiento, verificación y comparación del desempeño antes vs después.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Líneas de Retroalimentación</td>
+        <td class="box-desc">Resultados satisfactorios confirman la continuidad; resultados insatisfactorios devuelven el flujo a la Programación o al Diagnóstico inicial.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Esquema clave de examen: el alumno debe saber detallar las 4 columnas y explicar qué ocurre cuando la retroalimentación es insatisfactoria.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_06_tres_niveles_necesidades">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 6: Matriz de los Tres Niveles de Análisis del Inventario de Necesidades</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 6) • Chiavenato Cap. 14</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_06_tres_niveles_necesidades.png" alt="Diagrama 6: Matriz de los Tres Niveles de Análisis del Inventario de Necesidades">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Estructura analítica de Chiavenato para diagnosticar las necesidades de capacitación desde tres perspectivas complementarias.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Nivel 1: Análisis Organizacional (Sistema Organizacional)</td>
+        <td class="box-desc">Información base: Objetivos estratégicos, filosofía corporativa y contexto de mercado. Determina hacia dónde debe orientarse el entrenamiento a nivel macro.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Nivel 2: Análisis de los Recursos Humanos (Sistema de Entrenamiento)</td>
+        <td class="box-desc">Información base: Fuerza laboral actual (análisis de personas). Verifica si la cantidad y calidad de empleados es suficiente y qué actitudes/habilidades poseen.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Nivel 3: Análisis de Operaciones y Tareas (Sistema de Adquisición de Habilidades)</td>
+        <td class="box-desc">Información base: Análisis del cargo. Descompone el puesto en tareas y calcula: Requisitos del Cargo - Habilidades Actuales = Necesidad de Entrenamiento.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Org: empresa de software adopta IA generativa; RRHH: el 80% del equipo no usó LangChain; Tareas: el puesto de Backend Developer exige crear agentes autónomos.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_07_siete_interrogantes_programacion">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 7: Los Siete Interrogantes de Chiavenato para Programar el Entrenamiento</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 10) • Chiavenato Cap. 14</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_07_siete_interrogantes_programacion.png" alt="Diagrama 7: Los Siete Interrogantes de Chiavenato para Programar el Entrenamiento">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Mapeo directo entre las preguntas fundamentales de planificación didáctica y las decisiones ejecutivas del programa de entrenamiento.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">¿A quién debe entrenarse? → Personal entrenado</td>
+        <td class="box-desc">Identificación de los aprendices o población objetivo seleccionada según el diagnóstico de necesidades.</td>
+      </tr>
+      <tr>
+        <td class="box-name">¿Quién es el entrenador? → Entrenador o instructor</td>
+        <td class="box-desc">Selección de expertos internos (jefes, seniors) o consultoras especializadas externas.</td>
+      </tr>
+      <tr>
+        <td class="box-name">¿Acerca de qué entrenar? → Tema o contenido</td>
+        <td class="box-desc">Temario técnico, teórico o actitudinal estructurado pedagógicamente.</td>
+      </tr>
+      <tr>
+        <td class="box-name">¿Dónde entrenar? → Lugar físico, organismo o entidad</td>
+        <td class="box-desc">En el puesto de trabajo (on-the-job), aulas de capacitación o plataformas e-learning.</td>
+      </tr>
+      <tr>
+        <td class="box-name">¿Cómo entrenar? → Métodos de entrenamiento o recursos</td>
+        <td class="box-desc">Talleres prácticos, conferencias, simulaciones, estudio de casos o instrucción programada.</td>
+      </tr>
+      <tr>
+        <td class="box-name">¿Cuándo entrenar? → Época de entrenamiento y horario</td>
+        <td class="box-desc">Cronograma, turnos y periodicidad evitando interferir con picos de trabajo crítico.</td>
+      </tr>
+      <tr>
+        <td class="box-name">¿Cuánto entrenar? → Volumen, duración o intensidad</td>
+        <td class="box-desc">Carga horaria total, cantidad de módulos y nivel de profundidad.</td>
+      </tr>
+      <tr>
+        <td class="box-name">¿Para qué entrenar? → Objetivos o resultados esperados</td>
+        <td class="box-desc">Metas de desempeño y retorno de inversión esperado tras la finalización.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Es la guía obligatoria que se utilizó en el TP 4.1 para diseñar el programa de entrenamiento del Asistente Jr. de CORASA.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_08_metodos_entrenamiento_fig147">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 8: Figura 14.7 - Taxonomía de Métodos de Entrenamiento</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 11) • Chiavenato Fig. 14.7</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_08_metodos_entrenamiento_fig147.png" alt="Diagrama 8: Figura 14.7 - Taxonomía de Métodos de Entrenamiento">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Clasificación formal de las técnicas pedagógicas aplicadas en las empresas según el entorno de aprendizaje.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">En el cargo (On the Job)</td>
+        <td class="box-desc">Instrucción directa en el puesto real de trabajo bajo supervisión de un mentor o par senior.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Vestibular</td>
+        <td class="box-desc">Simulación en un entorno de prueba idéntico al puesto real pero sin afectar operaciones de producción.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Demostraciones y ejemplos</td>
+        <td class="box-desc">El instructor ejecuta la tarea modélicamente mientras el aprendiz observa y replica.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Métodos de clase (Aula)</td>
+        <td class="box-desc">Subdivididos en: Conferencia (expositiva), Estudio de casos (análisis de problemas reales), Lectura (autodidacta), Dramatización / Role-playing (actitudes) e Instrucción programada (software paso a paso).</td>
+      </tr>
+      <tr>
+        <td class="box-name">Simulación y Aprendizaje</td>
+        <td class="box-desc">Uso de entornos interactivos y pasantías formales de aprendizaje.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> En TI: 'Vestibular' equivale a un entorno de Staging/Sandbox donde los nuevos programadores prueban despliegues sin riesgo de romper producción.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_09_ciclo_entrenamiento_fig149">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 9: Figura 14.9 - Ciclo del Entrenamiento en Nueve Fases</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 13) • Chiavenato Fig. 14.9</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_09_ciclo_entrenamiento_fig149.png" alt="Diagrama 9: Figura 14.9 - Ciclo del Entrenamiento en Nueve Fases">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Flujo de trabajo detallado en 9 fases que vincula las actividades de línea (supervisores) con las actividades de staff (área de RRHH).
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Fase 1: Inventario de necesidades específicas (Staff y Línea)</td>
+        <td class="box-desc">Detección de problemas y brechas operativas en los puestos de trabajo.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Fase 2: Aplicación de principios de aprendizaje (Staff)</td>
+        <td class="box-desc">Diseño pedagógico considerando las leyes del aprendizaje (ejercicio, efecto, intensidad).</td>
+      </tr>
+      <tr>
+        <td class="box-name">Fase 3: Elección de métodos adecuados a la instrucción (Staff)</td>
+        <td class="box-desc">Selección entre bootcamps, workshops o e-learning.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Fase 4: Recolección de material y datos para la instrucción (Staff)</td>
+        <td class="box-desc">Preparación de manuales, repositorios de código y guías prácticas.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Fase 5: Elaboración del programa de entrenamiento (Staff)</td>
+        <td class="box-desc">Cronograma formal y asignación de recursos.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Fase 6: Entrenamiento de los instructores (Staff)</td>
+        <td class="box-desc">Formación pedagógica para quienes dictarán los módulos.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Fase 7: Ejecución del entrenamiento (Línea / Instructores)</td>
+        <td class="box-desc">Impartición de las clases y prácticas a los aprendices.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Fase 8: Evaluación y control de los resultados (Línea y Staff)</td>
+        <td class="box-desc">Medición de cambios de conducta y aprendizaje mediante evaluaciones.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Fase 9: Informe de entrenamiento (Staff)</td>
+        <td class="box-desc">Documento ejecutivo de métricas finales y recomendaciones para la gerencia.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Distingue con líneas continuas las tareas ejecutadas por RRHH y con líneas de trazos las responsabilidades de los jefes técnicos de los equipos.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_10_modelo_do_diagnostico_accion">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 10: Las Cuatro Fases del Modelo de Diagnóstico y Acción en DO</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 16) • Chiavenato Cap. 14</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_10_modelo_do_diagnostico_accion.png" alt="Diagrama 10: Las Cuatro Fases del Modelo de Diagnóstico y Acción en DO">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Modelo cíclico de cambio planificado en Desarrollo Organizacional basado en investigación-acción.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Fase 1: Diagnóstico</td>
+        <td class="box-desc">Recolección e interpretación de datos para identificar problemas culturales, de comunicación o estructurales.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Fase 2: Planeación de la acción</td>
+        <td class="box-desc">Diseño conjunto de intervenciones y estrategias de cambio entre gerentes de línea y consultores de DO.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Fase 3: Implementación de la acción</td>
+        <td class="box-desc">Ejecución de las intervenciones (team building, reestructuración de procesos, rediseño de roles).</td>
+      </tr>
+      <tr>
+        <td class="box-name">Fase 4: Evaluación</td>
+        <td class="box-desc">Medición de la efectividad del cambio. Si no se alcanzaron los objetivos, retroalimenta el Diagnóstico para ajustar el plan.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Utilizado al transformar una estructura jerárquica tradicional en células ágiles (Squads y Tribes al estilo Spotify).
+    </div>
+  </div>
+
+
+  <div class="section-header">
+    <h2>📂 Unidad IV • Módulo II: Mantenimiento de Recursos Humanos</h2>
+    <span>Diagramas Oficiales de Cátedra</span>
+  </div>
+
+
+  <div class="diag-card" id="diag_11_mantenimiento_conocimientos_previos">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 11: Conocimientos Previos del Subsistema de Mantenimiento de RRHH</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 17) • Chiavenato Cap. 10</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_11_mantenimiento_conocimientos_previos.png" alt="Diagrama 11: Conocimientos Previos del Subsistema de Mantenimiento de RRHH">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Describe la articulación del mantenimiento (retención) con la provisión, aplicación, seguimiento y planificación estratégica.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Provisión de RRHH → Mercados intervinientes</td>
+        <td class="box-desc">Define la oferta y demanda de perfiles en el mercado y las expectativas salariales de ingreso.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Aplicación de RRHH → Socialización y Requisitos del cargo</td>
+        <td class="box-desc">Establece la complejidad de las tareas para determinar la escala de remuneración justa.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Seguimientos de RRHH → Evaluación del desempeño</td>
+        <td class="box-desc">Permite calcular pagos variables, bonos por mérito y premios por objetivos cumplidos.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Planificación estratégica → Necesidades de la organización</td>
+        <td class="box-desc">Alinea la masa salarial y beneficios al presupuesto y metas a largo plazo de la compañía.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Sin un buen mantenimiento, los desarrolladores senior migran a otras empresas tras haber sido capacitados por la organización.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_12_arbol_mantenimiento">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 12: Estructura del Subsistema de Mantenimiento y sus Cuatro Dimensiones</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 17) • Chiavenato Cap. 10</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_12_arbol_mantenimiento.png" alt="Diagrama 12: Estructura del Subsistema de Mantenimiento y sus Cuatro Dimensiones">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Desglosa las cuatro áreas operativas que componen el Subsistema de Mantenimiento para retener al personal adecuado en un clima de satisfacción.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">1. Plan de Carrera</td>
+        <td class="box-desc">Sucesión organizada y concatenada de puestos para el avance y crecimiento del profesional en la empresa.</td>
+      </tr>
+      <tr>
+        <td class="box-name">2. Compensación (Remuneración)</td>
+        <td class="box-desc">Administración de salarios, investigación salarial, política salarial y remuneración variable.</td>
+      </tr>
+      <tr>
+        <td class="box-name">3. Beneficios Sociales</td>
+        <td class="box-desc">Facilidades y comodidades asistenciales, recreativas y supletorias que mejoran la calidad de vida.</td>
+      </tr>
+      <tr>
+        <td class="box-name">4. Higiene, Seguridad y Relaciones Sindicales</td>
+        <td class="box-desc">Condiciones físicas y ambientales de trabajo (ergonomía) y normas de relación con sindicatos.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Es el pilar fundamental que evita el turnover y la fuga de cerebros en empresas de tecnología.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_13_administracion_carrera">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 13: Matriz de Administración de la Carrera (Organización vs Persona)</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 18) • Chiavenato Cap. 10</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_13_administracion_carrera.png" alt="Diagrama 13: Matriz de Administración de la Carrera (Organización vs Persona)">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Confronta y busca el equilibrio entre las necesidades organizacionales (estratégicas y operativas) y las necesidades individuales (personales y profesionales).
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Necesidades de la Organización - Estratégicas</td>
+        <td class="box-desc">Competencias futuras, cambios de mercado, fusiones, innovación, crecimiento o reestructuración.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Necesidades de la Organización - Operativas</td>
+        <td class="box-desc">Rotación de empleados, ausentismo, acervo de talentos, subcontratación y productividad.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Necesidades de las Personas - Personal</td>
+        <td class="box-desc">Edad/antigüedad, intereses familiares, empleo del cónyuge, movilidad e intereses extraordinarios.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Necesidades de las Personas - Profesional</td>
+        <td class="box-desc">Etapa de carrera, educación y capacitación, aspiraciones de ascenso, desempeño y ruta de desarrollo.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Centro: Administración de la Carrera</td>
+        <td class="box-desc">Proceso mediador que compatibiliza los planes de sucesión de la empresa con las metas de vida del colaborador.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Un plan de carrera moderno en TI ofrece dos ramas (Dual Career Ladder): rama técnica (Staff Engineer/Principal) o rama de gestión (Engineering Manager).
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_14_movimientos_ascendentes">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 14: Movimientos Ascendentes de Personal (Promociones)</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 18) • Chiavenato</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_14_movimientos_ascendentes.png" alt="Diagrama 14: Movimientos Ascendentes de Personal (Promociones)">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Representa el ascenso o subida de un peldaño en la jerarquía organizativa.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Movimiento Ascendente dentro del mismo área</td>
+        <td class="box-desc">Ascenso vertical dentro del departamento técnico (ej. Desarrollador Semi-Senior a Senior).</td>
+      </tr>
+      <tr>
+        <td class="box-name">Movimiento Ascendente en otra área</td>
+        <td class="box-desc">Promoción hacia funciones superiores en un departamento distinto (ej. Líder Técnico que pasa a Gerente de Producto / CPO).</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> El ascenso debe ir acompañado de un incremento salarial y validación previa de competencias en el nuevo rol.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_15_movimientos_descendentes">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 15: Movimientos Descendentes de Personal (Demociones)</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 19) • Chiavenato</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_15_movimientos_descendentes.png" alt="Diagrama 15: Movimientos Descendentes de Personal (Demociones)">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Descenso de categoría o responsabilidad por reestructuraciones o bajo desempeño.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Funciones inferiores dentro del mismo área</td>
+        <td class="box-desc">Reducción de nivel manteniendo el departamento.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Funciones inferiores en otra área</td>
+        <td class="box-desc">Reubicación en puestos menos exigentes de otro sector.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Aspecto Legal en Argentina</td>
+        <td class="box-desc">Por el principio de 'Inelasticidad a la baja' e 'Ius variandi' de la Ley de Contrato de Trabajo, el movimiento descendente no puede reducir el salario adquirido ni generar perjuicio moral/económico (de lo contrario se considera despido indirecto).</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> En el sector público argentino no existe la democión salarial; en el sector privado suele acordarse la salida indemnizada.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_16_movimientos_laterales">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 16: Movimientos Laterales de Personal (Rotación vs Traslado)</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 19) • Chiavenato</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_16_movimientos_laterales.png" alt="Diagrama 16: Movimientos Laterales de Personal (Rotación vs Traslado)">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Cambios de puesto o lugar físico manteniendo el mismo nivel jerárquico y categoría salarial.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Rotación de puestos</td>
+        <td class="box-desc">Cambio horizontal de funciones para adquirir nuevas habilidades, evitar la monotonía o balancear cargas de trabajo.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Traslado</td>
+        <td class="box-desc">Cambio definitivo de centro de trabajo o sucursal que exige movilidad geográfica.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Desplazamiento</td>
+        <td class="box-desc">Variante temporal del traslado con un límite temporal (hasta 1 año como máximo).</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> En empresas tech globales: rotación de un desarrollador entre el equipo de pagos y el equipo de autenticación para ganar visión de plataforma.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_17_separacion_personal">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 17: Separación y Desvinculación de Personal (Renuncia vs Despido)</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 19) • Chiavenato</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_17_separacion_personal.png" alt="Diagrama 17: Separación y Desvinculación de Personal (Renuncia vs Despido)">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Mecanismos formales de ruptura del contrato de trabajo y desvinculación definitiva.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Renuncia (Iniciativa del Empleado)</td>
+        <td class="box-desc">Decisión voluntaria del trabajador por mejores ofertas laborales, cambio de carrera o razones personales.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Despido (Iniciativa de la Organización)</td>
+        <td class="box-desc">Decisión patronal que puede ser con causa (falta grave) o sin causa (requiere indemnización legal por antigüedad y preaviso según Art. 245 LCT).</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> La entrevista de salida en las renuncias es vital para detectar por qué los talentos dejan la compañía.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_18_tipos_compensacion_fig102">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 18: Figura 10.2 - Tipos de Compensación (Financiera vs No Financiera)</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 22) • Chiavenato Fig. 10.2</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_18_tipos_compensacion_fig102.png" alt="Diagrama 18: Figura 10.2 - Tipos de Compensación (Financiera vs No Financiera)">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Clasificación estructural de todas las retribuciones que un empleado recibe por su trabajo en la empresa.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Financiera Directa</td>
+        <td class="box-desc">Salario básico directo, bonos por rendimiento, premios y comisiones proporcionales al cargo y tiempo.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Financiera Indirecta</td>
+        <td class="box-desc">Descanso Semanal Remunerado (DSR), vacaciones pagas, gratificaciones, aguinaldo (SAC), horas extras, adicionales y beneficios sociales costeados por la empresa.</td>
+      </tr>
+      <tr>
+        <td class="box-name">No Financiera (Salario Emocional)</td>
+        <td class="box-desc">Reconocimiento y autoestima, seguridad y estabilidad en el puesto, oportunidades de aprendizaje, flexibilidad horaria y prestigio corporativo.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Estructura central utilizada en el TP 4.2 para clasificar los componentes del costo total de CORASA.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_19_compuesto_salarial_fig104">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 19: Figura 10.4 - Factores Internos y Externos del Compuesto Salarial</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 23) • Chiavenato Fig. 10.4</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_19_compuesto_salarial_fig104.png" alt="Diagrama 19: Figura 10.4 - Factores Internos y Externos del Compuesto Salarial">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Conjunto de variables organizacionales y ambientales que determinan el valor final de los salarios.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Factores Internos (Organizacionales)</td>
+        <td class="box-desc">Tipología de los cargos (análisis del puesto), política salarial corporativa, capacidad financiera y rentabilidad, y competitividad interna.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Factores Externos (Ambientales)</td>
+        <td class="box-desc">Situación del mercado de trabajo (oferta/demanda), coyuntura económica (inflación, costo de vida), sindicatos y convenios colectivos, legislación laboral y situación de los clientes.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Si hay escasez de ingenieros DevOps (factor externo), el compuesto salarial sube aunque la política interna busque austeridad.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_20_sistema_administracion_salarios_fig105">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 20: Figura 10.5 - El Sistema de Administración de Salarios y Equilibrio</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 24) • Chiavenato Fig. 10.5</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_20_sistema_administracion_salarios_fig105.png" alt="Diagrama 20: Figura 10.5 - El Sistema de Administración de Salarios y Equilibrio">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Flujo de trabajo metodológico para garantizar la equidad salarial interna y la competitividad externa.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Rama del Equilibrio Interno</td>
+        <td class="box-desc">Evaluación y clasificación de cargos a partir del análisis de puestos → determina el valor relativo de cada puesto adentro de la empresa.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Rama del Equilibrio Externo</td>
+        <td class="box-desc">Investigación salarial en el mercado laboral → compara las remuneraciones con las de empresas competidoras.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Convergencia: Política Salarial</td>
+        <td class="box-desc">La unión de ambos equilibrios define la estructura salarial formal, curvas y franjas de pago de la empresa.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Retroalimentación (Reciclaje)</td>
+        <td class="box-desc">Monitoreo constante frente a cambios inflacionarios o nuevos convenios sindicales.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Esquema conceptual clave: resume todo el Módulo II de la Unidad 4.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_21_metodos_evaluacion_cargos_matriz">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 21: Matriz Comparativa de Métodos de Evaluación de Cargos</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 25) • Chiavenato Cap. 10</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_21_metodos_evaluacion_cargos_matriz.png" alt="Diagrama 21: Matriz Comparativa de Métodos de Evaluación de Cargos">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Matriz 2x2 que cruza la base de comparación (cargo como un todo vs partes/factores) con el criterio (cargo vs cargo vs escalas).
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Método No Cuantitativo 1: Jerarquización (Job Ranking)</td>
+        <td class="box-desc">Compara 'Cargo versus Cargo' tomándolos como un todo. Ordena los puestos de mayor a menor importancia relativa.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Método No Cuantitativo 2: Categorías Predeterminadas (Job Classification)</td>
+        <td class="box-desc">Compara 'Cargo versus Escala/Criterio' globalmente. Agrupa los puestos en clases predefinidas (ej. Jr., Ssr., Sr.).</td>
+      </tr>
+      <tr>
+        <td class="box-name">Método Cuantitativo / Analítico 3: Comparación por Factores (Factor Comparison)</td>
+        <td class="box-desc">Compara 'Cargo versus Cargo' pero desglosado en partes/factores compensables (requisitos intelectuales, físicos, responsabilidades).</td>
+      </tr>
+      <tr>
+        <td class="box-name">Método Cuantitativo / Analítico 4: Evaluación por Puntos (Point Method - Merril Lott)</td>
+        <td class="box-desc">Compara 'Cargo versus Escala de Puntos' por factores ponderados numéricamente. Es el método más riguroso y utilizado mundialmente.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> En el apunte de cátedra se utiliza el Método por Puntos para trazar la curva salarial y calcular franjas.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_22_investigacion_salarial_tabulacion_fig1031">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 22: Figura 10.31 - Tabulación Estadística de Investigación Salarial</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 28) • Chiavenato Fig. 10.31</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_22_investigacion_salarial_tabulacion_fig1031.png" alt="Diagrama 22: Figura 10.31 - Tabulación Estadística de Investigación Salarial">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Tabla estadística que consolida los datos relevados en el mercado para un cargo de referencia (ej. Secretaria Junior).
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Columna Empresa</td>
+        <td class="box-desc">Identificación anónima o codificada de las empresas participantes en la muestra de investigación.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Columna Frecuencia</td>
+        <td class="box-desc">Cantidad de empleados que ocupan ese puesto en cada compañía encuestada.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Menor Salario vs Mayor Salario</td>
+        <td class="box-desc">Rango de dispersión mínima y máxima de sueldos pagados en el mercado.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Salario Medio</td>
+        <td class="box-desc">Promedio ponderado de remuneración de la plaza laboral para calibrar la política salarial.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Permite fijar el salario de admisión de la empresa sin quedar fuera de mercado ni pagar sobrecostos innecesarios.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_23_remuneracion_variable_umbral">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 23: Curva de Remuneración Variable y Umbral de Desempeño</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 29) • Apunte Cátedra</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_23_remuneracion_variable_umbral.png" alt="Diagrama 23: Curva de Remuneración Variable y Umbral de Desempeño">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Gráfico de evaluación temporal que muestra cómo se activa el pago variable cuando el colaborador supera el umbral fijado.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Límite Inferior Aceptable de Desempeño</td>
+        <td class="box-desc">Nivel mínimo por debajo del cual el rendimiento es deficiente y requiere plan de mejora.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Estándar de Desempeño</td>
+        <td class="box-desc">Rendimiento normal esperado por el cual el empleado percibe su salario fijo.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Umbral de Desempeño (Línea Superior)</td>
+        <td class="box-desc">Nivel exigente por encima del estándar. Superar esta línea activa automáticamente el cobro del incentivo o bono variable.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Curva de Evaluaciones (Eval 1 a 5)</td>
+        <td class="box-desc">Muestra la evolución del desempeño real del trabajador a lo largo del tiempo.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> En un equipo comercial de software: vender 5 licencias es el estándar (sueldo base); superar 8 licencias es el umbral que paga comisión variable.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_24_clasificacion_beneficios_sociales">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 24: Clasificación Tripartita de Beneficios Sociales</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 32) • Chiavenato Cap. 11</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_24_clasificacion_beneficios_sociales.png" alt="Diagrama 24: Clasificación Tripartita de Beneficios Sociales">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Mapa conceptual de los tres criterios taxonómicos para ordenar los beneficios sociales.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Según Exigencia Legal</td>
+        <td class="box-desc">Legales (obligatorios por ley: vacaciones, SAC, ART) vs Voluntarios (otorgados por la empresa: seguro médico premium, bono conectividad).</td>
+      </tr>
+      <tr>
+        <td class="box-name">Según su Naturaleza</td>
+        <td class="box-desc">Monetarios (dinero directo: bonificaciones, préstamos) vs No Monetarios (servicios: comedor, guardería, transporte).</td>
+      </tr>
+      <tr>
+        <td class="box-name">Según sus Objetivos</td>
+        <td class="box-desc">Asistenciales (seguridad y previsión ante emergencias) vs Recreativos (descanso y ocio) vs Supletorios (comodidad y ahorro de esfuerzo).</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Base de preguntas de opción múltiple del cuestionario oficial de la Unidad 4.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_25_tipos_servicios_beneficios_fig111">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 25: Figura 11.1 - Desglose de Servicios y Beneficios por Objetivos</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 33) • Chiavenato Fig. 11.1</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_25_tipos_servicios_beneficios_fig111.png" alt="Diagrama 25: Figura 11.1 - Desglose de Servicios y Beneficios por Objetivos">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Árbol detallado con ejemplos concretos de beneficios asistenciales, recreativos y supletorios.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Beneficios Asistenciales</td>
+        <td class="box-desc">Asistencia médico-hospitalaria, odontológica, financiera (préstamos), jurídica, seguro de vida colectivo, complementación de jubilación y subsidio de medicamentos.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Beneficios Recreativos</td>
+        <td class="box-desc">Asociación recreativa o club social, colonia de vacaciones, excursiones y música ambiental.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Beneficios Supletorios</td>
+        <td class="box-desc">Restaurante/comedor en planta, transporte subsidiado, estacionamiento privado, distribución de café y bar/cafetería.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> En empresas IT: abono de gimnasio (recreativo), medicina prepaga familiar (asistencial), presupuesto para setup home office (supletorio).
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_26_ventajas_beneficios_sociales_fig114">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 26: Figura 11.4 - Ventajas de los Beneficios Sociales</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 34) • Chiavenato Fig. 11.4</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_26_ventajas_beneficios_sociales_fig114.png" alt="Diagrama 26: Figura 11.4 - Ventajas de los Beneficios Sociales">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Comparativa de beneficios bidireccionales: qué gana la organización y qué gana el trabajador.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Para la Organización</td>
+        <td class="box-desc">Eleva la moral y lealtad, reduce rotación y ausentismo, facilita reclutamiento, aumenta productividad, disminuye costo unitario de trabajo y mejora relaciones públicas.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Para el Empleado</td>
+        <td class="box-desc">Ofrece ventajas no expresadas en dinero, ayuda a resolver problemas personales, aumenta satisfacción, reduce inseguridad económica y ofrece oportunidades adicionales de bienestar.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Justifica la inversión de la empresa en planes de beneficios frente al directorio financiero.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_27_higiene_laboral_diapositiva">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 27: Factores de Higiene Laboral y Riesgos en Espacios Cerrados</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 35) • Diapositivas Oficiales</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_27_higiene_laboral_diapositiva.png" alt="Diagrama 27: Factores de Higiene Laboral y Riesgos en Espacios Cerrados">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Esquema de condiciones físicas y ambientales para garantizar la salud física y mental del trabajador.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Creación de un ambiente laboral sano</td>
+        <td class="box-desc">Mantenimiento, limpieza, ventilación e higiene de las instalaciones.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Factores de Riesgo para la Salud</td>
+        <td class="box-desc">Riesgos químicos, calidad ambiental en espacios cerrados (iluminación, temperatura, humedad, ruido), humo de tabaco, terminales de computadora, lesiones por movimientos repetitivos y aspectos emocionales (estrés y agotamiento / burnout).</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Normas de calidad de aire y confort térmico en oficinas de desarrollo de software y data centers.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_28_higiene_informatica_diapositiva">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 28: Higiene Laboral en Informática y Prevención de RSI / LER</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 37) • Diapositivas Oficiales</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_28_higiene_informatica_diapositiva.png" alt="Diagrama 28: Higiene Laboral en Informática y Prevención de RSI / LER">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Riesgos profesionales específicos en programadores y operadores de pantallas de visualización de datos.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">RSI / LER (Lesiones por Esfuerzo Repetitivo)</td>
+        <td class="box-desc">Enfermedades crónicas como el Síndrome del Túnel Carpiano y tendinitis de muñeca causadas por tecleo prolongado y mala postura.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Medidas Preventivas en Software</td>
+        <td class="box-desc">Aplicaciones con alertas automáticas de escritorio (avisos de pausa activa cada 2 horas de trabajo continuo) y rutinas de ejercicios de estiramiento.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Punto central resuelto en el TP 4.2 sobre políticas de ergonomía y prevención de riesgos para programadores.
+    </div>
+  </div>
+
+
+  <div class="section-header">
+    <h2>📂 Unidad V • Seguimiento de Recursos Humanos</h2>
+    <span>Diagramas Oficiales de Cátedra</span>
+  </div>
+
+
+  <div class="diag-card" id="diag_29_procesos_arh_matriz_chiav">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 29: Matriz de Procesos Básicos de ARH (Chiavenato vs Soria)</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 39) • Chiavenato</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_29_procesos_arh_matriz_chiav.png" alt="Diagrama 29: Matriz de Procesos Básicos de ARH (Chiavenato vs Soria)">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Tabla comparativa que sintetiza el objetivo y las actividades comprendidas en cada uno de los 5 subsistemas de la ARH.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Provisión</td>
+        <td class="box-desc">Objetivo: Quién irá a trabajar. Actividades: Investigación de mercado, Reclutamiento y Selección.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Aplicación</td>
+        <td class="box-desc">Objetivo: Qué harán las personas. Actividades: Integración, Diseño de cargos y Evaluación del desempeño.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Mantenimiento</td>
+        <td class="box-desc">Objetivo: Cómo retenerlas. Actividades: Compensaciones, Beneficios, Higiene, Seguridad y Relaciones sindicales.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Desarrollo</td>
+        <td class="box-desc">Objetivo: Cómo prepararlas. Actividades: Capacitación y Desarrollo organizacional.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Seguimiento y Control</td>
+        <td class="box-desc">Objetivo: Cómo saber quiénes son y qué hacen. Actividades: Base de datos, Sistemas de Información y Auditoría.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Permite entender la posición del Subsistema de Seguimiento como auditor general de todos los demás procesos.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_30_red_interconectada_arh_fig411">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 30: Figura 4.11 - Red Dinámica e Interdependiente de Procesos de ARH</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 40) • Chiavenato Fig. 4.11</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_30_red_interconectada_arh_fig411.png" alt="Diagrama 30: Figura 4.11 - Red Dinámica e Interdependiente de Procesos de ARH">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Grafo cerrado que demuestra que los 5 subsistemas forman una red interdependiente: cualquier cambio en uno genera adaptaciones en todos los demás.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Procesos de Provisión (Reclutamiento y Selección)</td>
+        <td class="box-desc">Conectados bidireccionalmente con Aplicación, Mantenimiento, Desarrollo y Seguimiento.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Procesos de Aplicación (Diseño de cargos y Evaluación)</td>
+        <td class="box-desc">Nutren los datos de Mantenimiento y Seguimiento.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Procesos de Mantenimiento (Compensaciones y Beneficios)</td>
+        <td class="box-desc">Garantizan la estabilidad requerida para el Desarrollo.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Procesos de Desarrollo (Capacitación y DO)</td>
+        <td class="box-desc">Aumentan las competencias evaluadas por el Seguimiento.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Procesos de Seguimiento (Bases de datos y Auditoría)</td>
+        <td class="box-desc">Cierran el lazo monitoreando a los cuatro subsistemas restantes.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Ilustra el concepto de sistema abierto dinámico: no existe un orden lineal rígido, sino una interacción situacional.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_31_subsistema_control_figvii1">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 31: Figura VII.1 - Estructura del Subsistema de Control de RRHH</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 41) • Chiavenato Fig. VII.1</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_31_subsistema_control_figvii1.png" alt="Diagrama 31: Figura VII.1 - Estructura del Subsistema de Control de RRHH">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Árbol que desglosa los tres pilares operativos del control de personas.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Base de Datos</td>
+        <td class="box-desc">Almacenamiento estructurado de registros de personal, antecedentes, capacitaciones y evaluaciones.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Sistemas de Información de RRHH (SIG / HRIS)</td>
+        <td class="box-desc">Software y plataformas de telemetría que procesan los datos para la toma de decisiones gerenciales.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Auditoría de Recursos Humanos</td>
+        <td class="box-desc">Inspección sistemática y educativa de las políticas y prácticas para verificar su adecuación y sugerir mejoras.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> En sistemas modernos: bases de datos PostgreSQL + plataformas HRIS como Personio o Workday.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_32_principio_excepcion_curva_figvii2">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 32: Figura VII.2 - Principio de Administración por Excepción (Curva de Gauss)</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 43) • Chiavenato Fig. VII.2</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_32_principio_excepcion_curva_figvii2.png" alt="Diagrama 32: Figura VII.2 - Principio de Administración por Excepción (Curva de Gauss)">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Gráfica de distribución normal que define la región de normalidad gerencial y los límites de intervención por desvíos excepcionales.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Región de Normalidad (Centro entre Q1 y Q3)</td>
+        <td class="box-desc">Rango de variación aceptable dentro de los estándares de tolerancia donde la gerencia NO debe intervenir ni perder tiempo.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Zona de Excepción Izquierda (< Q1)</td>
+        <td class="box-desc">Desvío negativo crítico (ej. caída drástica de productividad o ausentismo grave) que exige intervención inmediata.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Zona de Excepción Derecha (> Q3)</td>
+        <td class="box-desc">Desvío positivo extraordinario (ej. superación excepcional de metas) que requiere análisis para reconocer al talento o ajustar los estándares.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Principio formulado por Taylor: los líderes de TI no microgestionan las tareas normales; solo actúan ante alertas excepcionales.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_33_algoritmo_excepcion_figvii3">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 33: Figura VII.3 - Algoritmo de Decisión del Principio de Excepción</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 44) • Chiavenato Fig. VII.3</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_33_algoritmo_excepcion_figvii3.png" alt="Diagrama 33: Figura VII.3 - Algoritmo de Decisión del Principio de Excepción">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Diagrama de flujo lógico que guía la toma de decisiones al comparar el desempeño real con el estándar.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Bloque 1: Estándar y Medida de Desempeño</td>
+        <td class="box-desc">Toma el patrón esperado y la medición real observada.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Rombo 1: ¿Presenta desvío?</td>
+        <td class="box-desc">Si NO presenta desvío → No necesita acción correctiva (Operación normal). Si SÍ presenta desvío → pasa al siguiente rombo.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Rombo 2: ¿Es excepcional?</td>
+        <td class="box-desc">Si NO es excepcional (está dentro de la tolerancia) → No necesita acción correctiva. Si SÍ es excepcional → pasa al análisis.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Bloque 2: Analizar y evaluar el desvío</td>
+        <td class="box-desc">Identifica las causas raíz de la variación.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Bloque 3: Emprender la acción correctiva</td>
+        <td class="box-desc">Aplica capacitación, reasignación o ajuste del estándar.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Equivale a una regla de alertas en un sistema de monitoreo automatizado (ej. Prometheus / Grafana Alertmanager).
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_34_ciclo_4pasos_control">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 34: El Bucle Cerrado de las Cuatro Etapas del Control</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 44) • Chiavenato</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_34_ciclo_4pasos_control.png" alt="Diagrama 34: El Bucle Cerrado de las Cuatro Etapas del Control">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Ciclo repetitivo que conecta el establecimiento de estándares con la acción correctiva.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Paso 1: Establecimiento de estándares deseados</td>
+        <td class="box-desc">Definición previa de normas de rendimiento en base a metas y objetivos.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Paso 2: Seguimiento o monitoreo del desempeño</td>
+        <td class="box-desc">Medición objetiva y continua de lo que realmente sucede.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Paso 3: Comparación del desempeño contra el estándar</td>
+        <td class="box-desc">Cálculo de varianzas: Variación = Desempeño Real - Estándar Esperado.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Paso 4: Toma de acciones correctivas</td>
+        <td class="box-desc">Normalización de desvíos y retroalimentación hacia el Paso 1.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Es el ciclo de control formal exigido en todas las evaluaciones de la cátedra.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_35_dimensiones_estandares_figvii5">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 35: Figura VII.5 - Las Cuatro Dimensiones de los Estándares de Desempeño</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 45) • Chiavenato Fig. VII.5</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_35_dimensiones_estandares_figvii5.png" alt="Diagrama 35: Figura VII.5 - Las Cuatro Dimensiones de los Estándares de Desempeño">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Taxonomía de 4 dimensiones para diseñar estándares de evaluación equilibrados y completos.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">1. Estándares de Cantidad</td>
+        <td class="box-desc">Volumen de producción, número de empleados, tickets resueltos, Story Points completados.</td>
+      </tr>
+      <tr>
+        <td class="box-name">2. Estándares de Calidad</td>
+        <td class="box-desc">Calidad de software, tasa de defectos/bugs, satisfacción de usuarios (NPS), cobertura de tests unitarios.</td>
+      </tr>
+      <tr>
+        <td class="box-name">3. Estándares de Tiempo</td>
+        <td class="box-desc">Tiempos medios de resolución (MTTR), horas trabajadas, ciclo de entrega (Lead Time).</td>
+      </tr>
+      <tr>
+        <td class="box-name">4. Estándares de Costo</td>
+        <td class="box-desc">Costo por hora de desarrollo, presupuesto de capacitación, costo de infraestructura por usuario.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Evita distorsiones: medir solo 'Cantidad' generaría desarrolladores que escriben código rápido pero lleno de errores.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_36_bandas_tolerancia_estandares">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 36: Gráfico de Bandas de Tolerancia Aceptable y Desvíos</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 45) • Apunte Cátedra</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_36_bandas_tolerancia_estandares.png" alt="Diagrama 36: Gráfico de Bandas de Tolerancia Aceptable y Desvíos">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Representación gráfica de las fronteras de tolerancia aceptable respecto al estándar medio.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Límite Superior Aceptable</td>
+        <td class="box-desc">Techo máximo de variación normal tolerada sin considerarse anomalía.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Línea Central: Estándar</td>
+        <td class="box-desc">Valor objetivo ideal de rendimiento.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Límite Inferior Aceptable</td>
+        <td class="box-desc">Piso mínimo de variación admitida antes de calificar el desempeño como deficiente.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Puntos de Evaluación (Eval 1 a 5)</td>
+        <td class="box-desc">Curva de mediciones reales que muestra cuándo un colaborador se mantuvo dentro de la banda y cuándo cruzó los límites.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Visualización clásica de gráficos de control estadístico de procesos (CEP) aplicados a recursos humanos y SLAs de TI.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_37_desempeno_vs_umbral">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 37: Comparación del Desempeño Real vs Estándar vs Umbral Superior</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 46) • Apunte Cátedra</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_37_desempeno_vs_umbral.png" alt="Diagrama 37: Comparación del Desempeño Real vs Estándar vs Umbral Superior">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Muestra la diferencia entre mantenerse en la banda normal y superar el umbral de excelencia para incentivos.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Banda Normal (Límite Inferior a Estándar)</td>
+        <td class="box-desc">Zona de cumplimiento ordinario de responsabilidades del puesto.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Umbral de Desempeño</td>
+        <td class="box-desc">Línea superior extraordinaria que premia el alto rendimiento.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Punto Sobresaliente (Eval 5)</td>
+        <td class="box-desc">Muestra el momento en que el desempeño cruzó el umbral superior, justificando un pago variable o ascenso.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Utilizado para calcular bonificaciones trimestrales en equipos de desarrollo ágil.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_38_flujo_control_varianza">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 38: Diagrama de Flujo de Comparación de Varianza y Acción Correctiva</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 47) • Chiavenato</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_38_flujo_control_varianza.png" alt="Diagrama 38: Diagrama de Flujo de Comparación de Varianza y Acción Correctiva">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Flujograma exhaustivo que evalúa la aceptabilidad de la varianza y la validez de los propios estándares.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Comparar desempeño real vs estándar</td>
+        <td class="box-desc">Cálculo matemático de la diferencia.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Rombo 1: ¿Se está alcanzando el estándar?</td>
+        <td class="box-desc">Si SÍ → No hacer nada (éxito). Si NO → pasa a verificar la varianza.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Rombo 2: ¿La varianza es aceptable?</td>
+        <td class="box-desc">Si SÍ → No hacer nada. Si NO → pasa a cuestionar el estándar.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Rombo 3: ¿El estándar es aceptable?</td>
+        <td class="box-desc">Si SÍ → Identificar la causa de la variación y corregir el desempeño. Si NO → Revisar y reajustar el estándar que estaba mal formulado.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Esquema fundamental: demuestra que muchas veces el problema no es el empleado sino un estándar desactualizado o imposible de cumplir.
+    </div>
+  </div>
+
+
+  <div class="section-header">
+    <h2>📂 Unidad V • Seguimiento de Software y Hardware</h2>
+    <span>Diagramas Oficiales de Cátedra</span>
+  </div>
+
+
+  <div class="diag-card" id="diag_39_ley_amdahl_recursos_fig11">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 39: Figura 1.1 - Ley de Amdahl: Tiempo Original vs Tiempo Mejorado</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 56) • Molero et al. Fig. 1.1</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_39_ley_amdahl_recursos_fig11.png" alt="Diagrama 39: Figura 1.1 - Ley de Amdahl: Tiempo Original vs Tiempo Mejorado">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Descomposición gráfica del tiempo de ejecución total en la fracción no mejorable (1-f) y la fracción mejorable f acelerada k veces.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Barra Superior: Tiempo Original (T_original)</td>
+        <td class="box-desc">Compuesto por dos bloques: Fracción (1-f) de recursos no afectados + Fracción f de recursos que serán mejorados.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Barra Inferior: Tiempo Mejorado (T_mejorado)</td>
+        <td class="box-desc">La fracción (1-f) permanece idéntica en tiempo; la fracción f se reduce a (f / k) tras mejorar el componente k veces.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Ecuación Fundamental</td>
+        <td class="box-desc">T_mejorado = T_original · [(1 - f) + f / k] → Aceleración A = 1 / [(1 - f) + f / k].</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Base teórica del TP 5.2 (Consigna 3): permite justificar si conviene invertir en mejorar la CPU o el disco rígido de un servidor.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_40_ley_amdahl_curvas_speedup_fig12">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 40: Figura 1.2 - Curvas de Aceleración Global (Speedup) vs Fracción f</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 58) • Molero et al. Fig. 1.2</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_40_ley_amdahl_curvas_speedup_fig12.png" alt="Diagrama 40: Figura 1.2 - Curvas de Aceleración Global (Speedup) vs Fracción f">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Familia de curvas asintóticas que demuestran el límite intrínseco de ganancia de velocidad (Speedup) en función del uso del componente.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Eje Horizontal: Fracción de tiempo (f)</td>
+        <td class="box-desc">Va desde f = 0 (el componente nunca se usa) hasta f = 1 (el componente se usa el 100% del tiempo).</td>
+      </tr>
+      <tr>
+        <td class="box-name">Eje Vertical: Aceleración global A</td>
+        <td class="box-desc">Factor multiplicador de velocidad del sistema total.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Curvas de k = 2 hasta k = infinito</td>
+        <td class="box-desc">Muestra que para valores de f < 0.50 (menos del 50% de uso), duplicar o quintuplicar k apenas genera mejoras globales.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Límite Asintótico cuando k → infinito</td>
+        <td class="box-desc">A_max = 1 / (1 - f). La aceleración total está acotada estrictamente por la fracción no mejorada.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Conclusión de examen: comprar una GPU 100 veces más rápida (k=100) no acelerará el sistema si la aplicación solo usa la GPU un 5% del tiempo (f=0.05).
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_41_estacion_servicio_abstracta">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 41: Modelo Abstracto de Estación de Servicio en Redes de Colas</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 59) • Molero et al. Cap. 4</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_41_estacion_servicio_abstracta.png" alt="Diagrama 41: Modelo Abstracto de Estación de Servicio en Redes de Colas">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Representación abstracta de un recurso de hardware modelado como una cola de espera y un servidor de procesamiento.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Llegadas (A): Tasa de arribos</td>
+        <td class="box-desc">Flujo de peticiones, transacciones o paquetes que ingresan al dispositivo en el tiempo T.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Cola de Espera (Queue)</td>
+        <td class="box-desc">Espacio de memoria o buffer donde los trabajos aguardan su turno cuando el servidor está ocupado.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Servidor (B): Tiempo de servicio</td>
+        <td class="box-desc">Recurso físico (CPU, Disco, Canal de red) que procesa un trabajo a la vez durante un tiempo medio S.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Salidas (C): Trabajos completados</td>
+        <td class="box-desc">Productividad o throughput X = C / T de trabajos despachados.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Es la unidad atómica con la que se modelan servidores web, microservicios y bases de datos en el Análisis Operacional.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_42_red_colas_interactiva_ley_bruni">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 42: Red de Colas para Sistemas Interactivos (Ley de Bruni)</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 63) • Molero et al. Fig. 4.6</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_42_red_colas_interactiva_ley_bruni.png" alt="Diagrama 42: Red de Colas para Sistemas Interactivos (Ley de Bruni)">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Modelo de red cerrada interactiva dividida en Subsistema de Terminales (think time Z) y Subsistema Central (tiempo de respuesta R).
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Subsistema de Terminales (Z)</td>
+        <td class="box-desc">Modelado como infinitos servidores donde N usuarios leen respuestas, piensan y teclean durante un tiempo medio Z.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Subsistema Central (R)</td>
+        <td class="box-desc">Conjunto de servidores, CPUs y discos que procesan las consultas durante un tiempo medio de respuesta R.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Ley de Bruni (Tiempo de Respuesta Interactivo)</td>
+        <td class="box-desc">R = (N / X0) - Z → Demuestra que a medida que suben los usuarios N o baja la productividad X0, el tiempo de respuesta R crece.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Ecuación y diagrama aplicados en el TP 5.2 (Consigna 2) para calcular el tiempo de respuesta de usuarios concurrentes en chatbots y aplicaciones web.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_43_estructura_monitor_bloques">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 43: Arquitectura y Bloques Funcionales de un Monitor de Rendimiento</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 66) • Molero et al. Cap. 2</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_43_estructura_monitor_bloques.png" alt="Diagrama 43: Arquitectura y Bloques Funcionales de un Monitor de Rendimiento">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Flujo de información interno de una herramienta de monitorización desde la interfaz de sensores hasta el analizador final.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">1. Sistema a medir</td>
+        <td class="box-desc">Servidor, sistema operativo o aplicación bajo observación de carga.</td>
+      </tr>
+      <tr>
+        <td class="box-name">2. Interfaz de instrumentación</td>
+        <td class="box-desc">Puntos de conexión física (sondas) o ganchos de software (traps/hooks) que extraen eventos.</td>
+      </tr>
+      <tr>
+        <td class="box-name">3. Selector o Filtro</td>
+        <td class="box-desc">Captura selectiva que discrimina señales irrelevantes y calcula variables deducidas.</td>
+      </tr>
+      <tr>
+        <td class="box-name">4. Procesador</td>
+        <td class="box-desc">Realiza comprobaciones y cálculos matemáticos sobre las magnitudes medidas.</td>
+      </tr>
+      <tr>
+        <td class="box-name">5. Registrador</td>
+        <td class="box-desc">Almacena los datos en memoria o buffer de disco.</td>
+      </tr>
+      <tr>
+        <td class="box-name">6. Analizador</td>
+        <td class="box-desc">Módulo que presenta reportes estadísticos, gráficos o dashboards en tiempo real o batch.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Es la arquitectura interna de herramientas como Datadog, Prometheus, Dynatrace y Linux SAR.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_44_monitor_hardware_fig27">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 44: Figura 2.7 - Esquema de Monitor Hardware</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 67) • Molero et al. Fig. 2.7</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_44_monitor_hardware_fig27.png" alt="Diagrama 44: Figura 2.7 - Esquema de Monitor Hardware">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Esquema físico de un monitor basado en hardware externo conectado mediante sondas.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Sondas Electromagnéticas (1 a 5)</td>
+        <td class="box-desc">Sensores físicos conectados a buses y pines de la placa madre.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Módulo Lógico</td>
+        <td class="box-desc">Compuertas que filtran y combinan señales eléctricas de bajo nivel.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Contadores</td>
+        <td class="box-desc">Registran la cantidad de veces que ocurre un evento (ej. ciclos de reloj, pulsos de bus).</td>
+      </tr>
+      <tr>
+        <td class="box-name">Reloj de Sincronismo</td>
+        <td class="box-desc">Señal de tiempo que sincroniza la captura de datos a altísima frecuencia.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Almacenamiento</td>
+        <td class="box-desc">Memoria dedicada externa para guardar contadores sin tocar la RAM del servidor.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Ventaja: Interferencia nula (overhead 0%). Desventaja: Alto costo y no puede ver variables lógicas de software (como nombres de hilos o usuarios).
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_45_monitor_software_hibrido">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 45: Esquema de Monitor Software y Monitor Híbrido</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 68) • Molero et al. Cap. 2</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_45_monitor_software_hibrido.png" alt="Diagrama 45: Esquema de Monitor Software y Monitor Híbrido">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Muestra la integración de software (hooks en el SO) con sondas externas de hardware en arquitecturas híbridas.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Monitor Software (Izquierda)</td>
+        <td class="box-desc">Rutina o demonio que corre adentro del sistema operativo extrayendo métricas de procesos. Ventaja: ve todo el software; Desventaja: produce sobrecarga (overhead).</td>
+      </tr>
+      <tr>
+        <td class="box-name">Monitor Híbrido (Centro y Derecha)</td>
+        <td class="box-desc">Pequeño código liviano en el SO envía marcas por puertos a un monitor hardware externo. Combina el bajo overhead del hardware con la visibilidad semántica del software.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Utilizado en el desarrollo de microprocesadores modernos y pruebas de estrés de servidores misión crítica.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_46_flujo_cuello_botella_terapias">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 46: Algoritmo de Detección de Cuello de Botella y Terapias de Mitigación</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 71) • Molero et al. Cap. 5</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_46_flujo_cuello_botella_terapias.png" alt="Diagrama 46: Algoritmo de Detección de Cuello de Botella y Terapias de Mitigación">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Diagrama de flujo para diagnosticar bottlenecks y decidir entre sintonización (tuning) o reposición de hardware (upgrading).
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Inicio → ¿Existen cuellos de botella?</td>
+        <td class="box-desc">Si NO → Fin. Si SÍ → Formulación de hipótesis de causa raíz.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Verificar validez de hipótesis</td>
+        <td class="box-desc">Si la hipótesis no se confirma, se reformula.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Determinar método para eliminar cuello de botella</td>
+        <td class="box-desc">Evalúa si es posible resolverlo reorganizando el sistema sin costo.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Elección de Terapia: Sintonización vs Reposición</td>
+        <td class="box-desc">1. Terapia de Sintonización (Tuning): Cambios de software, balanceo de discos, reconfiguración de parámetros (más económica y prioritaria). 2. Terapia de Reposición (Upgrading): Compra de hardware nuevo (se justifica con la Ley de Amdahl).</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Regla de oro en ingeniería de rendimiento: siempre agotar la sintonización de software antes de gastar presupuesto en comprar servidores más potentes.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_47_fases_sintonizacion_fig72">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 47: Figura 7.2 - Fases de la Sintonización y Definición de Objetivos</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 72) • Molero et al. Fig. 7.2</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_47_fases_sintonizacion_fig72.png" alt="Diagrama 47: Figura 7.2 - Fases de la Sintonización y Definición de Objetivos">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Metodología formal de 5 fases para realizar estudios de experimentación y sintonización de sistemas.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Fase 1: Definición de los objetivos</td>
+        <td class="box-desc">Análisis de requerimientos → Definición del entorno (carga, hardware, software) → Identificación del conjunto de variables a analizar.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Fase 2: Caracterización de la carga</td>
+        <td class="box-desc">Creación de modelos de carga representativos de la operación real.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Fase 3: Selección de la instrumentación</td>
+        <td class="box-desc">Elección de monitores y herramientas de telemetría adecuadas.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Fase 4: Diseño del experimento</td>
+        <td class="box-desc">Planificación de sesiones de prueba en horarios controlados.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Fase 5: Validación</td>
+        <td class="box-desc">Verificación de si los objetivos fueron alcanzados; si no, bucle iterativo.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Estándar metodológico de ingeniería para optimizar bases de datos y arquitecturas web de alto tráfico.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_48_caracterizacion_carga_instrumentacion_fig73">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 48: Figura 7.3 - Proceso de Caracterización de Carga y Selección de Instrumentación</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 73) • Molero et al. Fig. 7.3</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_48_caracterizacion_carga_instrumentacion_fig73.png" alt="Diagrama 48: Figura 7.3 - Proceso de Caracterización de Carga y Selección de Instrumentación">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Flujo para construir cargas de prueba sintéticas y evaluar si la instrumentación existente es suficiente.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Caracterización de la Carga (Arriba)</td>
+        <td class="box-desc">Análisis de la información disponible → Selección de la carga de test → Construcción del modelo de carga sintética.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Selección de la Instrumentación (Abajo)</td>
+        <td class="box-desc">Análisis de variables disponibles → Identificación de variables a medir → ¿Medida posible? → ¿La instrumentación actual es suficiente? → Si falta, determinar y adquirir instrumentación nueva → Diseño del experimento.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Esencial para diseñar pruebas de carga con herramientas como JMeter, Locust o k6.
+    </div>
+  </div>
+
+
+  <div class="diag-card" id="diag_49_planificacion_medida_validacion">
+    <div class="diag-header">
+      <div class="diag-title">Diagrama 49: Diseño de la Sesión de Medida y Validación del Experimento</div>
+      <div class="diag-source">📍 Fuente Oficial: Apunte Cátedra AdmSI (Pág. 74) • Molero et al. Cap. 7</div>
+    </div>
+
+    <div class="diag-img-container">
+      <img src="img/diag_49_planificacion_medida_validacion.png" alt="Diagrama 49: Diseño de la Sesión de Medida y Validación del Experimento">
+    </div>
+
+    <div class="summary-box">
+      <strong>🎯 ¿Qué representa este diagrama?:</strong> Flujos de planificación de sesiones de medición en picos de carga y validación contra los objetivos.
+    </div>
+
+    <table class="boxes-table">
+      <thead>
+        <tr>
+          <th>Elemento / Cuadrito / Bloque</th>
+          <th>Explicación y Significado Teórico-Práctico</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      <tr>
+        <td class="box-name">Diseño de la Sesión (Arriba)</td>
+        <td class="box-desc">Selección de parámetros → Planificación del experimento (control del escenario y overhead) → Realización de la medida → ¿Experimento válido? → Validación.</td>
+      </tr>
+      <tr>
+        <td class="box-name">Validación y Cierre (Abajo)</td>
+        <td class="box-desc">Interpretación de resultados → ¿Se pueden lograr los objetivos? → Si NO, re-caracterizar la carga → ¿Se han logrado los objetivos? → Si NO, aplicar acciones de sintonización y rediseñar experimento → Si SÍ, Fin del estudio exitoso.</td>
+      </tr>
+      </tbody>
+    </table>
+
+    <div class="it-box">
+      <strong>💡 Aplicación Práctica en Sistemas / Pregunta de Examen:</strong> Cierra el ciclo metodológico del seguimiento de sistemas informáticos garantizando que las mejoras sean medibles y reproducibles.
+    </div>
+  </div>
+
+
+</body>
+</html>
